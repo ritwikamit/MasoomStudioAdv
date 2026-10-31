@@ -157,12 +157,12 @@ export function TwfSidebar({
           - Permanently docked on Tablet (sm:w-[172px]) & Desktop (lg:w-[214px])
          =================================================================== */}
       <aside
-        className={`fixed top-0 left-0 bottom-0 h-[100dvh] w-[224px] sm:w-[172px] lg:w-[214px] text-white z-50 sm:z-40 flex flex-col justify-between py-3 sm:py-3.5 lg:py-4 select-none transition-transform duration-300 ease-out shadow-2xl sm:shadow-none border-r border-white/10 sm:border-r-0 ${
+        className={`fixed top-0 left-0 bottom-0 h-[100dvh] w-[224px] sm:w-[172px] lg:w-[214px] bg-[#070707] text-white z-50 sm:z-40 flex flex-col justify-between py-3 sm:py-3.5 lg:py-4 select-none transition-transform duration-300 ease-out shadow-2xl sm:shadow-none border-r border-white/10 sm:border-r-0 ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'
         }`}
       >
         {/* TOP: TRANSPARENT LOGO ONLY (No Texts, No Background) + MOBILE COLLAPSE BTN + SEARCH */}
-        <div className="px-3 sm:px-3 lg:px-3.5 shrink-0 flex flex-col items-stretch bg-[#070707] z-10 pb-2">
+        <div className="px-3 sm:px-3 lg:px-3.5 shrink-0 flex flex-col items-stretch">
           <div className="flex items-center justify-between sm:justify-center">
             <button
               type="button"
@@ -362,79 +362,9 @@ export function TwfSidebar({
         </div>
 
         {/* CENTER NAVIGATION MENU: Pure White Texts + Seamless Gliding TWF Active Tab Fillet Curves */}
-        <nav className="my-2 flex-1 min-h-0 overflow-visible pl-3 sm:pl-2.5 lg:pl-3 pr-0 flex flex-col justify-center relative">
+        <nav className="my-2 flex-1 min-h-0 overflow-visible pl-3 sm:pl-2.5 lg:pl-3 pr-0 flex flex-col justify-center">
           <div className="relative flex flex-col gap-[4px] overflow-visible">
-            {/* Real Physical Cutout: Top Solid Black Cover (main body up to right: 14px) */}
-            <motion.div
-              initial={false}
-              animate={{
-                bottom: `calc(100% - ${Math.max(0, NAV_ITEMS.findIndex((i) => i.id === activePage)) * 42}px)`,
-              }}
-              transition={{
-                type: 'spring',
-                stiffness: 380,
-                damping: 34,
-                mass: 0.55,
-              }}
-              style={{ top: -600 }}
-              className="absolute left-0 right-[14px] bg-[#070707] pointer-events-none z-0"
-            />
-
-            {/* Top Solid Black Cover Right Strip (stops 14px above the cutout so the fillet curves outward) */}
-            <motion.div
-              initial={false}
-              animate={{
-                bottom: `calc(100% - ${Math.max(0, NAV_ITEMS.findIndex((i) => i.id === activePage)) * 42 - 14}px)`,
-              }}
-              transition={{
-                type: 'spring',
-                stiffness: 380,
-                damping: 34,
-                mass: 0.55,
-              }}
-              style={{ top: -600 }}
-              className="hidden sm:block absolute right-0 w-[14px] bg-[#070707] pointer-events-none z-0"
-            />
-
-            {/* Real Physical Cutout: Bottom Solid Black Cover (main body up to right: 14px) */}
-            <motion.div
-              initial={false}
-              animate={{
-                top: Math.max(0, NAV_ITEMS.findIndex((i) => i.id === activePage)) * 42 + 38,
-              }}
-              transition={{
-                type: 'spring',
-                stiffness: 380,
-                damping: 34,
-                mass: 0.55,
-              }}
-              style={{ bottom: -600 }}
-              className="absolute left-0 right-[14px] bg-[#070707] pointer-events-none z-0"
-            />
-
-            {/* Bottom Solid Black Cover Right Strip (starts 14px below the cutout so the fillet curves outward) */}
-            <motion.div
-              initial={false}
-              animate={{
-                top: Math.max(0, NAV_ITEMS.findIndex((i) => i.id === activePage)) * 42 + 52,
-              }}
-              transition={{
-                type: 'spring',
-                stiffness: 380,
-                damping: 34,
-                mass: 0.55,
-              }}
-              style={{ bottom: -600 }}
-              className="hidden sm:block absolute right-0 w-[14px] bg-[#070707] pointer-events-none z-0"
-            />
-
-            {/* Left solid black strip ensuring outer screen edge is opaque #070707 */}
-            <div
-              style={{ top: -600, bottom: -600 }}
-              className="absolute -left-[32px] w-[32px] bg-[#070707] pointer-events-none z-0"
-            />
-
-            {/* The Fully Sculpted Hollow Cutout (Every Edge Curved: rounded left cap + top/bottom inverted fillets) */}
+            {/* Single Persistent Gliding Active Tab Pill with Seamless Fillet Curves */}
             <motion.div
               initial={false}
               animate={{
@@ -446,66 +376,38 @@ export function TwfSidebar({
                 damping: 34,
                 mass: 0.55,
               }}
-              className="absolute top-0 left-0 -right-[2px] h-[38px] bg-transparent pointer-events-none z-0 overflow-visible will-change-transform"
+              className="absolute top-0 left-0 -right-[2px] h-[38px] bg-[#f8f8f7] rounded-l-[16px] sm:rounded-l-[18px] pointer-events-none z-0 overflow-visible will-change-transform"
             >
-              {/* Top-Left Inner Corner: rounds the left end of the cutout */}
+              {/* TWF Signature Inverted Top Fillet Curve */}
               <svg
-                viewBox="0 0 18 19"
+                viewBox="0 0 14 15"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="absolute left-0 top-0 w-[18px] h-[19px] pointer-events-none"
+                className="hidden sm:block absolute right-0 -top-[13.5px] w-[14px] h-[15px] pointer-events-none"
                 shapeRendering="geometricPrecision"
               >
                 <path
-                  d="M 0 0 L 18 0 A 18 19 0 0 0 0 19 Z"
-                  fill="#070707"
+                  d="M 0 15 L 14 15 L 14 0 A 14 14 0 0 1 0 14 Z"
+                  fill="#f8f8f7"
                 />
               </svg>
 
-              {/* Bottom-Left Inner Corner: rounds the left end of the cutout */}
+              {/* TWF Signature Inverted Bottom Fillet Curve */}
               <svg
-                viewBox="0 0 18 19"
+                viewBox="0 0 14 15"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="absolute left-0 bottom-0 w-[18px] h-[19px] pointer-events-none"
+                className="hidden sm:block absolute right-0 -bottom-[13.5px] w-[14px] h-[15px] pointer-events-none"
                 shapeRendering="geometricPrecision"
               >
                 <path
-                  d="M 0 19 L 0 0 A 18 19 0 0 0 18 19 Z"
-                  fill="#070707"
-                />
-              </svg>
-
-              {/* TWF Signature Top Inverted Fillet Curve: concave scoop curving upward into the card */}
-              <svg
-                viewBox="0 0 14 14"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="hidden sm:block absolute right-0 -top-[14px] w-[14px] h-[14px] pointer-events-none"
-                shapeRendering="geometricPrecision"
-              >
-                <path
-                  d="M 0 0 L 14 0 A 14 14 0 0 1 0 14 Z"
-                  fill="#070707"
-                />
-              </svg>
-
-              {/* TWF Signature Bottom Inverted Fillet Curve: concave scoop curving downward into the card */}
-              <svg
-                viewBox="0 0 14 14"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="hidden sm:block absolute right-0 -bottom-[14px] w-[14px] h-[14px] pointer-events-none"
-                shapeRendering="geometricPrecision"
-              >
-                <path
-                  d="M 0 14 L 0 0 A 14 14 0 0 1 14 14 Z"
-                  fill="#070707"
+                  d="M 0 0 L 14 0 L 14 15 A 14 14 0 0 0 0 1 Z"
+                  fill="#f8f8f7"
                 />
               </svg>
             </motion.div>
 
-            {/* The Dynamic Jumping Black Dot (Arcs in ')' direction to the clicked menu) */}
+            {/* The Dynamic Jumping Black Dot on the Active Menu */}
             <motion.div
               initial={false}
               animate={{
@@ -554,7 +456,7 @@ export function TwfSidebar({
         {/* ===================================================================
             BOTTOM BOX: "We'd love to hear your story!" WITH SLOW CRIMSON TRAIL BORDER
            =================================================================== */}
-        <div className="px-3 sm:px-2.5 lg:px-3.5 shrink-0 bg-[#070707] z-10 pt-2">
+        <div className="px-3 sm:px-2.5 lg:px-3.5 shrink-0">
           <div className="relative rounded-2xl p-[2px] overflow-hidden bg-[#1a0a0a] shadow-[0_0_25px_rgba(255,51,51,0.16)]">
             {/* Animated Slow-Moving Crimson Glowing Trail Border (No White) */}
             <div className="trail-border-spinner" aria-hidden="true" />
