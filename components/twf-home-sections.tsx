@@ -139,11 +139,10 @@ function HoverVideoBox({
         ref={videoRef}
         src={videoSrc}
         poster={posterUrl}
-        autoPlay
         loop
         muted={isMuted}
         playsInline
-        preload="auto"
+        preload="none"
         onCanPlay={(e) => {
           if (isInViewRef.current && !document.hidden) {
             e.currentTarget.muted = isMuted;
@@ -707,6 +706,8 @@ export function TwfHomeSections({
                   className="flex gap-3.5 sm:gap-5 px-3 w-max will-change-transform"
                   style={{
                     transform: 'translate3d(0px, 0, 0)',
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden',
                   }}
                 >
                   {rowOnePhotos.map((photo, idx) => {
@@ -715,7 +716,7 @@ export function TwfHomeSections({
                       <div
                         key={`m1-${photo.id}-${idx}`}
                         onClick={() => onSelectPhoto(photo)}
-                        className={`group relative shrink-0 overflow-hidden rounded-[18px] sm:rounded-[22px] border border-black/10 bg-white cursor-pointer transition-all duration-500 hover:scale-[1.03] hover:border-[#ff3333] shadow-md ${
+                        className={`group relative shrink-0 overflow-hidden rounded-[18px] sm:rounded-[22px] border border-black/10 bg-white cursor-pointer transition-transform duration-300 hover:scale-[1.03] shadow-sm will-change-transform ${
                           idx % 3 === 0
                             ? 'w-[170px] sm:w-[235px] h-[225px] sm:h-[305px] mt-2'
                             : idx % 3 === 1
@@ -761,6 +762,8 @@ export function TwfHomeSections({
                   className="flex gap-3.5 sm:gap-5 px-3 w-max will-change-transform"
                   style={{
                     transform: 'translate3d(-750px, 0, 0)',
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden',
                   }}
                 >
                   {rowTwoPhotos.map((photo, idx) => {
@@ -769,7 +772,7 @@ export function TwfHomeSections({
                       <div
                         key={`m2-${photo.id}-${idx}`}
                         onClick={() => onSelectPhoto(photo)}
-                        className={`group relative shrink-0 overflow-hidden rounded-[18px] sm:rounded-[22px] border border-black/10 bg-white cursor-pointer transition-all duration-500 hover:scale-[1.03] hover:border-[#ff3333] shadow-md ${
+                        className={`group relative shrink-0 overflow-hidden rounded-[18px] sm:rounded-[22px] border border-black/10 bg-white cursor-pointer transition-transform duration-300 hover:scale-[1.03] shadow-sm will-change-transform ${
                           idx % 2 === 0
                             ? 'w-[190px] sm:w-[260px] h-[220px] sm:h-[295px]'
                             : 'w-[170px] sm:w-[235px] h-[235px] sm:h-[315px] mt-3'

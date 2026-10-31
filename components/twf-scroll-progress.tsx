@@ -14,14 +14,17 @@ export function TwfScrollProgress() {
 
   useEffect(() => {
     let rafId: number | null = null;
+    let maxScroll = 1;
+
+    // Cache scrollable height on resize to eliminate synchronous layout recalculation on every scroll tick
+    const recalcMaxScroll = () => {
+      maxScroll = Math.max(1, (document.documentElement.scrollHeight || 1) - window.innerHeight);
+    };
 
     const updateProgress = () => {
       rafId = null;
-      const scrollTop = window.scrollY || document.documentElement.scrollTop || 0;
-      const scrollHeight =
-        document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const progress =
-        scrollHeight > 0 ? Math.min(1, Math.max(0, scrollTop / scrollHeight)) : 0;
+      const scrollTop = window.scrollY || 0;
+      const progress = Math.min(1, Math.max(0, scrollTop / maxScroll));
 
       if (progressCircleRef.current) {
         const dashOffset = circumference - progress * circumference;
@@ -41,9 +44,13 @@ export function TwfScrollProgress() {
       }
     };
 
+    recalcMaxScroll();
+    window.addEventListener('resize', recalcMaxScroll, { passive: true });
     window.addEventListener('scroll', handleScroll, { passive: true });
     updateProgress();
+
     return () => {
+      window.removeEventListener('resize', recalcMaxScroll);
       window.removeEventListener('scroll', handleScroll);
       if (rafId !== null) {
         window.cancelAnimationFrame(rafId);
