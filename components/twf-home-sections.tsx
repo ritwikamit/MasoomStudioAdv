@@ -651,7 +651,7 @@ export function TwfHomeSections({
         </div>
 
         {/* Full Lateral Screen Sides Moving Showcase (NO Box - Edge-to-Edge Across the Screen & Behind Hollow Left Menu) */}
-        <div className="-ml-2 sm:-ml-4 lg:-ml-5 -mr-2 sm:-mr-4 lg:-mr-5 w-[calc(100%+16px)] sm:w-[calc(100%+32px)] lg:w-[calc(100%+40px)] overflow-hidden py-3 sm:py-6 my-2 select-none relative">
+        <div className="-ml-2 sm:-ml-[190px] lg:-ml-[235px] -mr-2 sm:-mr-4 lg:-mr-5 w-[calc(100%+16px)] sm:w-[calc(100%+206px)] lg:w-[calc(100%+255px)] overflow-hidden py-3 sm:py-6 my-2 select-none relative">
           
           {/* Dynamic Inclined Showcase: Both ribbons & photos tilted together */}
           <div className="w-[124%] -ml-[12%] -rotate-[2deg] sm:-rotate-[2.2deg] space-y-4 sm:space-y-6">
