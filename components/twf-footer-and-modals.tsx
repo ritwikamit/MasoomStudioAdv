@@ -87,10 +87,72 @@ export function TwfFooterAndModals({
   });
   const [enquireSubmitted, setEnquireSubmitted] = useState(false);
 
+  // Sync preselectedService whenever user clicks "Book Similar Film" or "Enquire About Photography"
+  useEffect(() => {
+    if (preselectedService) {
+      setEnquireForm((prev) => ({
+        ...prev,
+        service: preselectedService,
+      }));
+    }
+  }, [preselectedService]);
+
+  // Reset submitted state when enquiry modal opens
+  useEffect(() => {
+    if (quickEnquireOpen) {
+      setEnquireSubmitted(false);
+    }
+  }, [quickEnquireOpen]);
+
+  // Reset photo zoom on active photo change
+  useEffect(() => {
+    setPhotoZoom(1);
+  }, [activePhoto]);
+
+  // Close modals on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        if (activeFilm) onCloseFilm();
+        else if (activePhoto) onClosePhoto();
+        else if (quickEnquireOpen) onCloseQuickEnquire();
+        else if (termsModalOpen) setTermsModalOpen(false);
+        else if (isCookieOpen) handleCloseCookieModal();
+      }
+    };
+    if (typeof window !== 'undefined') {
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [activeFilm, activePhoto, quickEnquireOpen, termsModalOpen, isCookieOpen]);
+
+  // Lock background scroll when any modal is open
+  const isAnyModalOpen =
+    Boolean(activeFilm) ||
+    Boolean(activePhoto) ||
+    quickEnquireOpen ||
+    termsModalOpen ||
+    isCookieOpen;
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    if (isAnyModalOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [isAnyModalOpen]);
+
   // Observe when footer enters viewport so footer videos don't decode while scrolling top of page
   useEffect(() => {
     const el = footerRef.current;
     if (!el) return;
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+      setIsFooterVisible(true);
+      return;
+    }
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -102,7 +164,7 @@ export function TwfFooterAndModals({
     observer.observe(el);
 
     const handleVisibility = () => {
-      if (!document.hidden && isFooterVisible) {
+      if (typeof document !== 'undefined' && !document.hidden && isFooterVisible) {
         const vid =
           activeFooterVideoIdx === 0
             ? footerVideo1Ref.current
@@ -116,7 +178,7 @@ export function TwfFooterAndModals({
 
     // Watchdog to guarantee uninterrupted footer video loop
     const watchdog = setInterval(() => {
-      if (!isFooterVisible || document.hidden) return;
+      if (!isFooterVisible || (typeof document !== 'undefined' && document.hidden)) return;
       const vid =
         activeFooterVideoIdx === 0
           ? footerVideo1Ref.current
@@ -177,21 +239,21 @@ export function TwfFooterAndModals({
     : -1;
 
   const handlePrevPhoto = () => {
-    if (currentPhotoIndex < 0) return;
+    if (currentPhotoIndex < 0 || allPhotos.length === 0) return;
     setPhotoZoom(1);
     const prevIdx = (currentPhotoIndex - 1 + allPhotos.length) % allPhotos.length;
     onSelectPhoto(allPhotos[prevIdx]);
   };
 
   const handleNextPhoto = () => {
-    if (currentPhotoIndex < 0) return;
+    if (currentPhotoIndex < 0 || allPhotos.length === 0) return;
     setPhotoZoom(1);
     const nextIdx = (currentPhotoIndex + 1) % allPhotos.length;
     onSelectPhoto(allPhotos[nextIdx]);
   };
 
   const selectedServiceValue =
-    enquireForm.service || preselectedService || 'Wedding Films & Candid Photography';
+    preselectedService || enquireForm.service || 'Wedding Films & Candid Photography';
 
   const whatsappText = encodeURIComponent(
     `Hello Masoom Studio! We would love to check date availability.\n\nCouple: ${
@@ -400,7 +462,7 @@ export function TwfFooterAndModals({
 
           {/* Tier 2: Redesigned Single Line (Copyright, Terms, Cookie Policy, ACCUstomLabs) */}
           <div className="pt-3.5 border-t border-white/15 flex flex-col md:flex-row items-center justify-between gap-3 text-[11px] sm:text-xs text-white/80">
-            <span className="leading-none">
+            <span className="leading-none" suppressHydrationWarning>
               &copy; {new Date().getFullYear()} Masoom Studio. All rights reserved.
             </span>
 
@@ -455,11 +517,11 @@ export function TwfFooterAndModals({
         <div
           onClick={onCloseFilm}
           className="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto"
-          role="dialog"
-          aria-modal="true"
-          aria-label={`${activeFilm.couple} Wedding Film`}
         >
           <div
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${activeFilm.couple} Wedding Film`}
             onClick={(e) => e.stopPropagation()}
             className="relative w-full max-w-4xl max-h-[calc(100dvh-16px)] sm:max-h-[calc(100dvh-32px)] bg-[#111111] border border-white/20 rounded-[18px] sm:rounded-[24px] overflow-hidden shadow-2xl flex flex-col my-auto"
           >
@@ -532,6 +594,9 @@ export function TwfFooterAndModals({
                   muted={modalVideoMuted}
                   controls
                   playsInline
+                  onVolumeChange={(e) => {
+                    setModalVideoMuted((e.currentTarget as HTMLVideoElement).muted);
+                  }}
                   className="relative z-10 w-full h-full max-h-[50dvh] sm:max-h-[58dvh] object-contain"
                 />
               ) : (
@@ -590,11 +655,11 @@ export function TwfFooterAndModals({
         <div
           onClick={onClosePhoto}
           className="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto"
-          role="dialog"
-          aria-modal="true"
-          aria-label={activePhoto.title}
         >
           <div
+            role="dialog"
+            aria-modal="true"
+            aria-label={activePhoto.title}
             onClick={(e) => e.stopPropagation()}
             className="relative w-full max-w-5xl max-h-[calc(100dvh-16px)] sm:max-h-[calc(100dvh-32px)] bg-[#121212] border border-white/15 rounded-[18px] sm:rounded-[24px] overflow-y-auto lg:overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-12 my-auto"
           >
@@ -747,11 +812,11 @@ export function TwfFooterAndModals({
         <div
           onClick={onCloseQuickEnquire}
           className="fixed inset-0 z-50 bg-black/85 backdrop-blur-xl flex items-center justify-center p-2 sm:p-4 overflow-y-auto"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Enquire with Masoom Studio"
         >
           <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Enquire with Masoom Studio"
             onClick={(e) => e.stopPropagation()}
             className="relative w-full max-w-xl max-h-[calc(100dvh-16px)] sm:max-h-[calc(100dvh-32px)] overflow-y-auto bg-[#f8f8f7] text-[#111111] rounded-[20px] sm:rounded-[28px] p-5 sm:p-8 shadow-2xl border border-black/10 my-auto"
           >
@@ -974,11 +1039,11 @@ export function TwfFooterAndModals({
         <div
           onClick={() => setTermsModalOpen(false)}
           className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Terms & Conditions"
         >
           <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Terms & Conditions"
             onClick={(e) => e.stopPropagation()}
             className="relative w-full max-w-2xl max-h-[calc(100dvh-32px)] bg-white rounded-[22px] sm:rounded-[26px] overflow-hidden shadow-2xl flex flex-col my-auto border border-black/10"
           >
@@ -1077,11 +1142,11 @@ export function TwfFooterAndModals({
         <div
           onClick={handleCloseCookieModal}
           className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Cookie & Privacy Policy"
         >
           <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Cookie & Privacy Policy"
             onClick={(e) => e.stopPropagation()}
             className="relative w-full max-w-xl max-h-[calc(100dvh-32px)] bg-white rounded-[22px] sm:rounded-[26px] overflow-hidden shadow-2xl flex flex-col my-auto border border-black/10"
           >

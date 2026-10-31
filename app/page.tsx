@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TwfSidebar, PageId } from '@/components/twf-sidebar';
 import { TwfHeroSlider } from '@/components/twf-hero-slider';
@@ -23,6 +23,7 @@ export default function MasoomStudioTwfPage() {
   const [preselectedService, setPreselectedService] = useState<string | undefined>(
     undefined
   );
+  const scrollRafRef = useRef<number | null>(null);
 
   // Initialize global aesthetic click sound across all buttons & interactive controls
   useEffect(() => {
@@ -30,9 +31,22 @@ export default function MasoomStudioTwfPage() {
     return cleanup;
   }, []);
 
+  // Cancel any ongoing scroll RAF on unmount
+  useEffect(() => {
+    return () => {
+      if (scrollRafRef.current !== null && typeof window !== 'undefined') {
+        window.cancelAnimationFrame(scrollRafRef.current);
+      }
+    };
+  }, []);
+
   // Silky quartic ease-out scroll-to-top helper on menu navigation
   const smoothScrollToTop = useCallback(() => {
     if (typeof window === 'undefined') return;
+    if (scrollRafRef.current !== null) {
+      window.cancelAnimationFrame(scrollRafRef.current);
+      scrollRafRef.current = null;
+    }
     const startY = window.scrollY || document.documentElement.scrollTop || 0;
     if (startY <= 4) {
       window.scrollTo(0, 0);
@@ -47,11 +61,13 @@ export default function MasoomStudioTwfPage() {
       const easeOut = 1 - Math.pow(1 - t, 4);
       window.scrollTo(0, startY * (1 - easeOut));
       if (t < 1) {
-        window.requestAnimationFrame(step);
+        scrollRafRef.current = window.requestAnimationFrame(step);
+      } else {
+        scrollRafRef.current = null;
       }
     };
 
-    window.requestAnimationFrame(step);
+    scrollRafRef.current = window.requestAnimationFrame(step);
   }, []);
 
   const handleNavigate = (page: PageId) => {
@@ -74,6 +90,11 @@ export default function MasoomStudioTwfPage() {
   const handleOpenQuickEnquire = (service?: string) => {
     setPreselectedService(service);
     setQuickEnquireOpen(true);
+  };
+
+  const handleCloseQuickEnquire = () => {
+    setQuickEnquireOpen(false);
+    setPreselectedService(undefined);
   };
 
   return (
@@ -172,7 +193,7 @@ export default function MasoomStudioTwfPage() {
               onSelectPhoto={(photo) => setActivePhoto(photo)}
               quickEnquireOpen={quickEnquireOpen}
               preselectedService={preselectedService}
-              onCloseQuickEnquire={() => setQuickEnquireOpen(false)}
+              onCloseQuickEnquire={handleCloseQuickEnquire}
               onOpenQuickEnquire={(service) => handleOpenQuickEnquire(service)}
               cookiePolicyOpen={cookiePolicyOpen}
               onCloseCookiePolicy={() => setCookiePolicyOpen(false)}

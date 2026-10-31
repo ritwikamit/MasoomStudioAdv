@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { ShieldCheck, X } from 'lucide-react';
 
 interface TwfCookieBannerProps {
-  onOpenCookiePolicy: () => void;
+  onOpenCookiePolicy?: () => void;
 }
 
 const COOKIE_STORAGE_KEY = 'masoom_studio_cookie_consent_v2';
@@ -13,11 +13,13 @@ export function TwfCookieBanner({ onOpenCookiePolicy }: TwfCookieBannerProps) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    let t: NodeJS.Timeout;
+    let t: ReturnType<typeof setTimeout> | undefined = undefined;
     try {
-      const savedConsent = localStorage.getItem(COOKIE_STORAGE_KEY);
-      if (!savedConsent) {
-        t = setTimeout(() => setVisible(true), 600);
+      if (typeof window !== 'undefined') {
+        const savedConsent = localStorage.getItem(COOKIE_STORAGE_KEY);
+        if (!savedConsent) {
+          t = setTimeout(() => setVisible(true), 600);
+        }
       }
     } catch {
       t = setTimeout(() => setVisible(true), 600);
@@ -29,9 +31,13 @@ export function TwfCookieBanner({ onOpenCookiePolicy }: TwfCookieBannerProps) {
 
   const savePreference = (level: 'all' | 'essential') => {
     try {
-      localStorage.setItem(COOKIE_STORAGE_KEY, level);
-      localStorage.setItem('masoom_cookies_accepted', 'true');
-      document.cookie = `${COOKIE_STORAGE_KEY}=${level}; path=/; max-age=31536000; SameSite=Lax`;
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(COOKIE_STORAGE_KEY, level);
+        localStorage.setItem('masoom_cookies_accepted', 'true');
+      }
+      if (typeof document !== 'undefined') {
+        document.cookie = `${COOKIE_STORAGE_KEY}=${level}; path=/; max-age=31536000; SameSite=Lax`;
+      }
     } catch {
       // noop
     }
@@ -91,7 +97,7 @@ export function TwfCookieBanner({ onOpenCookiePolicy }: TwfCookieBannerProps) {
           <button
             type="button"
             onClick={() => {
-              onOpenCookiePolicy();
+              onOpenCookiePolicy?.();
             }}
             className="px-2.5 py-1.5 text-white/75 hover:text-white text-[11px] underline underline-offset-4 transition-colors cursor-pointer"
           >
