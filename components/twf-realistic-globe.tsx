@@ -164,55 +164,68 @@ export function TwfRealisticGlobe({ onOpenQuickEnquire }: TwfRealisticGlobeProps
         .htmlAltitude(0.015)
         .htmlElement(() => {
           const pinWrapper = document.createElement('div');
+          pinWrapper.style.position = 'relative';
+          pinWrapper.style.width = '0px';
+          pinWrapper.style.height = '0px';
           pinWrapper.style.cursor = 'pointer';
           pinWrapper.style.pointerEvents = 'auto';
           pinWrapper.style.userSelect = 'none';
           pinWrapper.title = 'Masoom Studio · Patna, Bihar (Click to zoom to real map)';
 
           pinWrapper.innerHTML = `
+            <!-- Accurate Location Pin: Sharp bottom tip anchored exactly at (0, 0) -->
             <div style="
-              display: flex;
-              align-items: center;
-              gap: 8px;
+              position: absolute;
+              left: 0;
+              top: 0;
               transform: translate(-50%, -100%);
+              transform-origin: 50% 100%;
+              line-height: 0;
               transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
-              filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.55));
+              filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.85));
               cursor: pointer;
             " class="masoom-globe-pin-marker">
-              <!-- Location Pin -->
-              <div style="flex-shrink: 0; line-height: 0;">
-                <svg width="26" height="34" viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 0C5.37258 0 0 5.37258 0 12C0 20.25 10.35 30.7 11.45 31.78C11.75 32.07 12.25 32.07 12.55 31.78C13.65 30.7 24 20.25 24 12C24 5.37258 18.6274 0 12 0Z" fill="#ff3333"/>
-                  <circle cx="12" cy="11.5" r="4.2" fill="#ffffff"/>
-                </svg>
-              </div>
+              <svg width="26" height="34" viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 0C5.37258 0 0 5.37258 0 12C0 20.25 10.35 30.7 11.45 31.78C11.75 32.07 12.25 32.07 12.55 31.78C13.65 30.7 24 20.25 24 12C24 5.37258 18.6274 0 12 0Z" fill="#ff2222"/>
+                <circle cx="12" cy="11.5" r="4.2" fill="#ffffff"/>
+              </svg>
+            </div>
 
-              <!-- Simple Studio Name & Location Text -->
+            <!-- Plain Text: Directly Pasted Typography Without Any Enclosing Box or Border -->
+            <div style="
+              position: absolute;
+              left: 15px;
+              top: -30px;
+              white-space: nowrap;
+              pointer-events: none;
+              user-select: none;
+              line-height: 1.15;
+            ">
               <div style="
-                background: rgba(12, 12, 16, 0.92);
-                backdrop-filter: blur(8px);
-                border: 1px solid rgba(255, 51, 51, 0.55);
-                padding: 4px 10px;
-                border-radius: 9999px;
-                white-space: nowrap;
+                font-size: 13px;
+                font-weight: 800;
+                letter-spacing: 0.03em;
                 color: #ffffff;
-                line-height: 1.15;
-                text-align: left;
-                box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+                text-shadow: 0 1px 2px #000000, 0 2px 6px rgba(0, 0, 0, 0.95), 0 0 12px rgba(0, 0, 0, 0.9);
               ">
-                <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.02em; color: #ffffff;">
-                  Masoom Studio
-                </div>
-                <div style="font-size: 9px; color: rgba(255, 255, 255, 0.85); font-weight: 400;">
-                  Patna, Bihar
-                </div>
+                Masoom Studio
+              </div>
+              <div style="
+                font-size: 10px;
+                font-weight: 700;
+                letter-spacing: 0.06em;
+                color: #ff5555;
+                text-transform: uppercase;
+                text-shadow: 0 1px 2px #000000, 0 2px 6px rgba(0, 0, 0, 0.95), 0 0 12px rgba(0, 0, 0, 0.9);
+              ">
+                Patna, Bihar
               </div>
             </div>
           `;
 
           const marker = pinWrapper.querySelector('.masoom-globe-pin-marker') as HTMLElement;
           pinWrapper.onmouseenter = () => {
-            if (marker) marker.style.transform = 'translate(-50%, -100%) scale(1.15)';
+            if (marker) marker.style.transform = 'translate(-50%, -100%) scale(1.22)';
           };
           pinWrapper.onmouseleave = () => {
             if (marker) marker.style.transform = 'translate(-50%, -100%) scale(1)';
