@@ -100,8 +100,39 @@ export function TwfFooterAndModals({
       { rootMargin: '200px 0px' }
     );
     observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+
+    const handleVisibility = () => {
+      if (!document.hidden && isFooterVisible) {
+        const vid =
+          activeFooterVideoIdx === 0
+            ? footerVideo1Ref.current
+            : footerVideo2Ref.current;
+        if (vid && vid.paused) {
+          vid.play().catch(() => {});
+        }
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+
+    // Watchdog to guarantee uninterrupted footer video loop
+    const watchdog = setInterval(() => {
+      if (!isFooterVisible || document.hidden) return;
+      const vid =
+        activeFooterVideoIdx === 0
+          ? footerVideo1Ref.current
+          : footerVideo2Ref.current;
+      if (vid && vid.paused) {
+        vid.muted = true;
+        vid.play().catch(() => {});
+      }
+    }, 2500);
+
+    return () => {
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibility);
+      clearInterval(watchdog);
+    };
+  }, [isFooterVisible, activeFooterVideoIdx]);
 
   // Sequential playback of both footer videos one by one when footer is visible
   useEffect(() => {
@@ -127,6 +158,9 @@ export function TwfFooterAndModals({
       activeVid.defaultMuted = true;
       activeVid.muted = true;
       activeVid.playsInline = true;
+      if (activeVid.ended) {
+        activeVid.currentTime = 0;
+      }
       const playPromise = activeVid.play();
       if (playPromise !== undefined) {
         playPromise.catch(() => {
@@ -185,25 +219,35 @@ export function TwfFooterAndModals({
   return (
     <>
       {/* ===================================================================
-          CLEAN FULL-BLEED LANDSCAPE VIDEO FOOTER (Curved Top & Bottom Edges)
+          CLEAN LANDSCAPE VIDEO FOOTER (Matches Header Video Box Spacing & Curves)
           - Plays both rotated straight landscape reels (DCYrmYgyjns & C_h6bbOyC9j)
-            one by one sequentially across the full footer
+            one by one sequentially across the footer
           - Transparent content box at bottom, Big Masoom Studio Logo
-          - Properly aligned ACCUstomLabs logo in bottom row
+          - Spaced from outer sheet borders identically to the header video box
          =================================================================== */}
       <footer
         ref={footerRef}
-        className="relative w-full min-h-[420px] sm:min-h-[500px] lg:min-h-[560px] bg-black text-white rounded-[20px] sm:rounded-[28px] overflow-hidden mt-8 sm:mt-12 flex flex-col justify-end select-none shadow-2xl border border-black/15"
+        className="relative w-full min-h-[420px] sm:min-h-[500px] lg:min-h-[560px] bg-black text-white rounded-[18px] sm:rounded-[24px] overflow-hidden mt-6 sm:mt-8 flex flex-col justify-end select-none shadow-2xl border border-black/10"
       >
         {/* Full-Footer Straight Landscape Video 1 (DCYrmYgyjns) */}
         <video
           ref={footerVideo1Ref}
           src={FOOTER_REELS[0].videoSrc}
           poster={FOOTER_REELS[0].posterUrl}
+          autoPlay
           muted
           playsInline
-          preload="metadata"
-          onEnded={() => setActiveFooterVideoIdx(1)}
+          preload="auto"
+          onCanPlay={() => {
+            if (activeFooterVideoIdx === 0 && isFooterVisible) {
+              footerVideo1Ref.current?.play().catch(() => {});
+            }
+          }}
+          onEnded={() => {
+            const v2 = footerVideo2Ref.current;
+            if (v2) v2.currentTime = 0;
+            setActiveFooterVideoIdx(1);
+          }}
           onError={() => setActiveFooterVideoIdx(1)}
           className={`pointer-events-none absolute inset-0 w-full h-full object-cover object-[50%_28%] transition-opacity duration-1000 ease-in-out ${
             activeFooterVideoIdx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'
@@ -215,10 +259,20 @@ export function TwfFooterAndModals({
           ref={footerVideo2Ref}
           src={FOOTER_REELS[1].videoSrc}
           poster={FOOTER_REELS[1].posterUrl}
+          autoPlay
           muted
           playsInline
-          preload="metadata"
-          onEnded={() => setActiveFooterVideoIdx(0)}
+          preload="auto"
+          onCanPlay={() => {
+            if (activeFooterVideoIdx === 1 && isFooterVisible) {
+              footerVideo2Ref.current?.play().catch(() => {});
+            }
+          }}
+          onEnded={() => {
+            const v1 = footerVideo1Ref.current;
+            if (v1) v1.currentTime = 0;
+            setActiveFooterVideoIdx(0);
+          }}
           onError={() => setActiveFooterVideoIdx(0)}
           className={`pointer-events-none absolute inset-0 w-full h-full object-cover object-[50%_28%] transition-opacity duration-1000 ease-in-out ${
             activeFooterVideoIdx === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0'

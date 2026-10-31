@@ -23,9 +23,24 @@ export function TwfHeroSlider({
   const currentSlide = HEADER_HERO_FILMS[activeIndex] || HEADER_HERO_FILMS[0];
   const activeVideoSrc = currentSlide.videoSrc || '/reels/DV30vU6gci7.mp4';
 
+  const safePlayVideo = () => {
+    const video = fgVideoRef.current;
+    if (!video || !isInViewRef.current || document.hidden) return;
+    video.defaultMuted = true;
+    video.muted = true;
+    video.playsInline = true;
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        video.muted = true;
+        video.play().catch(() => {});
+      });
+    }
+  };
+
   useEffect(() => {
     const timer = setInterval(() => {
-      if (isInViewRef.current) {
+      if (isInViewRef.current && !document.hidden) {
         setActiveIndex((prev) => (prev + 1) % HEADER_HERO_FILMS.length);
       }
     }, 12000);
@@ -42,8 +57,7 @@ export function TwfHeroSlider({
           const video = fgVideoRef.current;
           if (!video) return;
           if (entry.isIntersecting) {
-            video.muted = true;
-            video.play().catch(() => {});
+            safePlayVideo();
           } else {
             video.pause();
           }
@@ -52,27 +66,31 @@ export function TwfHeroSlider({
       { threshold: 0.1 }
     );
     observer.observe(el);
-    return () => observer.disconnect();
+
+    const handleVisibility = () => {
+      if (!document.hidden && isInViewRef.current) {
+        safePlayVideo();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+
+    // Watchdog to ensure video never stalls or stops unexpectedly
+    const watchdog = setInterval(() => {
+      const video = fgVideoRef.current;
+      if (video && isInViewRef.current && !document.hidden && video.paused) {
+        safePlayVideo();
+      }
+    }, 2500);
+
+    return () => {
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibility);
+      clearInterval(watchdog);
+    };
   }, []);
 
   useEffect(() => {
-    const video = fgVideoRef.current;
-    if (!video) return;
-
-    video.defaultMuted = true;
-    video.muted = true;
-    video.playsInline = true;
-    video.load();
-
-    if (isInViewRef.current) {
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          video.muted = true;
-          video.play().catch(() => {});
-        });
-      }
-    }
+    safePlayVideo();
   }, [activeIndex, activeVideoSrc]);
 
   const handlePrev = (e: React.MouseEvent) => {
@@ -100,14 +118,18 @@ export function TwfHeroSlider({
           ref={fgVideoRef}
           src={activeVideoSrc}
           poster={currentSlide.heroImageUrl}
+          autoPlay
           loop
           muted
           playsInline
-          preload="metadata"
-          onCanPlay={(e) => {
-            if (isInViewRef.current) {
-              e.currentTarget.muted = true;
-              e.currentTarget.play().catch(() => {});
+          preload="auto"
+          onCanPlay={() => safePlayVideo()}
+          onLoadedData={() => safePlayVideo()}
+          onEnded={() => {
+            const video = fgVideoRef.current;
+            if (video) {
+              video.currentTime = 0;
+              safePlayVideo();
             }
           }}
           style={{

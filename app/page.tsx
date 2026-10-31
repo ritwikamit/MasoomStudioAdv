@@ -151,21 +151,23 @@ export default function MasoomStudioTwfPage() {
             </motion.div>
           </AnimatePresence>
 
-          {/* 3. Transparent Content Footer Video Box + Big Logo & Modals */}
-          <TwfFooterAndModals
-            onNavigate={handleNavigate}
-            activeFilm={activeFilm}
-            onCloseFilm={() => setActiveFilm(null)}
-            activePhoto={activePhoto}
-            onClosePhoto={() => setActivePhoto(null)}
-            onSelectPhoto={(photo) => setActivePhoto(photo)}
-            quickEnquireOpen={quickEnquireOpen}
-            preselectedService={preselectedService}
-            onCloseQuickEnquire={() => setQuickEnquireOpen(false)}
-            onOpenQuickEnquire={(service) => handleOpenQuickEnquire(service)}
-            cookiePolicyOpen={cookiePolicyOpen}
-            onCloseCookiePolicy={() => setCookiePolicyOpen(false)}
-          />
+          {/* 3. Transparent Content Footer Video Box + Big Logo & Modals (Leaves same border space as header) */}
+          <div className="px-2 sm:px-4 lg:px-5 pb-2 sm:pb-4 lg:pb-5">
+            <TwfFooterAndModals
+              onNavigate={handleNavigate}
+              activeFilm={activeFilm}
+              onCloseFilm={() => setActiveFilm(null)}
+              activePhoto={activePhoto}
+              onClosePhoto={() => setActivePhoto(null)}
+              onSelectPhoto={(photo) => setActivePhoto(photo)}
+              quickEnquireOpen={quickEnquireOpen}
+              preselectedService={preselectedService}
+              onCloseQuickEnquire={() => setQuickEnquireOpen(false)}
+              onOpenQuickEnquire={(service) => handleOpenQuickEnquire(service)}
+              cookiePolicyOpen={cookiePolicyOpen}
+              onCloseCookiePolicy={() => setCookiePolicyOpen(false)}
+            />
+          </div>
         </main>
       </div>
     </div>

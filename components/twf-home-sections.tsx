@@ -82,12 +82,22 @@ function HoverVideoBox({
           }
         });
       },
-      { threshold: 0.45 }
+      { threshold: 0.35 }
     );
 
     observer.observe(el);
+
+    const handleVisibility = () => {
+      if (!document.hidden && isInViewRef.current) {
+        vid.muted = isMuted;
+        vid.play().catch(() => {});
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+
     return () => {
       observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibility);
       vid.pause();
     };
   }, [isMuted]);
@@ -129,12 +139,13 @@ function HoverVideoBox({
         ref={videoRef}
         src={videoSrc}
         poster={posterUrl}
+        autoPlay
         loop
         muted={isMuted}
         playsInline
-        preload="metadata"
+        preload="auto"
         onCanPlay={(e) => {
-          if (isInViewRef.current) {
+          if (isInViewRef.current && !document.hidden) {
             e.currentTarget.muted = isMuted;
             e.currentTarget.play().catch(() => {});
           }

@@ -160,7 +160,7 @@ function TiltMilestoneCard({
           alt={item.title}
           loading="lazy"
           decoding="async"
-          className={`w-full h-full object-cover object-[50%_12%] transition-transform duration-700 ease-out ${
+          className={`w-full h-full object-cover object-[center_top] transition-transform duration-700 ease-out ${
             isActive ? 'scale-[1.03]' : 'group-hover:scale-105'
           }`}
           referrerPolicy="no-referrer"
@@ -336,9 +336,9 @@ function AnimatedJourneyTimeline({
         </div>
       </div>
 
-      {/* 2. 35MM CINEMA STAGE WITH CONSTANTLY LOOPING UP & DOWN SQUARE CUTOUTS */}
+      {/* 2. 35MM CINEMA STAGE WITH CONSTANTLY LOOPING TOP & BOTTOM SPROCKET RECTANGLES */}
       <div className="relative rounded-[20px] sm:rounded-[24px] bg-[#0b0b0e] text-white overflow-hidden border border-black/15 shadow-2xl">
-        {/* Top Horizontal Square Cutouts Strip (Constantly Moving Left in Loop) */}
+        {/* Top Horizontal Sprocket Strip (Constantly Moving Left in Continuous Loop) */}
         <div className="h-6 bg-[#050507] border-b border-white/10 flex items-center overflow-hidden px-2">
           <div className="animate-sprocket-left flex items-center gap-3 whitespace-nowrap min-w-[200%]">
             {Array.from({ length: 56 }).map((_, i) => (
@@ -350,187 +350,117 @@ function AnimatedJourneyTimeline({
           </div>
         </div>
 
-        {/* Middle Stage with Left (Moving Up) & Right (Moving Down) Square Cutout Rails */}
-        <div className="relative flex items-stretch">
-          {/* Left Vertical Square Cutouts Strip — Constantly Moving UP in Loop */}
-          <div className="w-6 sm:w-8 bg-[#050507] border-r border-white/10 overflow-hidden shrink-0 relative">
-            <div className="animate-squares-up absolute inset-x-0 top-0 flex flex-col items-center gap-3 py-1.5">
-              {Array.from({ length: 48 }).map((_, i) => (
-                <span
-                  key={`left-square-${i}`}
-                  className="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-[2px] bg-white/15 border border-white/25 shrink-0 block"
+        {/* Main Cinema Stage Content (Full-Width Clean Presentation, No Inner Sprockets, Faces Never Cut) */}
+        <div className="p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center min-w-0">
+          {/* Left: Uncropped Couple Frame with Generous Face Clearance */}
+          <div className="lg:col-span-7 relative aspect-[4/3] sm:aspect-[16/10] rounded-xl overflow-hidden bg-[#050507] border border-white/15 shadow-2xl flex items-stretch">
+            {/* Active Couple Photo — Top-Aligned Object Position so Faces Are Never Cut */}
+            <div className="relative flex-1 w-full h-full overflow-hidden bg-black">
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={activeItem.year}
+                  src={activeItem.img}
+                  alt={activeItem.title}
+                  initial={{ opacity: 0, scale: 1.04 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  className="w-full h-full object-cover object-[center_top]"
+                  referrerPolicy="no-referrer"
                 />
-              ))}
-            </div>
-          </div>
+              </AnimatePresence>
 
-          {/* Main Cinema Stage Content */}
-          <div className="flex-1 p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center min-w-0">
-            {/* Left: Uncropped Couple Frame with Vertical Moving Square Film Cutouts */}
-            <div className="lg:col-span-7 relative aspect-[4/3] sm:aspect-[16/10] rounded-xl overflow-hidden bg-[#050507] border border-white/15 shadow-2xl flex items-stretch">
-              {/* Inner Left Mini Square Cutout Track Moving UP */}
-              <div className="hidden sm:block w-5 bg-black/90 border-r border-white/15 overflow-hidden shrink-0 relative z-20">
-                <div className="animate-squares-up absolute inset-x-0 top-0 flex flex-col items-center gap-2.5 py-1">
-                  {Array.from({ length: 40 }).map((_, i) => (
-                    <span
-                      key={`inner-l-${i}`}
-                      className="w-2.5 h-2.5 rounded-[1.5px] bg-white/20 border border-white/25 shrink-0 block"
-                    />
-                  ))}
+              {/* Gentle Bottom Gradient Only (Leaves Faces in Upper/Middle Frame Clear) */}
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
+
+              {/* Clean Rectangular HUD Readouts */}
+              <div className="absolute top-3 left-3 right-3 flex items-center justify-between text-[10px] uppercase tracking-[0.18em] text-white/90">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[4px] bg-black/65 backdrop-blur-md border border-white/15">
+                  <span className="font-semibold text-[#ff3333]">REEL 0{activeIdx + 1}</span>
+                  <span>· 00:0{activeIdx + 1}:24:18</span>
+                </div>
+                <div className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[4px] bg-black/65 backdrop-blur-md border border-white/15">
+                  <Camera className="w-3 h-3 text-[#ff3333]" />
+                  <span>{activeItem.lensSpec}</span>
                 </div>
               </div>
 
-              {/* Active Couple Photo — Top-Aligned Object Position so Faces Are Never Cut */}
-              <div className="relative flex-1 h-full overflow-hidden bg-black">
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={activeItem.year}
-                    src={activeItem.img}
-                    alt={activeItem.title}
-                    initial={{ opacity: 0, scale: 1.04 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.98 }}
-                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="w-full h-full object-cover object-[50%_12%]"
-                    referrerPolicy="no-referrer"
-                  />
-                </AnimatePresence>
+              {/* Bottom Frame Caption & Full-Frame Lightbox Action */}
+              <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2">
+                <div className="px-3 py-1.5 rounded-[6px] bg-black/70 backdrop-blur-md border border-white/15">
+                  <span className="text-[10px] uppercase tracking-[0.18em] text-white/65 block">
+                    Chapter 0{activeIdx + 1} of 0{items.length}
+                  </span>
+                  <span
+                    className="text-xl sm:text-2xl text-white leading-none"
+                    style={{ fontFamily: 'var(--font-script)' }}
+                  >
+                    {activeItem.tag}
+                  </span>
+                </div>
 
-                {/* Gentle Bottom Gradient Only (Leaves Faces in Upper/Middle Frame Clear) */}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
+                <button
+                  type="button"
+                  onClick={() => handleOpenInLightbox(activeItem, activeIdx)}
+                  className="px-3.5 py-2 rounded-[6px] bg-[#ff3333] hover:bg-[#e02828] text-white text-[10px] uppercase tracking-[0.16em] font-medium inline-flex items-center gap-1.5 transition-colors cursor-pointer shadow-lg"
+                >
+                  <ZoomIn className="w-3.5 h-3.5" />
+                  <span>Full Frame</span>
+                </button>
+              </div>
+            </div>
+          </div>
 
-                {/* Clean Rectangular HUD Readouts (No Red Dots, No Cylinders) */}
-                <div className="absolute top-3 left-3 right-3 flex items-center justify-between text-[10px] uppercase tracking-[0.18em] text-white/90">
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[4px] bg-black/65 backdrop-blur-md border border-white/15">
-                    <span className="font-semibold text-[#ff3333]">REEL 0{activeIdx + 1}</span>
-                    <span>· 00:0{activeIdx + 1}:24:18</span>
-                  </div>
-                  <div className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[4px] bg-black/65 backdrop-blur-md border border-white/15">
-                    <Camera className="w-3 h-3 text-[#ff3333]" />
+          {/* Right: Animated Story Reel Details (Clean Narrative, Thumbnails Removed) */}
+          <div className="lg:col-span-5 space-y-4">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`story-${activeItem.year}`}
+                initial={{ opacity: 0, x: 18 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -16 }}
+                transition={{ duration: 0.4, ease: 'easeOut' }}
+                className="space-y-4"
+              >
+                <div className="inline-flex items-center gap-2 pb-1 border-b border-white/15 text-[11px] uppercase tracking-[0.18em] text-white/80">
+                  <Film className="w-3.5 h-3.5 text-[#ff3333]" />
+                  <span>Milestone · {activeItem.metric}</span>
+                </div>
+
+                <div>
+                  <span
+                    className="text-4xl sm:text-5xl text-[#ff3333] block leading-none"
+                    style={{ fontFamily: 'var(--font-script)' }}
+                  >
+                    {activeItem.year}
+                  </span>
+                  <h4
+                    className="text-2xl sm:text-3xl text-white font-normal lowercase mt-1"
+                    style={{ fontFamily: 'var(--font-display)' }}
+                  >
+                    {activeItem.title}
+                  </h4>
+                </div>
+
+                <p className="text-xs sm:text-sm text-white/85 leading-relaxed">
+                  {activeItem.desc}
+                </p>
+
+                <div className="pt-2 flex items-center gap-3">
+                  <div className="px-3 py-1.5 rounded-[6px] bg-white/10 border border-white/15 text-[11px] text-white/80 uppercase tracking-wider inline-flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#ff3333]" />
                     <span>{activeItem.lensSpec}</span>
                   </div>
+                  <div className="px-3 py-1.5 rounded-[6px] bg-white/10 border border-white/15 text-[11px] text-white/80 uppercase tracking-wider inline-flex items-center gap-2">
+                    <span>{activeItem.tag}</span>
+                  </div>
                 </div>
-
-                {/* Bottom Frame Caption & Rectangular Full-Frame Action */}
-                <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2">
-                  <div className="px-3 py-1.5 rounded-[6px] bg-black/70 backdrop-blur-md border border-white/15">
-                    <span className="text-[10px] uppercase tracking-[0.18em] text-white/65 block">
-                      Chapter 0{activeIdx + 1} of 0{items.length}
-                    </span>
-                    <span
-                      className="text-xl sm:text-2xl text-white leading-none"
-                      style={{ fontFamily: 'var(--font-script)' }}
-                    >
-                      {activeItem.tag}
-                    </span>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => handleOpenInLightbox(activeItem, activeIdx)}
-                    className="px-3.5 py-2 rounded-[6px] bg-[#ff3333] hover:bg-[#e02828] text-white text-[10px] uppercase tracking-[0.16em] font-medium inline-flex items-center gap-1.5 transition-colors cursor-pointer shadow-lg"
-                  >
-                    <ZoomIn className="w-3.5 h-3.5" />
-                    <span>Full Frame</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Inner Right Mini Square Cutout Track Moving DOWN */}
-              <div className="hidden sm:block w-5 bg-black/90 border-l border-white/15 overflow-hidden shrink-0 relative z-20">
-                <div className="animate-squares-down absolute inset-x-0 top-0 flex flex-col items-center gap-2.5 py-1">
-                  {Array.from({ length: 40 }).map((_, i) => (
-                    <span
-                      key={`inner-r-${i}`}
-                      className="w-2.5 h-2.5 rounded-[1.5px] bg-white/20 border border-white/25 shrink-0 block"
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Right: Animated Story Reel Details */}
-            <div className="lg:col-span-5 space-y-4">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={`story-${activeItem.year}`}
-                  initial={{ opacity: 0, x: 18 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -16 }}
-                  transition={{ duration: 0.4, ease: 'easeOut' }}
-                  className="space-y-3.5"
-                >
-                  <div className="inline-flex items-center gap-2 pb-1 border-b border-white/15 text-[11px] uppercase tracking-[0.18em] text-white/80">
-                    <Film className="w-3.5 h-3.5 text-[#ff3333]" />
-                    <span>Milestone · {activeItem.metric}</span>
-                  </div>
-
-                  <div>
-                    <span
-                      className="text-4xl sm:text-5xl text-[#ff3333] block leading-none"
-                      style={{ fontFamily: 'var(--font-script)' }}
-                    >
-                      {activeItem.year}
-                    </span>
-                    <h4
-                      className="text-2xl sm:text-3xl text-white font-normal lowercase mt-1"
-                      style={{ fontFamily: 'var(--font-display)' }}
-                    >
-                      {activeItem.title}
-                    </h4>
-                  </div>
-
-                  <p className="text-xs sm:text-sm text-white/80 leading-relaxed">
-                    {activeItem.desc}
-                  </p>
-
-                  {/* Film Frame Thumbnails Strip (Top-Aligned so Faces Are Not Cut) */}
-                  <div className="pt-2 grid grid-cols-5 gap-2">
-                    {items.map((thumb, idx) => (
-                      <button
-                        key={`thumb-${thumb.year}`}
-                        type="button"
-                        onClick={() => {
-                          setActiveIdx(idx);
-                          setAutoPlay(false);
-                        }}
-                        className={`group/thumb relative aspect-square rounded-[8px] overflow-hidden border transition-all cursor-pointer ${
-                          idx === activeIdx
-                            ? 'border-[#ff3333] ring-2 ring-[#ff3333]/50 scale-105'
-                            : 'border-white/15 opacity-60 hover:opacity-100'
-                        }`}
-                      >
-                        <img
-                          src={thumb.img}
-                          alt={thumb.year}
-                          className="w-full h-full object-cover object-[50%_15%]"
-                          referrerPolicy="no-referrer"
-                        />
-                        <span className="absolute inset-x-0 bottom-0 bg-black/75 text-[9px] text-white text-center py-0.5 font-medium">
-                          {thumb.year}
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </div>
-
-          {/* Right Vertical Square Cutouts Strip — Constantly Moving DOWN in Loop */}
-          <div className="w-6 sm:w-8 bg-[#050507] border-l border-white/10 overflow-hidden shrink-0 relative">
-            <div className="animate-squares-down absolute inset-x-0 top-0 flex flex-col items-center gap-3 py-1.5">
-              {Array.from({ length: 48 }).map((_, i) => (
-                <span
-                  key={`right-square-${i}`}
-                  className="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-[2px] bg-white/15 border border-white/25 shrink-0 block"
-                />
-              ))}
-            </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
 
-        {/* Bottom Horizontal Square Cutouts Strip (Constantly Moving Right in Loop) */}
+        {/* Bottom Horizontal Sprocket Strip (Constantly Moving Right in Continuous Loop) */}
         <div className="h-6 bg-[#050507] border-t border-white/10 flex items-center overflow-hidden px-2">
           <div className="animate-sprocket-right flex items-center gap-3 whitespace-nowrap min-w-[200%]">
             {Array.from({ length: 56 }).map((_, i) => (
@@ -661,12 +591,22 @@ function InnerHoverVideoBox({
           }
         });
       },
-      { threshold: 0.45 }
+      { threshold: 0.35 }
     );
 
     observer.observe(el);
+
+    const handleVisibility = () => {
+      if (!document.hidden && isInViewRef.current) {
+        vid.muted = isMuted;
+        vid.play().catch(() => {});
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+
     return () => {
       observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibility);
       vid.pause();
     };
   }, [isMuted]);
@@ -708,12 +648,13 @@ function InnerHoverVideoBox({
         ref={videoRef}
         src={videoSrc}
         poster={posterUrl}
+        autoPlay
         loop
         muted={isMuted}
         playsInline
-        preload="metadata"
+        preload="auto"
         onCanPlay={(e) => {
-          if (isInViewRef.current) {
+          if (isInViewRef.current && !document.hidden) {
             e.currentTarget.muted = isMuted;
             e.currentTarget.play().catch(() => {});
           }
@@ -1223,7 +1164,7 @@ export function TwfInnerPages({
         year: '2019',
         title: 'Building Our Wedding Team',
         desc: 'Candid photographers, traditional videographers, and film editors join hands to cover weddings across Bihar.',
-        img: GALLERY_PHOTOS[1].imageUrl,
+        img: GALLERY_PHOTOS[36].imageUrl,
         align: 'right',
         tag: 'Growing Crew',
         metric: 'All Across Bihar',
@@ -1233,7 +1174,7 @@ export function TwfInnerPages({
         year: '2021',
         title: 'Pre-Wedding Shoots & Drone Coverage',
         desc: 'Expanding into outdoor pre-wedding films and aerial drone shots for grand wedding venues and baraats.',
-        img: GALLERY_PHOTOS[8].imageUrl,
+        img: GALLERY_PHOTOS[41].imageUrl,
         align: 'left',
         tag: 'Cinema & Skies',
         metric: '4K Aerial Cinema',
@@ -1243,7 +1184,7 @@ export function TwfInnerPages({
         year: '2023',
         title: 'Handcrafted Family Wedding Albums',
         desc: 'Designing custom, long-lasting wedding photo albums that parents and grandparents love flipping through.',
-        img: GALLERY_PHOTOS[3].imageUrl,
+        img: GALLERY_PHOTOS[30].imageUrl,
         align: 'right',
         tag: 'Family Heirlooms',
         metric: '300+ Celebrations',
@@ -1253,7 +1194,7 @@ export function TwfInnerPages({
         year: 'Today',
         title: 'Our Bailey Road Studio in Patna',
         desc: 'Welcoming couples and families at Pillar No. 42, Pandey Palace, Bailey Road, near Paras Hospital, Patna.',
-        img: GALLERY_PHOTOS[19].imageUrl,
+        img: GALLERY_PHOTOS[40].imageUrl,
         align: 'left',
         tag: 'Bailey Road Home',
         metric: 'Pillar 42 · Patna',
@@ -1417,7 +1358,7 @@ export function TwfInnerPages({
                   alt="Masoom Javed"
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-[center_top]"
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute bottom-3.5 left-3.5 right-3.5 p-3.5 sm:p-4 rounded-2xl bg-black/70 backdrop-blur-xl border border-white/20 text-white">
@@ -1570,7 +1511,7 @@ export function TwfInnerPages({
                   alt={STORY_SCENES[activeSceneIdx].title}
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-[center_top]"
                   referrerPolicy="no-referrer"
                 />
               </div>
@@ -1580,7 +1521,7 @@ export function TwfInnerPages({
                   alt={STORY_SCENES[activeSceneIdx].title}
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-[center_top]"
                   referrerPolicy="no-referrer"
                 />
               </div>
