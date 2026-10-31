@@ -443,7 +443,6 @@ export function TwfRealisticGlobe({ onOpenQuickEnquire }: TwfRealisticGlobeProps
           {/* Top Bar Floating Badge & Return to Globe Button */}
           <div className="absolute top-3 inset-x-3 z-10 flex items-center justify-between gap-2 pointer-events-none">
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md shadow-md border border-black/10 text-xs text-[#111111] pointer-events-auto">
-              <span className="w-2 h-2 rounded-full bg-[#ff3333] animate-pulse shrink-0" />
               <span className="font-semibold tracking-tight">Masoom Studio</span>
               <span className="text-black/55 text-[10px] hidden sm:inline">
                 · Pillar No. 42, Bailey Road

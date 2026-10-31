@@ -606,17 +606,11 @@ export function TwfHomeSections({
 
       {/* =====================================================================
           SECTION 2: MOVING WEDDING PHOTOS · TIMELESS MEMORIES IN MOTION
-          Distinct, deeply emotional storytelling with glossy scroll-coupled red ribbons
+          Theme-aligned flat red ribbons & moving photos inclined together at an angle
          ===================================================================== */}
       <section ref={movingSectionRef} className="my-12 sm:my-20 px-1 sm:px-2">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 px-1 sm:px-2 mb-5 sm:mb-7">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 px-1 sm:px-2 mb-6 sm:mb-8">
           <div className="max-w-2xl">
-            <div className="flex items-center gap-2 mb-1.5">
-              <span className="w-2 h-2 rounded-full bg-[#ff3333] animate-pulse" />
-              <span className="text-[11px] uppercase tracking-[0.2em] font-semibold text-[#ff3333]">
-                Living Wedding Heirlooms
-              </span>
-            </div>
             <span
               className="text-xl sm:text-3xl text-[#ff3333] block leading-none mb-1.5"
               style={{ fontFamily: 'var(--font-script)' }}
@@ -649,59 +643,12 @@ export function TwfHomeSections({
           </div>
         </div>
 
-        {/* Dedicated Standalone Emotional Moving Ribbon & Photo Box */}
-        <div className="rounded-[24px] sm:rounded-[32px] bg-gradient-to-b from-[#0c0a0c] via-[#08080a] to-[#0c0a0c] text-white overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_80px_rgba(255,51,51,0.12)] border border-white/10 flex flex-col relative">
+        {/* Dedicated Standalone Inclined Moving Ribbon & Photo Showcase */}
+        <div className="rounded-[24px] sm:rounded-[32px] bg-[#09090b] text-white overflow-hidden shadow-2xl border border-white/10 flex flex-col relative py-6 sm:py-9">
           
-          {/* Top Moving Glossy Red Ribbon (Coupled Directly to Page Scroll) */}
-          <div
-            className="w-full relative z-20 select-none overflow-hidden"
-            style={{
-              background: 'linear-gradient(180deg, #ff3b30 0%, #ee1414 30%, #c40000 68%, #8e0000 100%)',
-              boxShadow: 'inset 0 1.5px 2px rgba(255, 255, 255, 0.75), inset 0 -2px 4px rgba(0, 0, 0, 0.55), 0 6px 20px rgba(220, 20, 20, 0.45)',
-              borderTop: '1px solid rgba(255, 255, 255, 0.55)',
-              borderBottom: '1px solid rgba(0, 0, 0, 0.65)',
-            }}
-          >
-            {/* Satin Sheen Reflection Highlight */}
-            <div
-              className="pointer-events-none absolute inset-0 z-10"
-              style={{
-                background: 'linear-gradient(180deg, rgba(255,255,255,0.48) 0%, rgba(255,255,255,0.16) 45%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.25) 100%)',
-              }}
-            />
-
-            <div
-              ref={ribbonTopRef}
-              className="flex whitespace-nowrap items-center text-[11px] sm:text-xs font-semibold tracking-[0.24em] uppercase py-2 sm:py-2.5 will-change-transform text-white"
-              style={{
-                transform: 'translate3d(0px, 0, 0)',
-                textShadow: '0 1px 2px rgba(0,0,0,0.7), 0 0 12px rgba(255,255,255,0.3)',
-              }}
-            >
-              {Array.from({ length: 6 }).map((_, rIdx) => (
-                <span key={`r-top-${rIdx}`} className="flex items-center gap-3 px-4 shrink-0">
-                  <span className="text-amber-200">✦</span>
-                  <span>TIMELESS MEMORIES IN MOTION</span>
-                  <span className="opacity-60">·</span>
-                  <span>MASOOM STUDIO WEDDINGS</span>
-                  <span className="opacity-60">·</span>
-                  <span>REAL UNFILTERED EMOTIONS</span>
-                  <span className="opacity-60">·</span>
-                  <span>PATNA, BIHAR &amp; ACROSS INDIA</span>
-                  <span className="opacity-60">·</span>
-                  <span>EVERY UNPOSED TEAR &amp; STOLEN GLANCE</span>
-                  <span className="opacity-60">·</span>
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Emotional Subtitle Header Strip */}
-          <div className="pt-3 pb-2 px-4 sm:px-6 flex items-center justify-between text-white/50 text-[10px] sm:text-xs tracking-wider uppercase border-b border-white/5">
-            <span className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#ff3333]" />
-              <span>Unscripted tears · Quiet glances · Sacred vows · Family blessings</span>
-            </span>
+          {/* Subtitle Header Strip (Clean typography, no red dots) */}
+          <div className="pb-4 px-4 sm:px-6 flex items-center justify-between text-white/50 text-[10px] sm:text-xs tracking-wider uppercase border-b border-white/5">
+            <span>Unscripted tears · Quiet glances · Sacred vows · Family blessings</span>
             <span
               className="hidden sm:inline italic normal-case text-white/45 font-light"
               style={{ fontFamily: 'var(--font-script)', fontSize: '15px' }}
@@ -710,156 +657,170 @@ export function TwfHomeSections({
             </span>
           </div>
 
-          {/* Center Moving Photo Strips (Interactive Scroll-Driven Horizontal Translation) */}
-          <div className="py-5 sm:py-8 space-y-2.5 sm:space-y-3.5">
-            {/* Row 1 */}
-            <div className="relative w-full overflow-hidden py-1">
+          {/* Dynamic Inclined Showcase: Both ribbons & photos tilted together */}
+          <div className="w-[110%] -ml-[5%] -rotate-[2.2deg] sm:-rotate-[2.5deg] my-2 sm:my-3 space-y-4 sm:space-y-6 select-none">
+            
+            {/* Top Moving Red Ribbon (Theme-aligned flat red, not glossy, moving with scroll) */}
+            <div className="w-full bg-[#ff3333] text-white py-2 sm:py-2.5 overflow-hidden shadow-md">
               <div
-                ref={movingRowOneRef}
-                className="flex gap-3.5 sm:gap-5 px-3 w-max will-change-transform"
+                ref={ribbonTopRef}
+                className="flex whitespace-nowrap items-center text-[10px] sm:text-xs font-semibold tracking-[0.24em] uppercase will-change-transform text-white"
                 style={{
                   transform: 'translate3d(0px, 0, 0)',
                 }}
               >
-                {rowOnePhotos.map((photo, idx) => {
-                  const storyMoment = emotionalMomentsRow1[idx % emotionalMomentsRow1.length];
-                  return (
-                    <div
-                      key={`m1-${photo.id}-${idx}`}
-                      onClick={() => onSelectPhoto(photo)}
-                      className={`group relative shrink-0 overflow-hidden rounded-[18px] sm:rounded-[22px] border border-white/15 bg-white/5 cursor-pointer transition-all duration-500 hover:scale-[1.03] hover:border-[#ff3333] shadow-2xl ${
-                        idx % 3 === 0
-                          ? 'w-[170px] sm:w-[235px] h-[225px] sm:h-[305px] mt-2'
-                          : idx % 3 === 1
-                          ? 'w-[200px] sm:w-[275px] h-[240px] sm:h-[325px]'
-                          : 'w-[180px] sm:w-[250px] h-[220px] sm:h-[295px] mt-4'
-                      }`}
-                    >
-                      <img
-                        src={photo.imageUrl}
-                        alt={photo.title}
-                        loading="lazy"
-                        decoding="async"
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                        referrerPolicy="no-referrer"
-                      />
-                      <div
-                        className="pointer-events-none absolute inset-0 opacity-60 group-hover:opacity-90 transition-opacity"
-                        style={{
-                          background: 'linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.85) 100%)',
-                        }}
-                      />
-                      <div className="absolute inset-x-0 bottom-0 p-3.5 sm:p-4 text-white">
-                        <span
-                          className="text-xs sm:text-sm text-[#ff5555] block leading-none mb-1 drop-shadow"
-                          style={{ fontFamily: 'var(--font-script)' }}
-                        >
-                          {photo.couple}
-                        </span>
-                        <span className="text-[11px] sm:text-xs text-white/95 font-medium leading-snug line-clamp-2 block drop-shadow">
-                          {storyMoment}
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })}
+                {Array.from({ length: 6 }).map((_, rIdx) => (
+                  <span key={`r-top-${rIdx}`} className="flex items-center gap-3 px-4 shrink-0">
+                    <span>★</span>
+                    <span>TIMELESS MEMORIES IN MOTION</span>
+                    <span className="opacity-60">·</span>
+                    <span>MASOOM STUDIO WEDDINGS</span>
+                    <span className="opacity-60">·</span>
+                    <span>REAL UNFILTERED EMOTIONS</span>
+                    <span className="opacity-60">·</span>
+                    <span>PATNA, BIHAR &amp; ACROSS INDIA</span>
+                    <span className="opacity-60">·</span>
+                    <span>EVERY UNPOSED TEAR &amp; STOLEN GLANCE</span>
+                    <span className="opacity-60">·</span>
+                  </span>
+                ))}
               </div>
             </div>
 
-            {/* Row 2 */}
-            <div className="relative w-full overflow-hidden py-1">
+            {/* Center Moving Photo Strips (Inclined along with the ribbons, interactive scroll translation) */}
+            <div className="space-y-3 sm:space-y-4 py-1">
+              {/* Row 1 */}
+              <div className="relative w-full overflow-hidden py-1">
+                <div
+                  ref={movingRowOneRef}
+                  className="flex gap-3.5 sm:gap-5 px-3 w-max will-change-transform"
+                  style={{
+                    transform: 'translate3d(0px, 0, 0)',
+                  }}
+                >
+                  {rowOnePhotos.map((photo, idx) => {
+                    const storyMoment = emotionalMomentsRow1[idx % emotionalMomentsRow1.length];
+                    return (
+                      <div
+                        key={`m1-${photo.id}-${idx}`}
+                        onClick={() => onSelectPhoto(photo)}
+                        className={`group relative shrink-0 overflow-hidden rounded-[18px] sm:rounded-[22px] border border-white/15 bg-white/5 cursor-pointer transition-all duration-500 hover:scale-[1.03] hover:border-[#ff3333] shadow-2xl ${
+                          idx % 3 === 0
+                            ? 'w-[170px] sm:w-[235px] h-[225px] sm:h-[305px] mt-2'
+                            : idx % 3 === 1
+                            ? 'w-[200px] sm:w-[275px] h-[240px] sm:h-[325px]'
+                            : 'w-[180px] sm:w-[250px] h-[220px] sm:h-[295px] mt-4'
+                        }`}
+                      >
+                        <img
+                          src={photo.imageUrl}
+                          alt={photo.title}
+                          loading="lazy"
+                          decoding="async"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                          referrerPolicy="no-referrer"
+                        />
+                        <div
+                          className="pointer-events-none absolute inset-0 opacity-60 group-hover:opacity-90 transition-opacity"
+                          style={{
+                            background: 'linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.85) 100%)',
+                          }}
+                        />
+                        <div className="absolute inset-x-0 bottom-0 p-3.5 sm:p-4 text-white">
+                          <span
+                            className="text-xs sm:text-sm text-[#ff5555] block leading-none mb-1 drop-shadow"
+                            style={{ fontFamily: 'var(--font-script)' }}
+                          >
+                            {photo.couple}
+                          </span>
+                          <span className="text-[11px] sm:text-xs text-white/95 font-medium leading-snug line-clamp-2 block drop-shadow">
+                            {storyMoment}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Row 2 */}
+              <div className="relative w-full overflow-hidden py-1">
+                <div
+                  ref={movingRowTwoRef}
+                  className="flex gap-3.5 sm:gap-5 px-3 w-max will-change-transform"
+                  style={{
+                    transform: 'translate3d(-750px, 0, 0)',
+                  }}
+                >
+                  {rowTwoPhotos.map((photo, idx) => {
+                    const storyMoment = emotionalMomentsRow2[idx % emotionalMomentsRow2.length];
+                    return (
+                      <div
+                        key={`m2-${photo.id}-${idx}`}
+                        onClick={() => onSelectPhoto(photo)}
+                        className={`group relative shrink-0 overflow-hidden rounded-[18px] sm:rounded-[22px] border border-white/15 bg-white/5 cursor-pointer transition-all duration-500 hover:scale-[1.03] hover:border-[#ff3333] shadow-2xl ${
+                          idx % 2 === 0
+                            ? 'w-[190px] sm:w-[260px] h-[220px] sm:h-[295px]'
+                            : 'w-[170px] sm:w-[235px] h-[235px] sm:h-[315px] mt-3'
+                        }`}
+                      >
+                        <img
+                          src={photo.imageUrl}
+                          alt={photo.title}
+                          loading="lazy"
+                          decoding="async"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                          referrerPolicy="no-referrer"
+                        />
+                        <div
+                          className="pointer-events-none absolute inset-0 opacity-60 group-hover:opacity-90 transition-opacity"
+                          style={{
+                            background: 'linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.85) 100%)',
+                          }}
+                        />
+                        <div className="absolute inset-x-0 bottom-0 p-3.5 sm:p-4 text-white">
+                          <span
+                            className="text-xs sm:text-sm text-[#ff5555] block leading-none mb-1 drop-shadow"
+                            style={{ fontFamily: 'var(--font-script)' }}
+                          >
+                            {photo.couple}
+                          </span>
+                          <span className="text-[11px] sm:text-xs text-white/95 font-medium leading-snug line-clamp-2 block drop-shadow">
+                            {storyMoment}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Moving Red Ribbon (Theme-aligned flat red, not glossy, opposing scroll direction) */}
+            <div className="w-full bg-[#ff3333] text-white py-2 sm:py-2.5 overflow-hidden shadow-md">
               <div
-                ref={movingRowTwoRef}
-                className="flex gap-3.5 sm:gap-5 px-3 w-max will-change-transform"
+                ref={ribbonBottomRef}
+                className="flex whitespace-nowrap items-center text-[10px] sm:text-xs font-semibold tracking-[0.24em] uppercase will-change-transform text-white"
                 style={{
-                  transform: 'translate3d(-750px, 0, 0)',
+                  transform: 'translate3d(-900px, 0, 0)',
                 }}
               >
-                {rowTwoPhotos.map((photo, idx) => {
-                  const storyMoment = emotionalMomentsRow2[idx % emotionalMomentsRow2.length];
-                  return (
-                    <div
-                      key={`m2-${photo.id}-${idx}`}
-                      onClick={() => onSelectPhoto(photo)}
-                      className={`group relative shrink-0 overflow-hidden rounded-[18px] sm:rounded-[22px] border border-white/15 bg-white/5 cursor-pointer transition-all duration-500 hover:scale-[1.03] hover:border-[#ff3333] shadow-2xl ${
-                        idx % 2 === 0
-                          ? 'w-[190px] sm:w-[260px] h-[220px] sm:h-[295px]'
-                          : 'w-[170px] sm:w-[235px] h-[235px] sm:h-[315px] mt-3'
-                      }`}
-                    >
-                      <img
-                        src={photo.imageUrl}
-                        alt={photo.title}
-                        loading="lazy"
-                        decoding="async"
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                        referrerPolicy="no-referrer"
-                      />
-                      <div
-                        className="pointer-events-none absolute inset-0 opacity-60 group-hover:opacity-90 transition-opacity"
-                        style={{
-                          background: 'linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.85) 100%)',
-                        }}
-                      />
-                      <div className="absolute inset-x-0 bottom-0 p-3.5 sm:p-4 text-white">
-                        <span
-                          className="text-xs sm:text-sm text-[#ff5555] block leading-none mb-1 drop-shadow"
-                          style={{ fontFamily: 'var(--font-script)' }}
-                        >
-                          {photo.couple}
-                        </span>
-                        <span className="text-[11px] sm:text-xs text-white/95 font-medium leading-snug line-clamp-2 block drop-shadow">
-                          {storyMoment}
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })}
+                {Array.from({ length: 6 }).map((_, rIdx) => (
+                  <span key={`r-bot-${rIdx}`} className="flex items-center gap-3 px-4 shrink-0">
+                    <span>★</span>
+                    <span>CELEBRATING REAL LOVE STORIES</span>
+                    <span className="opacity-60">·</span>
+                    <span>UNCHOREOGRAPHED LAUGHTER &amp; SACRED VOWS</span>
+                    <span className="opacity-60">·</span>
+                    <span>VIBRANT, FUN &amp; DEEPLY EMOTIONAL</span>
+                    <span className="opacity-60">·</span>
+                    <span>PATNA · BIHAR · ALL INDIA DESTINATIONS</span>
+                    <span className="opacity-60">·</span>
+                    <span>TIMELESS FAMILY HEIRLOOMS</span>
+                    <span className="opacity-60">·</span>
+                  </span>
+                ))}
               </div>
-            </div>
-          </div>
-
-          {/* Bottom Moving Glossy Red Ribbon (Opposing Scroll Direction) */}
-          <div
-            className="w-full relative z-20 select-none overflow-hidden"
-            style={{
-              background: 'linear-gradient(180deg, #ff3b30 0%, #ee1414 30%, #c40000 68%, #8e0000 100%)',
-              boxShadow: 'inset 0 1.5px 2px rgba(255, 255, 255, 0.75), inset 0 -2px 4px rgba(0, 0, 0, 0.55), 0 -6px 20px rgba(220, 20, 20, 0.45)',
-              borderTop: '1px solid rgba(255, 255, 255, 0.55)',
-              borderBottom: '1px solid rgba(0, 0, 0, 0.65)',
-            }}
-          >
-            {/* Satin Sheen Reflection Highlight */}
-            <div
-              className="pointer-events-none absolute inset-0 z-10"
-              style={{
-                background: 'linear-gradient(180deg, rgba(255,255,255,0.48) 0%, rgba(255,255,255,0.16) 45%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.25) 100%)',
-              }}
-            />
-
-            <div
-              ref={ribbonBottomRef}
-              className="flex whitespace-nowrap items-center text-[11px] sm:text-xs font-semibold tracking-[0.24em] uppercase py-2 sm:py-2.5 will-change-transform text-white"
-              style={{
-                transform: 'translate3d(-900px, 0, 0)',
-                textShadow: '0 1px 2px rgba(0,0,0,0.7), 0 0 12px rgba(255,255,255,0.3)',
-              }}
-            >
-              {Array.from({ length: 6 }).map((_, rIdx) => (
-                <span key={`r-bot-${rIdx}`} className="flex items-center gap-3 px-4 shrink-0">
-                  <span className="text-amber-200">♥</span>
-                  <span>CELEBRATING REAL LOVE STORIES</span>
-                  <span className="opacity-60">·</span>
-                  <span>UNCHOREOGRAPHED LAUGHTER &amp; SACRED VOWS</span>
-                  <span className="opacity-60">·</span>
-                  <span>VIBRANT, FUN &amp; DEEPLY EMOTIONAL</span>
-                  <span className="opacity-60">·</span>
-                  <span>PATNA · BIHAR · ALL INDIA DESTINATIONS</span>
-                  <span className="opacity-60">·</span>
-                  <span>LIVING FAMILY HEIRLOOMS</span>
-                  <span className="opacity-60">·</span>
-                </span>
-              ))}
             </div>
           </div>
         </div>
