@@ -110,7 +110,7 @@ export default function MasoomStudioTwfPage() {
           - Full width on Smartphone (ml-1.5) when left menu is collapsed
           - Offset on Tablet (sm:ml-[172px]) & Desktop (lg:ml-[214px])
          =================================================================== */}
-      <div className="ml-1.5 mr-1.5 sm:mr-2.5 lg:mr-3 my-1.5 sm:my-2.5 lg:my-3 transition-all duration-300">
+      <div className="ml-1.5 sm:ml-[172px] lg:ml-[214px] mr-1.5 sm:mr-2.5 lg:mr-3 my-1.5 sm:my-2.5 lg:my-3 transition-all duration-300">
         <main className="bg-[#f8f8f7] text-[#111111] rounded-[18px] sm:rounded-[24px] min-h-[calc(100vh-12px)] sm:min-h-[calc(100vh-20px)] lg:min-h-[calc(100vh-24px)] overflow-hidden shadow-2xl flex flex-col justify-between">
           {/* Smooth Animated Page Content Transition when Switching Menus */}
           <AnimatePresence mode="wait" initial={false}>
@@ -126,7 +126,7 @@ export default function MasoomStudioTwfPage() {
               className="w-full"
             >
               {activePage === 'home' ? (
-                <div className="p-2 sm:p-4 lg:p-5 sm:pl-[180px] lg:pl-[225px] space-y-6 sm:space-y-10">
+                <div className="p-2 sm:p-4 lg:p-5 space-y-6 sm:space-y-10">
                   {/* 1. Muted Looping Video Taking the Entire Header (Fills Video Box Completely) */}
                   <TwfHeroSlider
                     onPlayFilm={(film) => setActiveFilm(film)}
@@ -143,7 +143,7 @@ export default function MasoomStudioTwfPage() {
                   />
                 </div>
               ) : (
-                <div className="p-2 sm:p-4 lg:p-5 sm:pl-[180px] lg:pl-[225px]">
+                <div className="p-2 sm:p-4 lg:p-5">
                   <TwfInnerPages
                     activePage={activePage}
                     searchQuery={searchQuery}
@@ -159,7 +159,7 @@ export default function MasoomStudioTwfPage() {
           </AnimatePresence>
 
           {/* 3. Transparent Content Footer Video Box + Big Logo & Modals (Leaves same border space as header) */}
-          <div className="px-2 sm:px-4 lg:px-5 sm:pl-[180px] lg:pl-[225px] pb-2 sm:pb-4 lg:pb-5">
+          <div className="px-2 sm:px-4 lg:px-5 pb-2 sm:pb-4 lg:pb-5">
             <TwfFooterAndModals
               onNavigate={handleNavigate}
               activeFilm={activeFilm}
