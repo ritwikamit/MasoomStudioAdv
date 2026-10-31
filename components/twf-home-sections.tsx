@@ -273,20 +273,22 @@ export function TwfHomeSections({
       rafId = null;
       const y = window.scrollY || document.documentElement.scrollTop || 0;
       if (movingRowOneRef.current) {
-        const x1 = -((y * 0.38) % 1200);
+        const x1 = -((y * 0.38) % 2400);
         movingRowOneRef.current.style.transform = `translate3d(${x1.toFixed(1)}px, 0, 0)`;
       }
       if (movingRowTwoRef.current) {
-        const x2 = ((y * 0.34) % 1200) - 600;
+        // Base starting offset of -2800px ensures that even as the row translates right,
+        // the left edge is ALWAYS packed with photos far past the screen edge!
+        const x2 = -2800 + ((y * 0.38) % 2400);
         movingRowTwoRef.current.style.transform = `translate3d(${x2.toFixed(1)}px, 0, 0)`;
       }
-      // Glossy Red Ribbons: physical horizontal glide driven directly by page scrolling
+      // Ribbons glide with scroll
       if (ribbonTopRef.current) {
-        const rx1 = -((y * 0.72) % 1800);
+        const rx1 = -((y * 0.65) % 2400);
         ribbonTopRef.current.style.transform = `translate3d(${rx1.toFixed(1)}px, 0, 0)`;
       }
       if (ribbonBottomRef.current) {
-        const rx2 = ((y * 0.72) % 1800) - 900;
+        const rx2 = -2800 + ((y * 0.65) % 2400);
         ribbonBottomRef.current.style.transform = `translate3d(${rx2.toFixed(1)}px, 0, 0)`;
       }
     };
@@ -344,14 +346,18 @@ export function TwfHomeSections({
     });
   };
 
-  // Curated fast-loading Marquee Photo Strips (8 unique photos x 2 for lightweight GPU compositing)
+  // Dense 4x multi-repetition photo strips to guarantee continuous full-bleed density with ZERO gaps
   const rowOnePhotos = [
-    ...GALLERY_PHOTOS.slice(0, 8),
-    ...GALLERY_PHOTOS.slice(0, 8),
+    ...GALLERY_PHOTOS,
+    ...GALLERY_PHOTOS,
+    ...GALLERY_PHOTOS,
+    ...GALLERY_PHOTOS,
   ];
   const rowTwoPhotos = [
-    ...SIGNATURE_FRAMES.slice(0, 8),
-    ...SIGNATURE_FRAMES.slice(0, 8),
+    ...SIGNATURE_FRAMES,
+    ...SIGNATURE_FRAMES,
+    ...SIGNATURE_FRAMES,
+    ...SIGNATURE_FRAMES,
   ];
 
   const currentGratitude = GRATITUDE_NOTES[gratitudeIndex];
@@ -644,11 +650,11 @@ export function TwfHomeSections({
           </div>
         </div>
 
-        {/* Full Lateral Screen Sides Moving Showcase (NO Box - Just Photos & Ribbons Edge-to-Edge) */}
-        <div className="-mx-2 sm:-mx-4 lg:-mx-5 w-[calc(100%+16px)] sm:w-[calc(100%+32px)] lg:w-[calc(100%+40px)] overflow-hidden py-3 sm:py-6 my-2 select-none relative">
+        {/* Full Lateral Screen Sides Moving Showcase (NO Box - Edge-to-Edge Across the Screen & Behind Hollow Left Menu) */}
+        <div className="-ml-[8px] sm:-ml-[180px] lg:-ml-[225px] -mr-2 sm:-mr-4 lg:-mr-5 w-[calc(100%+16px)] sm:w-[calc(100%+196px)] lg:w-[calc(100%+245px)] overflow-hidden py-3 sm:py-6 my-2 select-none relative">
           
           {/* Dynamic Inclined Showcase: Both ribbons & photos tilted together */}
-          <div className="w-[114%] -ml-[7%] -rotate-[2deg] sm:-rotate-[2.2deg] space-y-4 sm:space-y-6">
+          <div className="w-[124%] -ml-[12%] -rotate-[2deg] sm:-rotate-[2.2deg] space-y-4 sm:space-y-6">
             
             {/* Top Moving Red Ribbon with Moving Text */}
             <div className="w-full bg-[#ff3333] text-white py-2 sm:py-2.5 overflow-hidden shadow-sm">
@@ -806,7 +812,7 @@ export function TwfHomeSections({
               <div
                 ref={ribbonBottomRef}
                 className="will-change-transform"
-                style={{ transform: 'translate3d(-900px, 0, 0)' }}
+                style={{ transform: 'translate3d(-2800px, 0, 0)' }}
               >
                 <div className="animate-marquee-right flex whitespace-nowrap items-center text-[11px] sm:text-xs font-semibold tracking-[0.24em] uppercase text-white will-change-transform">
                   <span className="flex items-center gap-3 px-4 shrink-0">

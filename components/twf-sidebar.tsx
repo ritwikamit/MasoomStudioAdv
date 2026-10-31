@@ -157,9 +157,14 @@ export function TwfSidebar({
           - Permanently docked on Tablet (sm:w-[172px]) & Desktop (lg:w-[214px])
          =================================================================== */}
       <aside
-        className={`fixed top-0 left-0 bottom-0 h-[100dvh] w-[224px] sm:w-[172px] lg:w-[214px] bg-[#070707] text-white z-50 sm:z-40 flex flex-col justify-between py-3 sm:py-3.5 lg:py-4 select-none transition-transform duration-300 ease-out shadow-2xl sm:shadow-none border-r border-white/10 sm:border-r-0 ${
+        className={`fixed top-0 left-0 bottom-0 h-[100dvh] w-[224px] sm:w-[172px] lg:w-[214px] text-white z-50 sm:z-40 flex flex-col justify-between py-3 sm:py-3.5 lg:py-4 select-none transition-transform duration-300 ease-out shadow-2xl border-r border-white/15 ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'
         }`}
+        style={{
+          backgroundColor: 'rgba(7, 7, 7, 0.25)',
+          backdropFilter: 'blur(14px)',
+          WebkitBackdropFilter: 'blur(14px)',
+        }}
       >
         {/* TOP: TRANSPARENT LOGO ONLY (No Texts, No Background) + MOBILE COLLAPSE BTN + SEARCH */}
         <div className="px-3 sm:px-3 lg:px-3.5 shrink-0 flex flex-col items-stretch">
@@ -361,10 +366,10 @@ export function TwfSidebar({
           </div>
         </div>
 
-        {/* CENTER NAVIGATION MENU: Pure White Texts + Seamless Gliding TWF Active Tab Fillet Curves */}
-        <nav className="my-2 flex-1 min-h-0 overflow-visible pl-3 sm:pl-2.5 lg:pl-3 pr-0 flex flex-col justify-center">
+        {/* CENTER NAVIGATION MENU: Pure White Texts + Hollow Glass Active Tab */}
+        <nav className="my-2 flex-1 min-h-0 overflow-visible px-2 sm:px-2 lg:px-2.5 flex flex-col justify-center">
           <div className="relative flex flex-col gap-[4px] overflow-visible">
-            {/* Single Persistent Gliding Active Tab Pill (Zero Opacity Cross-Fade = Zero Seam Line) */}
+            {/* Single Persistent Gliding Active Tab Glass Pill */}
             <motion.div
               initial={false}
               animate={{
@@ -376,36 +381,8 @@ export function TwfSidebar({
                 damping: 34,
                 mass: 0.55,
               }}
-              className="absolute top-0 left-0 -right-[2px] h-[38px] bg-[#f8f8f7] rounded-l-[16px] sm:rounded-l-[18px] pointer-events-none z-0 overflow-visible will-change-transform"
-            >
-              {/* TWF Signature Inverted Top Fillet Curve */}
-              <svg
-                viewBox="0 0 14 15"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="hidden sm:block absolute right-0 -top-[13.5px] w-[14px] h-[15px] pointer-events-none"
-                shapeRendering="geometricPrecision"
-              >
-                <path
-                  d="M 0 15 L 14 15 L 14 0 A 14 14 0 0 1 0 14 Z"
-                  fill="#f8f8f7"
-                />
-              </svg>
-
-              {/* TWF Signature Inverted Bottom Fillet Curve */}
-              <svg
-                viewBox="0 0 14 15"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="hidden sm:block absolute right-0 -bottom-[13.5px] w-[14px] h-[15px] pointer-events-none"
-                shapeRendering="geometricPrecision"
-              >
-                <path
-                  d="M 0 0 L 14 0 L 14 15 A 14 14 0 0 0 0 1 Z"
-                  fill="#f8f8f7"
-                />
-              </svg>
-            </motion.div>
+              className="absolute top-0 left-0 right-0 h-[38px] bg-white/15 backdrop-blur-md rounded-xl pointer-events-none z-0 border border-white/20 will-change-transform shadow-sm"
+            />
 
             {NAV_ITEMS.map((item) => {
               const Icon = item.icon;
@@ -415,16 +392,16 @@ export function TwfSidebar({
                   key={item.id}
                   type="button"
                   onClick={() => handleNavClick(item.id)}
-                  className={`relative z-10 w-full h-[38px] flex flex-row items-center justify-between px-3 lg:px-3.5 rounded-l-[16px] sm:rounded-l-[18px] transition-colors duration-200 cursor-pointer ${
+                  className={`relative z-10 w-full h-[38px] flex flex-row items-center justify-between px-3 lg:px-3.5 rounded-xl transition-colors duration-200 cursor-pointer ${
                     isActive
-                      ? 'text-[#111111] font-semibold'
-                      : 'text-white/90 hover:text-white hover:bg-white/[0.06]'
+                      ? 'text-white font-semibold'
+                      : 'text-white/80 hover:text-white hover:bg-white/[0.08]'
                   }`}
                 >
                   <span className="flex flex-row items-center gap-2.5 min-w-0">
                     <Icon
                       className={`w-4 h-4 shrink-0 transition-transform duration-300 ${
-                        isActive ? 'text-[#ff3333] scale-105' : 'text-white'
+                        isActive ? 'text-[#ff3333] scale-105' : 'text-white/80'
                       }`}
                     />
                     <span className="text-xs sm:text-[11px] lg:text-[12px] tracking-[0.02em] leading-none truncate">
@@ -441,12 +418,12 @@ export function TwfSidebar({
             BOTTOM BOX: "We'd love to hear your story!" WITH SLOW CRIMSON TRAIL BORDER
            =================================================================== */}
         <div className="px-3 sm:px-2.5 lg:px-3.5 shrink-0">
-          <div className="relative rounded-2xl p-[2px] overflow-hidden bg-[#1a0a0a] shadow-[0_0_25px_rgba(255,51,51,0.16)]">
+          <div className="relative rounded-2xl p-[2px] overflow-hidden bg-black/40 backdrop-blur-md shadow-[0_0_20px_rgba(255,51,51,0.15)] border border-white/10">
             {/* Animated Slow-Moving Crimson Glowing Trail Border (No White) */}
             <div className="trail-border-spinner" aria-hidden="true" />
 
             {/* Inner Content Box */}
-            <div className="relative z-10 p-3 rounded-[14px] bg-[#0e0e10]/95 backdrop-blur-xl space-y-2.5">
+            <div className="relative z-10 p-3 rounded-[14px] bg-black/60 backdrop-blur-md space-y-2.5">
               <p
                 className="text-base sm:text-sm lg:text-base text-white/95 leading-snug text-center"
                 style={{ fontFamily: 'var(--font-script)' }}
