@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import * as THREE from 'three';
-import { MapPin, RotateCcw, Navigation } from 'lucide-react';
+import { MapPin, RotateCcw, Globe2, ArrowUpRight, ZoomIn } from 'lucide-react';
 import { STUDIO_INFO } from '@/lib/masoom-data';
 
 interface TwfRealisticGlobeProps {
@@ -13,17 +13,117 @@ const MASOOM_STUDIO_COORDS = {
   lat: 25.6063075,
   lng: 85.0820087,
   name: 'Masoom Studio',
-  subtitle: 'Pillar No. 42, Bailey Road · Patna, Bihar',
 };
 
 export function TwfRealisticGlobe({ onOpenQuickEnquire }: TwfRealisticGlobeProps) {
   const globeVizRef = useRef<HTMLDivElement | null>(null);
   const zoomFeatherOverlayRef = useRef<HTMLDivElement | null>(null);
+
+  const [isRealMap, setIsRealMap] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const isRealMapRef = useRef(false);
+  const isTransitioningRef = useRef(false);
+
   const worldInstanceRef = useRef<{
     width: (w: number) => { height: (h: number) => void };
     pointOfView: (pov: { lat: number; lng: number; altitude: number }, ms?: number) => void;
+    controls: () => any;
+    camera: () => any;
+    lights: () => any[];
+    globeMaterial: () => any;
+    pauseAnimation?: () => void;
+    resumeAnimation?: () => void;
     _destructor?: () => void;
   } | null>(null);
+
+  // Stable callback refs for globe listeners and HTML elements
+  const triggerTransitionToRealMapRef = useRef<() => void>(() => {});
+  const triggerTransitionToGlobeRef = useRef<() => void>(() => {});
+
+  const triggerTransitionToRealMap = useCallback(() => {
+    if (isTransitioningRef.current || isRealMapRef.current) return;
+    isTransitioningRef.current = true;
+    setIsTransitioning(true);
+
+    if (worldInstanceRef.current) {
+      const controls = worldInstanceRef.current.controls();
+      if (controls) {
+        controls.autoRotate = false;
+      }
+      // Swoop camera smoothly directly into Masoom Studio in Patna
+      worldInstanceRef.current.pointOfView(
+        {
+          lat: MASOOM_STUDIO_COORDS.lat,
+          lng: MASOOM_STUDIO_COORDS.lng,
+          altitude: 0.1,
+        },
+        900
+      );
+    }
+
+    // Midway through camera fly-in, smoothly dissolve into the real map view
+    setTimeout(() => {
+      setIsRealMap(true);
+      isRealMapRef.current = true;
+    }, 450);
+
+    setTimeout(() => {
+      setIsTransitioning(false);
+      isTransitioningRef.current = false;
+    }, 1000);
+  }, []);
+
+  const triggerTransitionToGlobe = useCallback(() => {
+    if (isTransitioningRef.current || !isRealMapRef.current) return;
+    isTransitioningRef.current = true;
+    setIsTransitioning(true);
+    setIsRealMap(false);
+    isRealMapRef.current = false;
+
+    if (worldInstanceRef.current) {
+      // Zoom camera back out from Patna into orbital view over India
+      worldInstanceRef.current.pointOfView(
+        {
+          lat: MASOOM_STUDIO_COORDS.lat,
+          lng: MASOOM_STUDIO_COORDS.lng,
+          altitude: 1.55,
+        },
+        1100
+      );
+      const controls = worldInstanceRef.current.controls();
+      if (controls) {
+        setTimeout(() => {
+          if (!isRealMapRef.current) {
+            controls.autoRotate = true;
+          }
+        }, 1400);
+      }
+    }
+
+    setTimeout(() => {
+      setIsTransitioning(false);
+      isTransitioningRef.current = false;
+    }, 1100);
+  }, []);
+
+  triggerTransitionToRealMapRef.current = triggerTransitionToRealMap;
+  triggerTransitionToGlobeRef.current = triggerTransitionToGlobe;
+
+  const handleResetOrbit = useCallback(() => {
+    if (isRealMapRef.current) {
+      triggerTransitionToGlobe();
+      return;
+    }
+    if (!worldInstanceRef.current) return;
+    worldInstanceRef.current.pointOfView(
+      {
+        lat: MASOOM_STUDIO_COORDS.lat,
+        lng: MASOOM_STUDIO_COORDS.lng,
+        altitude: 1.55,
+      },
+      900
+    );
+  }, [triggerTransitionToGlobe]);
 
   useEffect(() => {
     const container = globeVizRef.current;
@@ -44,8 +144,7 @@ export function TwfRealisticGlobe({ onOpenQuickEnquire }: TwfRealisticGlobeProps
       // Clear any previous DOM child inside mount container
       container.innerHTML = '';
 
-      // Initialize globe.gl using https://globe.gl/example/custom-globe-styling/
-      // with transparent background so the 3D globe floats completely box-less
+      // Initialize globe.gl with transparent background for pure floating 3D globe
       const world = new Globe(container, {
         animateIn: true,
         rendererConfig: { antialias: true, alpha: true },
@@ -58,99 +157,56 @@ export function TwfRealisticGlobe({ onOpenQuickEnquire }: TwfRealisticGlobeProps
         .showAtmosphere(true)
         .atmosphereColor('#3a82f6')
         .atmosphereAltitude(0.14)
-        // 1. Pulsing Radar Rings at Masoom Studio (Patna, Bihar)
-        .ringsData([MASOOM_STUDIO_COORDS])
-        .ringLat('lat')
-        .ringLng('lng')
-        .ringColor(() => (t: number) => `rgba(255, 51, 51, ${Math.max(0, 1 - t)})`)
-        .ringMaxRadius(6.5)
-        .ringPropagationSpeed(2.4)
-        .ringRepeatPeriod(850)
-        // 2. 3D Point Beacon at Masoom Studio
-        .pointsData([MASOOM_STUDIO_COORDS])
-        .pointLat('lat')
-        .pointLng('lng')
-        .pointColor(() => '#ff3333')
-        .pointAltitude(0.035)
-        .pointRadius(0.55)
-        // 3. Crisp 3D Surface Label for Masoom Studio
-        .labelsData([
-          {
-            lat: MASOOM_STUDIO_COORDS.lat,
-            lng: MASOOM_STUDIO_COORDS.lng,
-            text: 'Masoom Studio · Patna',
-          },
-        ])
-        .labelLat('lat')
-        .labelLng('lng')
-        .labelText('text')
-        .labelSize(1.55)
-        .labelDotRadius(0.55)
-        .labelColor(() => '#ffffff')
-        .labelAltitude(0.04)
-        .labelResolution(3)
-        // 4. Interactive HTML Pin Callout Anchored to Masoom Studio on the Globe
+        // Clean Location Pin anchored to Masoom Studio on the Globe
+        // NO cylinders, NO beacon dots, NO text labels on the globe
         .htmlElementsData([MASOOM_STUDIO_COORDS])
         .htmlLat('lat')
         .htmlLng('lng')
-        .htmlAltitude(0.05)
+        .htmlAltitude(0.012)
         .htmlElement(() => {
-          const wrapper = document.createElement('div');
-          wrapper.style.pointerEvents = 'auto';
-          wrapper.style.cursor = 'pointer';
-          wrapper.style.transform = 'translate(-50%, -130%)';
-          wrapper.title = 'Open Masoom Studio in Google Maps';
+          const pinWrapper = document.createElement('div');
+          pinWrapper.style.cursor = 'pointer';
+          pinWrapper.style.pointerEvents = 'auto';
+          pinWrapper.title = 'Masoom Studio · Click to zoom in to real map';
 
-          wrapper.innerHTML = `
+          pinWrapper.innerHTML = `
             <div style="
-              display: flex;
-              align-items: center;
-              gap: 8px;
-              padding: 6px 11px;
-              border-radius: 9999px;
-              background: rgba(12, 12, 16, 0.9);
-              backdrop-filter: blur(10px);
-              border: 1.5px solid rgba(255, 51, 51, 0.85);
-              box-shadow: 0 8px 24px rgba(0, 0, 0, 0.32);
-              color: #ffffff;
-              font-family: system-ui, -apple-system, sans-serif;
-              white-space: nowrap;
-            ">
-              <span style="
-                width: 9px;
-                height: 9px;
-                border-radius: 9999px;
-                background: #ff3333;
-                box-shadow: 0 0 10px #ff3333;
-                display: inline-block;
-                flex-shrink: 0;
-              "></span>
-              <div style="line-height: 1.15; text-align: left;">
-                <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.02em; color: #ffffff;">
-                  Masoom Studio
-                </div>
-                <div style="font-size: 9px; color: rgba(255, 255, 255, 0.8);">
-                  Bailey Road, Patna · Bihar
-                </div>
-              </div>
+              position: relative;
+              transform: translate(-50%, -100%);
+              transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.22s ease;
+              filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.55));
+              cursor: pointer;
+            " class="masoom-globe-pin-marker">
+              <svg width="28" height="38" viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 0C5.37258 0 0 5.37258 0 12C0 20.25 10.35 30.7 11.45 31.78C11.75 32.07 12.25 32.07 12.55 31.78C13.65 30.7 24 20.25 24 12C24 5.37258 18.6274 0 12 0Z" fill="#ff3333"/>
+                <circle cx="12" cy="11.5" r="4.2" fill="#ffffff"/>
+              </svg>
             </div>
           `;
 
-          wrapper.onclick = (e) => {
-            e.stopPropagation();
-            const link = document.createElement('a');
-            link.href = STUDIO_INFO.mapsUrl;
-            link.target = '_blank';
-            link.rel = 'noopener noreferrer';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+          const marker = pinWrapper.querySelector('.masoom-globe-pin-marker') as HTMLElement;
+          pinWrapper.onmouseenter = () => {
+            if (marker) {
+              marker.style.transform = 'translate(-50%, -100%) scale(1.22)';
+              marker.style.filter = 'drop-shadow(0 8px 18px rgba(255, 51, 51, 0.65))';
+            }
+          };
+          pinWrapper.onmouseleave = () => {
+            if (marker) {
+              marker.style.transform = 'translate(-50%, -100%) scale(1)';
+              marker.style.filter = 'drop-shadow(0 6px 14px rgba(0, 0, 0, 0.55))';
+            }
           };
 
-          return wrapper;
+          pinWrapper.onclick = (e) => {
+            e.stopPropagation();
+            triggerTransitionToRealMapRef.current();
+          };
+
+          return pinWrapper;
         });
 
-      // Custom globe material
+      // Custom globe material specular highlights
       const globeMaterial = world.globeMaterial() as THREE.MeshPhongMaterial;
       if (globeMaterial) {
         globeMaterial.bumpScale = 10;
@@ -164,7 +220,7 @@ export function TwfRealisticGlobe({ onOpenQuickEnquire }: TwfRealisticGlobeProps
         });
       }
 
-      // Change directional light position to see the specularMap's effect
+      // Position directional light for specular reflection
       const directionalLight = world
         .lights()
         .find((light: THREE.Light) => light.type === 'DirectionalLight');
@@ -182,9 +238,7 @@ export function TwfRealisticGlobe({ onOpenQuickEnquire }: TwfRealisticGlobeProps
         0
       );
 
-      // Configure smooth interactive OrbitControls:
-      // - NO fade at default size (dist >= 238)
-      // - Smooth circular radial fade ONLY when user zooms in (dist < 238 down to 120)
+      // Configure interactive OrbitControls with smooth zoom transition to real map
       const controls = world.controls();
       if (controls) {
         controls.autoRotate = true;
@@ -192,10 +246,10 @@ export function TwfRealisticGlobe({ onOpenQuickEnquire }: TwfRealisticGlobeProps
         controls.enableDamping = true;
         controls.dampingFactor = 0.07;
         controls.enableZoom = true;
-        controls.minDistance = 120;
+        controls.minDistance = 110;
         controls.maxDistance = 380;
 
-        const updateCircularZoomFade = () => {
+        const handleCameraChange = () => {
           const vizEl = globeVizRef.current;
           const featherEl = zoomFeatherOverlayRef.current;
           if (!vizEl) return;
@@ -203,8 +257,13 @@ export function TwfRealisticGlobe({ onOpenQuickEnquire }: TwfRealisticGlobeProps
           if (!cam) return;
           const dist = cam.position.length();
 
-          // Default altitude 1.55 corresponds to dist ~255.
-          // Keep the globe 100% crisp and unfaded at default size or zoomed out (dist >= 238).
+          // When the user zooms in close (dist < 142), smoothly transition to the real map location
+          if (dist < 142 && !isRealMapRef.current && !isTransitioningRef.current) {
+            triggerTransitionToRealMapRef.current();
+            return;
+          }
+
+          // Unfaded crisp globe at default or zoomed out altitude (dist >= 238)
           if (dist >= 238) {
             vizEl.style.webkitMaskImage = 'none';
             vizEl.style.maskImage = 'none';
@@ -214,9 +273,8 @@ export function TwfRealisticGlobe({ onOpenQuickEnquire }: TwfRealisticGlobeProps
             return;
           }
 
-          // User is zooming in (dist < 238 down to 120): progressively apply circular radial fade
-          const zoomRatio = Math.max(0, Math.min(1, (238 - dist) / (238 - 120)));
-          // Solid core starts wide (92%) when zoom begins and tightens smoothly (to 30%) at deep zoom
+          // User is zooming in: progressively apply smooth circular radial edge feathering
+          const zoomRatio = Math.max(0, Math.min(1, (238 - dist) / (238 - 135)));
           const solidCore = Math.round(92 - zoomRatio * 62);
           const midStop1 = Math.round(solidCore + (99 - solidCore) * 0.28);
           const midStop2 = Math.round(solidCore + (99 - solidCore) * 0.56);
@@ -231,8 +289,8 @@ export function TwfRealisticGlobe({ onOpenQuickEnquire }: TwfRealisticGlobeProps
           }
         };
 
-        updateCircularZoomFade();
-        controls.addEventListener('change', updateCircularZoomFade);
+        handleCameraChange();
+        controls.addEventListener('change', handleCameraChange);
 
         controls.addEventListener('start', () => {
           controls.autoRotate = false;
@@ -242,7 +300,9 @@ export function TwfRealisticGlobe({ onOpenQuickEnquire }: TwfRealisticGlobeProps
         controls.addEventListener('end', () => {
           if (resumeAutoRotateTimer) clearTimeout(resumeAutoRotateTimer);
           resumeAutoRotateTimer = setTimeout(() => {
-            controls.autoRotate = true;
+            if (!isRealMapRef.current) {
+              controls.autoRotate = true;
+            }
           }, 4500);
         });
       }
@@ -262,10 +322,7 @@ export function TwfRealisticGlobe({ onOpenQuickEnquire }: TwfRealisticGlobeProps
       visibilityObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            const w = worldInstanceRef.current as unknown as {
-              pauseAnimation?: () => void;
-              resumeAnimation?: () => void;
-            } | null;
+            const w = worldInstanceRef.current;
             if (!w) return;
             if (entry.isIntersecting) {
               w.resumeAnimation?.();
@@ -298,66 +355,161 @@ export function TwfRealisticGlobe({ onOpenQuickEnquire }: TwfRealisticGlobeProps
     };
   }, []);
 
-  const handleFocusMasoomStudio = useCallback(() => {
-    if (!worldInstanceRef.current) return;
-    worldInstanceRef.current.pointOfView(
-      {
-        lat: MASOOM_STUDIO_COORDS.lat,
-        lng: MASOOM_STUDIO_COORDS.lng,
-        altitude: 1.55,
-      },
-      1000
-    );
-  }, []);
-
   return (
     <div className="relative w-full flex flex-col items-center justify-center select-none">
-      {/* Box-less 3D Globe Stage: Unfaded at Default Size, Circularly Faded on Zoom-In */}
+      {/* 3D Globe & Real Map Combined Stage */}
       <div className="relative w-full aspect-square max-w-[380px] sm:max-w-[460px] lg:max-w-[520px] mx-auto flex items-center justify-center">
+        {/* Layer 1: Box-less 3D Realistic Globe */}
         <div
-          ref={globeVizRef}
-          className="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing"
-        />
+          className={`absolute inset-0 transition-all duration-700 ease-out flex items-center justify-center ${
+            isRealMap
+              ? 'opacity-0 pointer-events-none scale-105 filter blur-[2px]'
+              : 'opacity-100 pointer-events-auto scale-100 filter-none'
+          }`}
+        >
+          <div
+            ref={globeVizRef}
+            className="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing"
+          />
 
-        {/* Soft Circular Ambient Edge Feather — Hidden (opacity 0) at default size, fades in smoothly only when zooming in */}
+          {/* Soft Circular Ambient Edge Feather on Zoom-In */}
+          <div
+            ref={zoomFeatherOverlayRef}
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 transition-opacity duration-150"
+            style={{
+              opacity: 0,
+              background:
+                'radial-gradient(closest-side at 50% 50%, rgba(248,248,247,0) 48%, rgba(248,248,247,0.24) 70%, rgba(248,248,247,0.68) 87%, rgba(248,248,247,1) 99%)',
+            }}
+          />
+        </div>
+
+        {/* Layer 2: Real High-Detail Map of Masoom Studio (Cross-Fades in on Zoom) */}
         <div
-          ref={zoomFeatherOverlayRef}
+          className={`absolute inset-0 rounded-[24px] sm:rounded-[32px] overflow-hidden border border-black/10 shadow-2xl bg-[#f2efe9] transition-all duration-700 ease-out flex flex-col ${
+            isRealMap
+              ? 'opacity-100 pointer-events-auto scale-100 z-20'
+              : 'opacity-0 pointer-events-none scale-95 z-0'
+          }`}
+        >
+          {/* Top Bar Floating Badge & Return to Globe Button */}
+          <div className="absolute top-3 inset-x-3 z-10 flex items-center justify-between gap-2 pointer-events-none">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md shadow-md border border-black/10 text-xs text-[#111111] pointer-events-auto">
+              <span className="w-2 h-2 rounded-full bg-[#ff3333] animate-pulse shrink-0" />
+              <span className="font-semibold tracking-tight">Masoom Studio</span>
+              <span className="text-black/55 text-[10px] hidden sm:inline">
+                · Pillar No. 42, Bailey Road
+              </span>
+            </div>
+
+            <button
+              type="button"
+              onClick={triggerTransitionToGlobe}
+              aria-label="Return to 3D Globe View"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#111111] hover:bg-[#ff3333] text-white text-[10px] tracking-wider uppercase font-medium shadow-md transition-colors cursor-pointer pointer-events-auto"
+            >
+              <RotateCcw className="w-3 h-3" />
+              <span>3D Globe</span>
+            </button>
+          </div>
+
+          {/* Interactive Google Map Embed */}
+          <div className="w-full h-full relative bg-[#e5e3df]">
+            <iframe
+              title="Masoom Studio Patna Real Location Map"
+              src={STUDIO_INFO.mapsEmbedUrl}
+              className="w-full h-full border-0"
+              loading="lazy"
+              allowFullScreen
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+
+          {/* Bottom Bar Floating Location Info & External App Action */}
+          <div className="absolute bottom-3 inset-x-3 z-10 flex items-center justify-between gap-2 pointer-events-none">
+            <div className="text-[10px] font-medium text-black/75 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md shadow-sm border border-black/10 pointer-events-auto truncate max-w-[55%]">
+              📍 Bailey Road, near Paras Hospital
+            </div>
+
+            <a
+              href={STUDIO_INFO.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#ff3333] hover:bg-[#e02828] text-white text-[10px] font-medium tracking-wide shadow-md transition-colors pointer-events-auto cursor-pointer shrink-0"
+            >
+              <span>Open Google Maps</span>
+              <ArrowUpRight className="w-3 h-3" />
+            </a>
+          </div>
+        </div>
+
+        {/* Smooth Atmospheric Iris Flash during Zoom Transition */}
+        <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 transition-opacity duration-150"
+          className={`pointer-events-none absolute inset-0 rounded-[24px] sm:rounded-[32px] transition-opacity duration-500 z-30 ${
+            isTransitioning ? 'opacity-100' : 'opacity-0'
+          }`}
           style={{
-            opacity: 0,
             background:
-              'radial-gradient(closest-side at 50% 50%, rgba(248,248,247,0) 48%, rgba(248,248,247,0.24) 70%, rgba(248,248,247,0.68) 87%, rgba(248,248,247,1) 99%)',
+              'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%)',
           }}
         />
       </div>
 
-      {/* Minimal Floating Controls Below the Box-less Globe */}
-      <div className="mt-1 flex flex-wrap items-center justify-center gap-2 relative z-10">
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/5 text-[#111111]/70 text-[10px] tracking-wider uppercase">
-          <Navigation className="w-3 h-3 text-[#ff3333]" />
-          <span>Drag &amp; Zoom 3D Globe</span>
-        </span>
+      {/* Floating Action Controls Below Stage */}
+      <div className="mt-3 flex flex-wrap items-center justify-center gap-2 relative z-10">
+        {!isRealMap ? (
+          <>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/5 text-[#111111]/70 text-[10px] tracking-wider uppercase font-medium">
+              <ZoomIn className="w-3.5 h-3.5 text-[#ff3333]" />
+              <span>Scroll / Pinch to zoom into real map</span>
+            </span>
 
-        <button
-          type="button"
-          onClick={handleFocusMasoomStudio}
-          aria-label="Center on Masoom Studio Patna"
-          className="px-3.5 py-1 rounded-full bg-[#111111] hover:bg-[#ff3333] text-white text-[10px] tracking-wider uppercase font-medium inline-flex items-center gap-1.5 transition-colors cursor-pointer"
-        >
-          <RotateCcw className="w-3 h-3" />
-          <span>Focus Masoom Studio</span>
-        </button>
+            <button
+              type="button"
+              onClick={triggerTransitionToRealMap}
+              aria-label="Zoom in to Masoom Studio real map"
+              className="px-3.5 py-1.5 rounded-full bg-[#ff3333] hover:bg-[#e02828] active:scale-95 text-white text-[10px] tracking-wider uppercase font-medium inline-flex items-center gap-1.5 shadow-md shadow-[#ff3333]/25 transition-all cursor-pointer"
+            >
+              <MapPin className="w-3.5 h-3.5" />
+              <span>Zoom to Real Map</span>
+            </button>
 
-        <a
-          href={STUDIO_INFO.mapsUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-3.5 py-1 rounded-full bg-[#ff3333] hover:bg-[#e02828] text-white text-[10px] tracking-wider uppercase font-medium inline-flex items-center gap-1.5 transition-colors cursor-pointer"
-        >
-          <MapPin className="w-3 h-3" />
-          <span>Open Map</span>
-        </a>
+            <button
+              type="button"
+              onClick={handleResetOrbit}
+              aria-label="Reset 3D Globe"
+              className="px-3 py-1.5 rounded-full bg-[#111111] hover:bg-black text-white text-[10px] tracking-wider uppercase font-medium inline-flex items-center gap-1.5 transition-colors cursor-pointer"
+            >
+              <RotateCcw className="w-3 h-3" />
+              <span>Reset Orbit</span>
+            </button>
+          </>
+        ) : (
+          <>
+            <button
+              type="button"
+              onClick={triggerTransitionToGlobe}
+              aria-label="Back to 3D Globe"
+              className="px-4 py-1.5 rounded-full bg-[#111111] hover:bg-[#ff3333] active:scale-95 text-white text-[10px] tracking-wider uppercase font-medium inline-flex items-center gap-1.5 shadow-md transition-all cursor-pointer"
+            >
+              <Globe2 className="w-3.5 h-3.5" />
+              <span>Back to 3D Globe</span>
+            </button>
+
+            <a
+              href={STUDIO_INFO.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-1.5 rounded-full bg-[#ff3333] hover:bg-[#e02828] active:scale-95 text-white text-[10px] tracking-wider uppercase font-medium inline-flex items-center gap-1.5 shadow-md shadow-[#ff3333]/25 transition-all cursor-pointer"
+            >
+              <MapPin className="w-3.5 h-3.5" />
+              <span>Open in Google Maps</span>
+              <ArrowUpRight className="w-3 h-3" />
+            </a>
+          </>
+        )}
       </div>
     </div>
   );
