@@ -23,7 +23,6 @@ import {
 } from 'lucide-react';
 import { STUDIO_INFO, CINEMA_FILMS, HEADER_HERO_FILMS, GALLERY_PHOTOS, COMMISSION_SERVICES, CinemaFilm, PhotoFrame } from '@/lib/masoom-data';
 import { WhatsAppMinimalIcon, FacebookMinimalIcon } from './twf-icons';
-import { playAestheticClick } from '@/lib/twf-sound';
 
 export type PageId =
   | 'home'
@@ -119,7 +118,6 @@ export function TwfSidebar({
   };
 
   const handleNavClick = (page: PageId) => {
-    playAestheticClick();
     onNavigate(page);
     setMobileOpen(false);
   };
@@ -159,12 +157,12 @@ export function TwfSidebar({
           - Permanently docked on Tablet (sm:w-[172px]) & Desktop (lg:w-[214px])
          =================================================================== */}
       <aside
-        className={`fixed top-0 left-0 bottom-0 h-[100dvh] w-[224px] sm:w-[172px] lg:w-[214px] bg-[#070707] ${
+        className={`fixed top-0 left-0 bottom-0 h-[100dvh] w-[224px] sm:w-[172px] lg:w-[214px] bg-[#070707] text-white z-50 sm:z-40 flex flex-col justify-between py-3 sm:py-3.5 lg:py-4 select-none transition-transform duration-300 ease-out shadow-2xl sm:shadow-none border-r border-white/10 sm:border-r-0 ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'
-        } text-white z-50 sm:z-40 flex flex-col justify-between select-none transition-transform duration-300 ease-out shadow-2xl sm:shadow-none border-r border-white/10 sm:border-r-0`}
+        }`}
       >
         {/* TOP: TRANSPARENT LOGO ONLY (No Texts, No Background) + MOBILE COLLAPSE BTN + SEARCH */}
-        <div className="pt-3 sm:pt-3.5 lg:pt-4 px-3 sm:px-3 lg:px-3.5 shrink-0 flex flex-col items-stretch bg-[#070707] z-10 pb-2">
+        <div className="px-3 sm:px-3 lg:px-3.5 shrink-0 flex flex-col items-stretch">
           <div className="flex items-center justify-between sm:justify-center">
             <button
               type="button"
@@ -363,10 +361,10 @@ export function TwfSidebar({
           </div>
         </div>
 
-        {/* CENTER NAVIGATION MENU: Pure White Texts + See-Through Glass Cutout with Curved Edges */}
-        <nav className="flex-1 min-h-0 overflow-visible pl-3 sm:pl-2.5 lg:pl-3 pr-0 flex flex-col justify-center relative">
+        {/* CENTER NAVIGATION MENU: Pure White Texts + Seamless Gliding TWF Active Tab Fillet Curves */}
+        <nav className="my-2 flex-1 min-h-0 overflow-visible pl-3 sm:pl-2.5 lg:pl-3 pr-0 flex flex-col justify-center">
           <div className="relative flex flex-col gap-[4px] overflow-visible">
-            {/* SEE-THROUGH GLASS CUTOUT TAB (TRANSPARENT, NOT WHITE, CURVED EDGES) */}
+            {/* Single Persistent Gliding Active Tab Pill (Zero Opacity Cross-Fade = Zero Seam Line) */}
             <motion.div
               initial={false}
               animate={{
@@ -378,64 +376,36 @@ export function TwfSidebar({
                 damping: 34,
                 mass: 0.55,
               }}
-              className="absolute top-0 left-0 right-2 sm:right-0 sm:-right-[1px] h-[38px] bg-white/[0.10] backdrop-blur-md rounded-xl sm:rounded-r-none sm:rounded-l-[18px] border border-white/20 sm:border-r-0 shadow-[inset_0_1px_2px_rgba(255,255,255,0.18),0_2px_12px_rgba(0,0,0,0.25)] pointer-events-none z-0 overflow-visible will-change-transform"
+              className="absolute top-0 left-0 -right-[2px] h-[38px] bg-[#f8f8f7] rounded-l-[16px] sm:rounded-l-[18px] pointer-events-none z-0 overflow-visible will-change-transform"
             >
-              {/* TWF Signature Top Inverted Fillet Curve in matching translucent see-through glass */}
+              {/* TWF Signature Inverted Top Fillet Curve */}
               <svg
-                viewBox="0 0 14 14"
+                viewBox="0 0 14 15"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="hidden sm:block absolute right-0 -top-[14px] w-[14px] h-[14px] pointer-events-none"
+                className="hidden sm:block absolute right-0 -top-[13.5px] w-[14px] h-[15px] pointer-events-none"
                 shapeRendering="geometricPrecision"
               >
                 <path
-                  d="M 0 14 L 14 14 L 14 0 A 14 14 0 0 1 0 14 Z"
-                  fill="rgba(255, 255, 255, 0.10)"
-                />
-                <path
-                  d="M 14 0 A 14 14 0 0 1 0 14"
-                  fill="none"
-                  stroke="rgba(255, 255, 255, 0.20)"
-                  strokeWidth="1"
+                  d="M 0 15 L 14 15 L 14 0 A 14 14 0 0 1 0 14 Z"
+                  fill="#f8f8f7"
                 />
               </svg>
 
-              {/* TWF Signature Bottom Inverted Fillet Curve in matching translucent see-through glass */}
+              {/* TWF Signature Inverted Bottom Fillet Curve */}
               <svg
-                viewBox="0 0 14 14"
+                viewBox="0 0 14 15"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="hidden sm:block absolute right-0 -bottom-[14px] w-[14px] h-[14px] pointer-events-none"
+                className="hidden sm:block absolute right-0 -bottom-[13.5px] w-[14px] h-[15px] pointer-events-none"
                 shapeRendering="geometricPrecision"
               >
                 <path
-                  d="M 0 0 L 14 0 L 14 14 A 14 14 0 0 0 0 0 Z"
-                  fill="rgba(255, 255, 255, 0.10)"
-                />
-                <path
-                  d="M 14 14 A 14 14 0 0 0 0 0"
-                  fill="none"
-                  stroke="rgba(255, 255, 255, 0.20)"
-                  strokeWidth="1"
+                  d="M 0 0 L 14 0 L 14 15 A 14 14 0 0 0 0 1 Z"
+                  fill="#f8f8f7"
                 />
               </svg>
             </motion.div>
-
-            {/* The Dynamic Jumping Indicator Dot - Arcs dynamically to the clicked menu */}
-            <motion.div
-              initial={false}
-              animate={{
-                y: Math.max(0, NAV_ITEMS.findIndex((i) => i.id === activePage)) * 42 + 15,
-                x: [0, 8, 0],
-                scale: [1, 1.25, 0.9, 1],
-              }}
-              transition={{
-                y: { type: 'spring', stiffness: 380, damping: 34, mass: 0.55 },
-                x: { duration: 0.32, times: [0, 0.5, 1], ease: 'easeInOut' },
-                scale: { duration: 0.32, times: [0, 0.45, 0.8, 1], ease: 'easeOut' },
-              }}
-              className="hidden sm:block absolute right-3.5 sm:right-3 lg:right-4 top-0 w-2 h-2 rounded-full bg-[#ff3333] pointer-events-none z-20 shadow-[0_0_8px_rgba(255,51,51,0.85)] will-change-transform"
-            />
 
             {NAV_ITEMS.map((item) => {
               const Icon = item.icon;
@@ -445,10 +415,10 @@ export function TwfSidebar({
                   key={item.id}
                   type="button"
                   onClick={() => handleNavClick(item.id)}
-                  className={`relative z-10 w-full h-[38px] flex flex-row items-center justify-between px-3 sm:px-3.5 lg:px-4 rounded-l-[16px] sm:rounded-l-[18px] transition-colors duration-200 cursor-pointer ${
+                  className={`relative z-10 w-full h-[38px] flex flex-row items-center justify-between px-3 lg:px-3.5 rounded-l-[16px] sm:rounded-l-[18px] transition-colors duration-200 cursor-pointer ${
                     isActive
-                      ? 'text-white font-semibold'
-                      : 'text-white/80 hover:text-white hover:bg-white/[0.06]'
+                      ? 'text-[#111111] font-semibold'
+                      : 'text-white/90 hover:text-white hover:bg-white/[0.06]'
                   }`}
                 >
                   <span className="flex flex-row items-center gap-2.5 min-w-0">
@@ -470,7 +440,7 @@ export function TwfSidebar({
         {/* ===================================================================
             BOTTOM BOX: "We'd love to hear your story!" WITH SLOW CRIMSON TRAIL BORDER
            =================================================================== */}
-        <div className="pb-3 sm:pb-3.5 lg:pb-4 px-3 sm:px-2.5 lg:px-3.5 shrink-0 bg-[#070707] z-10 pt-2">
+        <div className="px-3 sm:px-2.5 lg:px-3.5 shrink-0">
           <div className="relative rounded-2xl p-[2px] overflow-hidden bg-[#1a0a0a] shadow-[0_0_25px_rgba(255,51,51,0.16)]">
             {/* Animated Slow-Moving Crimson Glowing Trail Border (No White) */}
             <div className="trail-border-spinner" aria-hidden="true" />
