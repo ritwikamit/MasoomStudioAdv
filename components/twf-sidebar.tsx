@@ -119,6 +119,7 @@ export function TwfSidebar({
   };
 
   const handleNavClick = (page: PageId) => {
+    playAestheticClick();
     onNavigate(page);
     setMobileOpen(false);
   };
@@ -158,8 +159,8 @@ export function TwfSidebar({
           - Permanently docked on Tablet (sm:w-[172px]) & Desktop (lg:w-[214px])
          =================================================================== */}
       <aside
-        className={`fixed top-0 left-0 bottom-0 h-[100dvh] w-[224px] sm:w-[172px] lg:w-[214px] ${
-          mobileOpen ? 'bg-[#070707] translate-x-0' : '-translate-x-full sm:translate-x-0 bg-transparent'
+        className={`fixed top-0 left-0 bottom-0 h-[100dvh] w-[224px] sm:w-[172px] lg:w-[214px] bg-[#070707] ${
+          mobileOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'
         } text-white z-50 sm:z-40 flex flex-col justify-between select-none transition-transform duration-300 ease-out shadow-2xl sm:shadow-none border-r border-white/10 sm:border-r-0`}
       >
         {/* TOP: TRANSPARENT LOGO ONLY (No Texts, No Background) + MOBILE COLLAPSE BTN + SEARCH */}
@@ -362,16 +363,10 @@ export function TwfSidebar({
           </div>
         </div>
 
-        {/* CENTER NAVIGATION MENU: Pure White Texts + Seamless Gliding TWF Active Tab Fillet Curves */}
+        {/* CENTER NAVIGATION MENU: Pure White Texts + See-Through Glass Cutout with Curved Edges */}
         <nav className="flex-1 min-h-0 overflow-visible pl-3 sm:pl-2.5 lg:pl-3 pr-0 flex flex-col justify-center relative">
           <div className="relative flex flex-col gap-[4px] overflow-visible">
-            {/* Extreme Left Edge Guard to ensure zero subpixel gap on left edge */}
-            <div
-              style={{ top: -1000, bottom: -1000 }}
-              className="absolute -left-[32px] w-[32px] bg-[#070707] pointer-events-none z-0"
-            />
-
-            {/* REAL PHYSICAL CUTOUT: Top Solid Black Cover All-In-One GPU-Composited Container */}
+            {/* SEE-THROUGH GLASS CUTOUT TAB (TRANSPARENT, NOT WHITE, CURVED EDGES) */}
             <motion.div
               initial={false}
               animate={{
@@ -383,109 +378,50 @@ export function TwfSidebar({
                 damping: 34,
                 mass: 0.55,
               }}
-              className="hidden sm:block absolute left-0 right-0 top-0 pointer-events-none z-0 will-change-transform"
+              className="absolute top-0 left-0 right-2 sm:right-0 sm:-right-[1px] h-[38px] bg-white/[0.10] backdrop-blur-md rounded-xl sm:rounded-r-none sm:rounded-l-[18px] border border-white/20 sm:border-r-0 shadow-[inset_0_1px_2px_rgba(255,255,255,0.18),0_2px_12px_rgba(0,0,0,0.25)] pointer-events-none z-0 overflow-visible will-change-transform"
             >
-              {/* Massive continuous solid black slab reaching up 2000px behind Header (zero gaps) */}
-              <div
-                style={{ height: 2000, bottom: 14 }}
-                className="absolute left-0 right-0 bg-[#070707]"
-              />
-
-              {/* 14px bridge right above the cutout: stops 14px from right so the fillet curves outward */}
-              <div
-                style={{ height: 14, bottom: 0 }}
-                className="absolute left-0 right-[14px] bg-[#070707]"
-              />
-
-              {/* TWF Signature Top Inverted Fillet Curve in solid #070707 */}
+              {/* TWF Signature Top Inverted Fillet Curve in matching translucent see-through glass */}
               <svg
                 viewBox="0 0 14 14"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="absolute right-0 bottom-0 w-[14px] h-[14px] pointer-events-none"
+                className="hidden sm:block absolute right-0 -top-[14px] w-[14px] h-[14px] pointer-events-none"
                 shapeRendering="geometricPrecision"
               >
                 <path
-                  d="M 0 0 L 0 14 A 14 14 0 0 1 14 0 Z"
-                  fill="#070707"
+                  d="M 0 14 L 14 14 L 14 0 A 14 14 0 0 1 0 14 Z"
+                  fill="rgba(255, 255, 255, 0.10)"
+                />
+                <path
+                  d="M 14 0 A 14 14 0 0 1 0 14"
+                  fill="none"
+                  stroke="rgba(255, 255, 255, 0.20)"
+                  strokeWidth="1"
                 />
               </svg>
-            </motion.div>
 
-            {/* REAL PHYSICAL CUTOUT: Bottom Solid Black Cover All-In-One GPU-Composited Container */}
-            <motion.div
-              initial={false}
-              animate={{
-                y: Math.max(0, NAV_ITEMS.findIndex((i) => i.id === activePage)) * 42 + 38,
-              }}
-              transition={{
-                type: 'spring',
-                stiffness: 380,
-                damping: 34,
-                mass: 0.55,
-              }}
-              className="hidden sm:block absolute left-0 right-0 top-0 pointer-events-none z-0 will-change-transform"
-            >
-              {/* 14px bridge right below the cutout: stops 14px from right so the fillet curves outward */}
-              <div
-                style={{ height: 14, top: 0 }}
-                className="absolute left-0 right-[14px] bg-[#070707]"
-              />
-
-              {/* TWF Signature Bottom Inverted Fillet Curve in solid #070707 */}
+              {/* TWF Signature Bottom Inverted Fillet Curve in matching translucent see-through glass */}
               <svg
                 viewBox="0 0 14 14"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="absolute right-0 top-0 w-[14px] h-[14px] pointer-events-none"
+                className="hidden sm:block absolute right-0 -bottom-[14px] w-[14px] h-[14px] pointer-events-none"
                 shapeRendering="geometricPrecision"
               >
                 <path
-                  d="M 0 14 L 0 0 A 14 14 0 0 0 14 14 Z"
-                  fill="#070707"
+                  d="M 0 0 L 14 0 L 14 14 A 14 14 0 0 0 0 0 Z"
+                  fill="rgba(255, 255, 255, 0.10)"
                 />
-              </svg>
-
-              {/* Massive continuous solid black slab reaching down 2000px behind Footer (zero gaps) */}
-              <div
-                style={{ height: 2000, top: 14 }}
-                className="absolute left-0 right-0 bg-[#070707]"
-              />
-            </motion.div>
-
-            {/* THE CUTOUT: 100% PHYSICALLY TRANSPARENT (ZERO WHITE PAINT) WITH ROUNDED LEFT END */}
-            <motion.div
-              initial={false}
-              animate={{
-                y: Math.max(0, NAV_ITEMS.findIndex((i) => i.id === activePage)) * 42,
-              }}
-              transition={{
-                type: 'spring',
-                stiffness: 380,
-                damping: 34,
-                mass: 0.55,
-              }}
-              className="absolute top-0 left-0 right-0 h-[38px] bg-transparent pointer-events-none z-0 overflow-visible will-change-transform"
-            >
-              {/* Smartphone Drawer Clean Highlight */}
-              <div className="sm:hidden absolute inset-y-0 left-1 right-2 bg-white/10 rounded-xl" />
-
-              {/* Continuous Semicircular Left Cap in solid #070707: sculpts a smooth rounded left end */}
-              <svg
-                viewBox="0 0 19 38"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="hidden sm:block absolute left-0 top-0 w-[19px] h-[38px] pointer-events-none"
-                shapeRendering="geometricPrecision"
-              >
                 <path
-                  d="M 0 0 L 19 0 A 19 19 0 0 0 19 38 L 0 38 Z"
-                  fill="#070707"
+                  d="M 14 14 A 14 14 0 0 0 0 0"
+                  fill="none"
+                  stroke="rgba(255, 255, 255, 0.20)"
+                  strokeWidth="1"
                 />
               </svg>
             </motion.div>
 
-            {/* The Dynamic Jumping Indicator Dot (Arcs in ')' direction to the clicked menu) */}
+            {/* The Dynamic Jumping Indicator Dot - Arcs dynamically to the clicked menu */}
             <motion.div
               initial={false}
               animate={{

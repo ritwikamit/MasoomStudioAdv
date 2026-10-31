@@ -50,8 +50,8 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://masoomstudio.vercel.app/og-image.jpg',
-        secureUrl: 'https://masoomstudio.vercel.app/og-image.jpg',
+        url: 'https://masoomstudio.vercel.app/og-image.jpg?v=2',
+        secureUrl: 'https://masoomstudio.vercel.app/og-image.jpg?v=2',
         width: 1200,
         height: 630,
         type: 'image/jpeg',
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     title: 'Masoom Studio | Wedding Photography & Cinematic Films',
     description:
       'Official portfolio of Masoom Studio. Luxury wedding photography, cinematic films, pre-wedding stories, and grand celebrations based in Patna, Bihar and across India.',
-    images: ['https://masoomstudio.vercel.app/og-image.jpg'],
+    images: ['https://masoomstudio.vercel.app/og-image.jpg?v=2'],
   },
 };
 
