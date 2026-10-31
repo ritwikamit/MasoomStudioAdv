@@ -23,7 +23,6 @@ import {
 } from 'lucide-react';
 import { STUDIO_INFO, CINEMA_FILMS, HEADER_HERO_FILMS, GALLERY_PHOTOS, COMMISSION_SERVICES, CinemaFilm, PhotoFrame } from '@/lib/masoom-data';
 import { WhatsAppMinimalIcon, FacebookMinimalIcon } from './twf-icons';
-import { playAestheticClick } from '@/lib/twf-sound';
 
 export type PageId =
   | 'home'
@@ -71,8 +70,6 @@ export function TwfSidebar({
 }: TwfSidebarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchFocused, setSearchFocused] = useState(false);
-  const activeIndex = Math.max(0, NAV_ITEMS.findIndex((i) => i.id === activePage));
-  const [jumpState, setJumpState] = useState<{ id: number; y: number }>({ id: 0, y: activeIndex * 42 + 14 });
 
   const cleanQuery = searchQuery.trim().toLowerCase();
 
@@ -121,10 +118,6 @@ export function TwfSidebar({
   };
 
   const handleNavClick = (page: PageId) => {
-    playAestheticClick();
-    const nextIdx = Math.max(0, NAV_ITEMS.findIndex((i) => i.id === page));
-    const newY = nextIdx * 42 + 14;
-    setJumpState((prev) => ({ id: prev.id + 1, y: newY }));
     onNavigate(page);
     setMobileOpen(false);
   };
@@ -164,14 +157,9 @@ export function TwfSidebar({
           - Permanently docked on Tablet (sm:w-[172px]) & Desktop (lg:w-[214px])
          =================================================================== */}
       <aside
-        className={`fixed top-0 left-0 bottom-0 h-[100dvh] w-[224px] sm:w-[172px] lg:w-[214px] text-white z-50 sm:z-40 flex flex-col justify-between py-3 sm:py-3.5 lg:py-4 select-none transition-transform duration-300 ease-out shadow-2xl border-r border-white/10 ${
+        className={`fixed top-0 left-0 bottom-0 h-[100dvh] w-[224px] sm:w-[172px] lg:w-[214px] bg-[#070707] text-white z-50 sm:z-40 flex flex-col justify-between py-3 sm:py-3.5 lg:py-4 select-none transition-transform duration-300 ease-out shadow-2xl sm:shadow-none border-r border-white/10 sm:border-r-0 ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'
         }`}
-        style={{
-          backgroundColor: 'rgba(7, 7, 7, 0.88)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-        }}
       >
         {/* TOP: TRANSPARENT LOGO ONLY (No Texts, No Background) + MOBILE COLLAPSE BTN + SEARCH */}
         <div className="px-3 sm:px-3 lg:px-3.5 shrink-0 flex flex-col items-stretch">
@@ -373,14 +361,14 @@ export function TwfSidebar({
           </div>
         </div>
 
-        {/* CENTER NAVIGATION MENU: Pure White Texts + Hollow Glass Active Tab */}
-        <nav className="my-2 flex-1 min-h-0 overflow-visible px-2 sm:px-2 lg:px-2.5 flex flex-col justify-center">
+        {/* CENTER NAVIGATION MENU: Pure White Texts + Seamless Gliding TWF Active Tab Fillet Curves */}
+        <nav className="my-2 flex-1 min-h-0 overflow-visible pl-3 sm:pl-2.5 lg:pl-3 pr-0 flex flex-col justify-center">
           <div className="relative flex flex-col gap-[4px] overflow-visible">
-            {/* Single Persistent Gliding Active Tab: Truly Hollow Glass Outline (Not Solid White) */}
+            {/* Single Persistent Gliding Active Tab Pill (Zero Opacity Cross-Fade = Zero Seam Line) */}
             <motion.div
               initial={false}
               animate={{
-                y: activeIndex * 42,
+                y: Math.max(0, NAV_ITEMS.findIndex((i) => i.id === activePage)) * 42,
               }}
               transition={{
                 type: 'spring',
@@ -388,10 +376,37 @@ export function TwfSidebar({
                 damping: 34,
                 mass: 0.55,
               }}
-              className="absolute top-0 left-0 right-0 h-[38px] bg-white/[0.06] backdrop-blur-md rounded-xl pointer-events-none z-0 border border-white/25 will-change-transform shadow-[inset_0_1px_2px_rgba(255,255,255,0.12)]"
-            />
+              className="absolute top-0 left-0 -right-[2px] h-[38px] bg-[#f8f8f7] rounded-l-[16px] sm:rounded-l-[18px] pointer-events-none z-0 overflow-visible will-change-transform"
+            >
+              {/* TWF Signature Inverted Top Fillet Curve */}
+              <svg
+                viewBox="0 0 14 15"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="hidden sm:block absolute right-0 -top-[13.5px] w-[14px] h-[15px] pointer-events-none"
+                shapeRendering="geometricPrecision"
+              >
+                <path
+                  d="M 0 15 L 14 15 L 14 0 A 14 14 0 0 1 0 14 Z"
+                  fill="#f8f8f7"
+                />
+              </svg>
 
-            {/* Menu Items with White Text and Icons on Hollow Tabs */}
+              {/* TWF Signature Inverted Bottom Fillet Curve */}
+              <svg
+                viewBox="0 0 14 15"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="hidden sm:block absolute right-0 -bottom-[13.5px] w-[14px] h-[15px] pointer-events-none"
+                shapeRendering="geometricPrecision"
+              >
+                <path
+                  d="M 0 0 L 14 0 L 14 15 A 14 14 0 0 0 0 1 Z"
+                  fill="#f8f8f7"
+                />
+              </svg>
+            </motion.div>
+
             {NAV_ITEMS.map((item) => {
               const Icon = item.icon;
               const isActive = activePage === item.id;
@@ -400,16 +415,16 @@ export function TwfSidebar({
                   key={item.id}
                   type="button"
                   onClick={() => handleNavClick(item.id)}
-                  className={`relative z-10 w-full h-[38px] flex flex-row items-center justify-between px-3 lg:px-3.5 rounded-xl transition-colors duration-200 cursor-pointer ${
+                  className={`relative z-10 w-full h-[38px] flex flex-row items-center justify-between px-3 lg:px-3.5 rounded-l-[16px] sm:rounded-l-[18px] transition-colors duration-200 cursor-pointer ${
                     isActive
-                      ? 'text-white font-semibold'
-                      : 'text-white/70 hover:text-white hover:bg-white/[0.05]'
+                      ? 'text-[#111111] font-semibold'
+                      : 'text-white/90 hover:text-white hover:bg-white/[0.06]'
                   }`}
                 >
                   <span className="flex flex-row items-center gap-2.5 min-w-0">
                     <Icon
                       className={`w-4 h-4 shrink-0 transition-transform duration-300 ${
-                        isActive ? 'text-[#ff3333] scale-105' : 'text-white/70'
+                        isActive ? 'text-[#ff3333] scale-105' : 'text-white'
                       }`}
                     />
                     <span className="text-xs sm:text-[11px] lg:text-[12px] tracking-[0.02em] leading-none truncate">
@@ -419,33 +434,6 @@ export function TwfSidebar({
                 </button>
               );
             })}
-
-            {/* Aesthetic Black Dot Jumping in ')' Curved Arc Trajectory */}
-            <motion.div
-              initial={false}
-              animate={{
-                y: activeIndex * 42 + 14,
-                x: jumpState.id > 0 ? [0, 24, 0] : 0,
-                scale: jumpState.id > 0 ? [1, 1.35, 0.85, 1] : 1,
-              }}
-              transition={{
-                y: {
-                  type: 'spring',
-                  stiffness: 380,
-                  damping: 26,
-                  mass: 0.55,
-                },
-                x: {
-                  duration: 0.44,
-                  ease: [0.33, 1, 0.68, 1],
-                },
-                scale: {
-                  duration: 0.44,
-                  times: [0, 0.35, 0.75, 1],
-                },
-              }}
-              className="absolute right-3.5 top-0 w-2.5 h-2.5 rounded-full bg-black ring-2 ring-white/95 shadow-[0_0_8px_rgba(0,0,0,0.85)] pointer-events-none z-20 will-change-transform"
-            />
           </div>
         </nav>
 
