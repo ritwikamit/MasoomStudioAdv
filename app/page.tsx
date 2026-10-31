@@ -11,6 +11,7 @@ import { TwfLoadingScreen } from '@/components/twf-loading-screen';
 import { TwfCookieBanner } from '@/components/twf-cookie-banner';
 import { TwfScrollProgress } from '@/components/twf-scroll-progress';
 import { CinemaFilm, PhotoFrame } from '@/lib/masoom-data';
+import { initGlobalClickSound } from '@/lib/twf-sound';
 
 export default function MasoomStudioTwfPage() {
   const [activePage, setActivePage] = useState<PageId>('home');
@@ -22,6 +23,12 @@ export default function MasoomStudioTwfPage() {
   const [preselectedService, setPreselectedService] = useState<string | undefined>(
     undefined
   );
+
+  // Initialize global aesthetic click sound across all buttons & interactive controls
+  useEffect(() => {
+    const cleanup = initGlobalClickSound();
+    return cleanup;
+  }, []);
 
   // Silky quartic ease-out scroll-to-top helper on menu navigation
   const smoothScrollToTop = useCallback(() => {

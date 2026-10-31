@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { STUDIO_INFO, CINEMA_FILMS, HEADER_HERO_FILMS, GALLERY_PHOTOS, COMMISSION_SERVICES, CinemaFilm, PhotoFrame } from '@/lib/masoom-data';
 import { WhatsAppMinimalIcon, FacebookMinimalIcon } from './twf-icons';
+import { playAestheticClick } from '@/lib/twf-sound';
 
 export type PageId =
   | 'home'
@@ -118,6 +119,7 @@ export function TwfSidebar({
   };
 
   const handleNavClick = (page: PageId) => {
+    playAestheticClick();
     onNavigate(page);
     setMobileOpen(false);
   };
@@ -408,6 +410,20 @@ export function TwfSidebar({
                       {item.label}
                     </span>
                   </span>
+
+                  {/* Aesthetic Jumping Black Dot for Active Menu */}
+                  {isActive && (
+                    <motion.span
+                      layoutId="activeMenuJumpingBlackDot"
+                      className="w-2.5 h-2.5 rounded-full bg-black ring-2 ring-white/95 shadow-[0_0_8px_rgba(0,0,0,0.85)] shrink-0 ml-2"
+                      transition={{
+                        type: 'spring',
+                        stiffness: 460,
+                        damping: 24,
+                        mass: 0.5,
+                      }}
+                    />
+                  )}
                 </button>
               );
             })}

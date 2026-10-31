@@ -12,11 +12,24 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-overflow-scrolling: touch;
+  touch-action: manipulation;
 }
 
 body {
   overflow-x: hidden;
   overscroll-behavior-y: none;
+  overscroll-behavior-x: none;
+}
+
+/* Instant tactile touch response & eliminate 300ms mobile tap delay */
+button,
+a,
+[role="button"],
+input,
+select,
+textarea {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .font-script {
