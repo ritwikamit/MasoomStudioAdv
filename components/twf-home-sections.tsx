@@ -606,10 +606,11 @@ export function TwfHomeSections({
 
       {/* =====================================================================
           SECTION 2: MOVING WEDDING PHOTOS · TIMELESS MEMORIES IN MOTION
-          Theme-aligned flat red ribbons & moving photos inclined together at an angle
+          Full lateral screen sides moving photos & moving red ribbons (No Box)
          ===================================================================== */}
-      <section ref={movingSectionRef} className="my-12 sm:my-20 px-1 sm:px-2">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 px-1 sm:px-2 mb-6 sm:mb-8">
+      <section ref={movingSectionRef} className="my-10 sm:my-16">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 px-3 sm:px-6 mb-5 sm:mb-8">
           <div className="max-w-2xl">
             <span
               className="text-xl sm:text-3xl text-[#ff3333] block leading-none mb-1.5"
@@ -643,34 +644,21 @@ export function TwfHomeSections({
           </div>
         </div>
 
-        {/* Dedicated Standalone Inclined Moving Ribbon & Photo Showcase */}
-        <div className="rounded-[24px] sm:rounded-[32px] bg-[#09090b] text-white overflow-hidden shadow-2xl border border-white/10 flex flex-col relative py-6 sm:py-9">
+        {/* Full Lateral Screen Sides Moving Showcase (NO Box - Just Photos & Ribbons Edge-to-Edge) */}
+        <div className="-mx-2 sm:-mx-4 lg:-mx-5 w-[calc(100%+16px)] sm:w-[calc(100%+32px)] lg:w-[calc(100%+40px)] overflow-hidden py-3 sm:py-6 my-2 select-none relative">
           
-          {/* Subtitle Header Strip (Clean typography, no red dots) */}
-          <div className="pb-4 px-4 sm:px-6 flex items-center justify-between text-white/50 text-[10px] sm:text-xs tracking-wider uppercase border-b border-white/5">
-            <span>Unscripted tears · Quiet glances · Sacred vows · Family blessings</span>
-            <span
-              className="hidden sm:inline italic normal-case text-white/45 font-light"
-              style={{ fontFamily: 'var(--font-script)', fontSize: '15px' }}
-            >
-              &ldquo;captured naturally, felt forever&rdquo;
-            </span>
-          </div>
-
           {/* Dynamic Inclined Showcase: Both ribbons & photos tilted together */}
-          <div className="w-[110%] -ml-[5%] -rotate-[2.2deg] sm:-rotate-[2.5deg] my-2 sm:my-3 space-y-4 sm:space-y-6 select-none">
+          <div className="w-[114%] -ml-[7%] -rotate-[2deg] sm:-rotate-[2.2deg] space-y-4 sm:space-y-6">
             
-            {/* Top Moving Red Ribbon (Theme-aligned flat red, not glossy, moving with scroll) */}
-            <div className="w-full bg-[#ff3333] text-white py-2 sm:py-2.5 overflow-hidden shadow-md">
+            {/* Top Moving Red Ribbon with Moving Text */}
+            <div className="w-full bg-[#ff3333] text-white py-2 sm:py-2.5 overflow-hidden shadow-sm">
               <div
                 ref={ribbonTopRef}
-                className="flex whitespace-nowrap items-center text-[10px] sm:text-xs font-semibold tracking-[0.24em] uppercase will-change-transform text-white"
-                style={{
-                  transform: 'translate3d(0px, 0, 0)',
-                }}
+                className="will-change-transform"
+                style={{ transform: 'translate3d(0px, 0, 0)' }}
               >
-                {Array.from({ length: 6 }).map((_, rIdx) => (
-                  <span key={`r-top-${rIdx}`} className="flex items-center gap-3 px-4 shrink-0">
+                <div className="animate-marquee-left flex whitespace-nowrap items-center text-[11px] sm:text-xs font-semibold tracking-[0.24em] uppercase text-white will-change-transform">
+                  <span className="flex items-center gap-3 px-4 shrink-0">
                     <span>★</span>
                     <span>TIMELESS MEMORIES IN MOTION</span>
                     <span className="opacity-60">·</span>
@@ -682,8 +670,25 @@ export function TwfHomeSections({
                     <span className="opacity-60">·</span>
                     <span>EVERY UNPOSED TEAR &amp; STOLEN GLANCE</span>
                     <span className="opacity-60">·</span>
+                    <span>CINEMATIC WEDDING STORIES</span>
+                    <span className="opacity-60">·</span>
                   </span>
-                ))}
+                  <span className="flex items-center gap-3 px-4 shrink-0" aria-hidden="true">
+                    <span>★</span>
+                    <span>TIMELESS MEMORIES IN MOTION</span>
+                    <span className="opacity-60">·</span>
+                    <span>MASOOM STUDIO WEDDINGS</span>
+                    <span className="opacity-60">·</span>
+                    <span>REAL UNFILTERED EMOTIONS</span>
+                    <span className="opacity-60">·</span>
+                    <span>PATNA, BIHAR &amp; ACROSS INDIA</span>
+                    <span className="opacity-60">·</span>
+                    <span>EVERY UNPOSED TEAR &amp; STOLEN GLANCE</span>
+                    <span className="opacity-60">·</span>
+                    <span>CINEMATIC WEDDING STORIES</span>
+                    <span className="opacity-60">·</span>
+                  </span>
+                </div>
               </div>
             </div>
 
@@ -704,7 +709,7 @@ export function TwfHomeSections({
                       <div
                         key={`m1-${photo.id}-${idx}`}
                         onClick={() => onSelectPhoto(photo)}
-                        className={`group relative shrink-0 overflow-hidden rounded-[18px] sm:rounded-[22px] border border-white/15 bg-white/5 cursor-pointer transition-all duration-500 hover:scale-[1.03] hover:border-[#ff3333] shadow-2xl ${
+                        className={`group relative shrink-0 overflow-hidden rounded-[18px] sm:rounded-[22px] border border-black/10 bg-white cursor-pointer transition-all duration-500 hover:scale-[1.03] hover:border-[#ff3333] shadow-md ${
                           idx % 3 === 0
                             ? 'w-[170px] sm:w-[235px] h-[225px] sm:h-[305px] mt-2'
                             : idx % 3 === 1
@@ -758,7 +763,7 @@ export function TwfHomeSections({
                       <div
                         key={`m2-${photo.id}-${idx}`}
                         onClick={() => onSelectPhoto(photo)}
-                        className={`group relative shrink-0 overflow-hidden rounded-[18px] sm:rounded-[22px] border border-white/15 bg-white/5 cursor-pointer transition-all duration-500 hover:scale-[1.03] hover:border-[#ff3333] shadow-2xl ${
+                        className={`group relative shrink-0 overflow-hidden rounded-[18px] sm:rounded-[22px] border border-black/10 bg-white cursor-pointer transition-all duration-500 hover:scale-[1.03] hover:border-[#ff3333] shadow-md ${
                           idx % 2 === 0
                             ? 'w-[190px] sm:w-[260px] h-[220px] sm:h-[295px]'
                             : 'w-[170px] sm:w-[235px] h-[235px] sm:h-[315px] mt-3'
@@ -796,17 +801,15 @@ export function TwfHomeSections({
               </div>
             </div>
 
-            {/* Bottom Moving Red Ribbon (Theme-aligned flat red, not glossy, opposing scroll direction) */}
-            <div className="w-full bg-[#ff3333] text-white py-2 sm:py-2.5 overflow-hidden shadow-md">
+            {/* Bottom Moving Red Ribbon with Moving Text */}
+            <div className="w-full bg-[#ff3333] text-white py-2 sm:py-2.5 overflow-hidden shadow-sm">
               <div
                 ref={ribbonBottomRef}
-                className="flex whitespace-nowrap items-center text-[10px] sm:text-xs font-semibold tracking-[0.24em] uppercase will-change-transform text-white"
-                style={{
-                  transform: 'translate3d(-900px, 0, 0)',
-                }}
+                className="will-change-transform"
+                style={{ transform: 'translate3d(-900px, 0, 0)' }}
               >
-                {Array.from({ length: 6 }).map((_, rIdx) => (
-                  <span key={`r-bot-${rIdx}`} className="flex items-center gap-3 px-4 shrink-0">
+                <div className="animate-marquee-right flex whitespace-nowrap items-center text-[11px] sm:text-xs font-semibold tracking-[0.24em] uppercase text-white will-change-transform">
+                  <span className="flex items-center gap-3 px-4 shrink-0">
                     <span>★</span>
                     <span>CELEBRATING REAL LOVE STORIES</span>
                     <span className="opacity-60">·</span>
@@ -819,7 +822,20 @@ export function TwfHomeSections({
                     <span>TIMELESS FAMILY HEIRLOOMS</span>
                     <span className="opacity-60">·</span>
                   </span>
-                ))}
+                  <span className="flex items-center gap-3 px-4 shrink-0" aria-hidden="true">
+                    <span>★</span>
+                    <span>CELEBRATING REAL LOVE STORIES</span>
+                    <span className="opacity-60">·</span>
+                    <span>UNCHOREOGRAPHED LAUGHTER &amp; SACRED VOWS</span>
+                    <span className="opacity-60">·</span>
+                    <span>VIBRANT, FUN &amp; DEEPLY EMOTIONAL</span>
+                    <span className="opacity-60">·</span>
+                    <span>PATNA · BIHAR · ALL INDIA DESTINATIONS</span>
+                    <span className="opacity-60">·</span>
+                    <span>TIMELESS FAMILY HEIRLOOMS</span>
+                    <span className="opacity-60">·</span>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
