@@ -67,6 +67,13 @@ export function TwfFooterAndModals({
   const [isFooterVisible, setIsFooterVisible] = useState(false);
   const [modalVideoMuted, setModalVideoMuted] = useState(false);
   const [photoZoom, setPhotoZoom] = useState(1);
+  const [photoPan, setPhotoPan] = useState({ x: 0, y: 0 });
+  const [isPhotoDragging, setIsPhotoDragging] = useState(false);
+  const photoDragStartRef = useRef<{ x: number; y: number } | null>(null);
+  const pinchStartDistRef = useRef<number | null>(null);
+  const pinchStartZoomRef = useRef(1);
+  const lastTapTimeRef = useRef(0);
+  const [zoomHintVisible, setZoomHintVisible] = useState(true);
   const [termsModalOpen, setTermsModalOpen] = useState(false);
   const [cookieModalOpen, setCookieModalOpen] = useState(false);
 
@@ -104,10 +111,105 @@ export function TwfFooterAndModals({
     }
   }, [quickEnquireOpen]);
 
-  // Reset photo zoom on active photo change
+  // Reset photo zoom, pan, and hint on active photo change
   useEffect(() => {
     setPhotoZoom(1);
+    setPhotoPan({ x: 0, y: 0 });
+    setIsPhotoDragging(false);
+    setZoomHintVisible(true);
+    const t = setTimeout(() => setZoomHintVisible(false), 2800);
+    return () => clearTimeout(t);
   }, [activePhoto]);
+
+  // Touch handlers for mobile pinch-to-zoom & drag-pan
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 2) {
+      // 2-finger pinch
+      const t1 = e.touches[0];
+      const t2 = e.touches[1];
+      pinchStartDistRef.current = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+      pinchStartZoomRef.current = photoZoom;
+      setIsPhotoDragging(false);
+    } else if (e.touches.length === 1) {
+      // Check for double-tap
+      const now = Date.now();
+      if (now - lastTapTimeRef.current < 300) {
+        if (photoZoom > 1.2) {
+          setPhotoZoom(1);
+          setPhotoPan({ x: 0, y: 0 });
+        } else {
+          setPhotoZoom(2.2);
+        }
+        lastTapTimeRef.current = 0;
+        return;
+      }
+      lastTapTimeRef.current = now;
+
+      if (photoZoom > 1) {
+        setIsPhotoDragging(true);
+        photoDragStartRef.current = {
+          x: e.touches[0].clientX - photoPan.x,
+          y: e.touches[0].clientY - photoPan.y,
+        };
+      }
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (e.touches.length === 2 && pinchStartDistRef.current) {
+      const t1 = e.touches[0];
+      const t2 = e.touches[1];
+      const dist = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+      const scaleFactor = dist / pinchStartDistRef.current;
+      const nextZoom = Math.min(4, Math.max(1, pinchStartZoomRef.current * scaleFactor));
+      setPhotoZoom(Number(nextZoom.toFixed(2)));
+      if (nextZoom <= 1.05) {
+        setPhotoPan({ x: 0, y: 0 });
+      }
+    } else if (e.touches.length === 1 && isPhotoDragging && photoDragStartRef.current) {
+      const maxPan = (photoZoom - 1) * 180;
+      const nextX = Math.min(maxPan, Math.max(-maxPan, e.touches[0].clientX - photoDragStartRef.current.x));
+      const nextY = Math.min(maxPan, Math.max(-maxPan, e.touches[0].clientY - photoDragStartRef.current.y));
+      setPhotoPan({ x: nextX, y: nextY });
+    }
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (e.touches.length < 2) {
+      pinchStartDistRef.current = null;
+    }
+    if (e.touches.length === 0) {
+      setIsPhotoDragging(false);
+      photoDragStartRef.current = null;
+      if (photoZoom <= 1.05) {
+        setPhotoZoom(1);
+        setPhotoPan({ x: 0, y: 0 });
+      }
+    }
+  };
+
+  // Mouse pan handlers for desktop
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (photoZoom <= 1) return;
+    setIsPhotoDragging(true);
+    photoDragStartRef.current = {
+      x: e.clientX - photoPan.x,
+      y: e.clientY - photoPan.y,
+    };
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isPhotoDragging || !photoDragStartRef.current) return;
+    const maxPan = (photoZoom - 1) * 220;
+    const nextX = Math.min(maxPan, Math.max(-maxPan, e.clientX - photoDragStartRef.current.x));
+    const nextY = Math.min(maxPan, Math.max(-maxPan, e.clientY - photoDragStartRef.current.y));
+    setPhotoPan({ x: nextX, y: nextY });
+  };
+
+  const handleMouseUp = () => {
+    setIsPhotoDragging(false);
+    photoDragStartRef.current = null;
+  };
 
   // Close modals on Escape key press
   useEffect(() => {
@@ -663,57 +765,91 @@ export function TwfFooterAndModals({
             onClick={(e) => e.stopPropagation()}
             className="relative w-full max-w-5xl max-h-[calc(100dvh-16px)] sm:max-h-[calc(100dvh-32px)] bg-[#121212] border border-white/15 rounded-[18px] sm:rounded-[24px] overflow-y-auto lg:overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-12 my-auto"
           >
-            <div className="lg:col-span-8 relative bg-black flex items-center justify-center min-h-[260px] sm:min-h-[420px] max-h-[55dvh] lg:max-h-[82dvh] overflow-hidden select-none">
+            <div
+              className="lg:col-span-8 relative bg-black flex items-center justify-center min-h-[260px] sm:min-h-[420px] max-h-[55dvh] lg:max-h-[82dvh] overflow-hidden select-none touch-none"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseUp}
+            >
               <img
                 src={activePhoto.imageUrl}
                 alt={activePhoto.title}
+                draggable={false}
                 style={{
-                  transform: `scale(${photoZoom})`,
-                  transition: 'transform 0.25s ease-out',
+                  transform: `translate3d(${photoPan.x}px, ${photoPan.y}px, 0px) scale(${photoZoom})`,
+                  transition: isPhotoDragging ? 'none' : 'transform 0.25s cubic-bezier(0.2, 0, 0, 1)',
+                  willChange: 'transform',
                 }}
-                className={`max-w-full max-h-[52dvh] lg:max-h-[78dvh] w-auto h-auto object-contain ${
-                  photoZoom > 1 ? 'cursor-grab active:cursor-grabbing' : 'cursor-zoom-in'
+                className={`max-w-full max-h-[52dvh] lg:max-h-[78dvh] w-auto h-auto object-contain select-none pointer-events-auto ${
+                  photoZoom > 1
+                    ? isPhotoDragging
+                      ? 'cursor-grabbing'
+                      : 'cursor-grab'
+                    : 'cursor-zoom-in'
                 }`}
-                onClick={() => setPhotoZoom((prev) => (prev < 2.5 ? prev + 0.5 : 1))}
                 referrerPolicy="no-referrer"
               />
 
-              {/* Floating Interactive Zoom Bar */}
-              <div className="absolute top-3 right-3 z-30 flex items-center gap-1 p-1 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-white shadow-xl">
+              {/* Floating Interactive Zoom Bar (Touch-Optimized for Smartphones & Desktops) */}
+              <div className="absolute top-3 right-3 z-30 flex items-center gap-1.5 p-1 sm:p-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/25 text-white shadow-2xl">
                 <button
                   type="button"
-                  onClick={() => setPhotoZoom((prev) => Math.min(3, prev + 0.5))}
-                  aria-label="Zoom in"
-                  title="Zoom In"
-                  className="w-7 h-7 rounded-full hover:bg-[#ff3333] flex items-center justify-center transition-colors cursor-pointer"
-                >
-                  <ZoomIn className="w-3.5 h-3.5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPhotoZoom((prev) => Math.max(1, prev - 0.5))}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const next = Math.max(1, Number((photoZoom - 0.5).toFixed(1)));
+                    setPhotoZoom(next);
+                    if (next <= 1) setPhotoPan({ x: 0, y: 0 });
+                  }}
                   aria-label="Zoom out"
                   title="Zoom Out"
-                  className="w-7 h-7 rounded-full hover:bg-[#ff3333] flex items-center justify-center transition-colors cursor-pointer"
+                  className="w-8 h-8 sm:w-7 sm:h-7 rounded-full hover:bg-[#ff3333] active:scale-95 flex items-center justify-center transition-all cursor-pointer"
                 >
-                  <ZoomOut className="w-3.5 h-3.5" />
+                  <ZoomOut className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
+                </button>
+                <span className="text-[11px] sm:text-[10px] font-mono px-1 min-w-[36px] text-center text-white/90">
+                  {Math.round(photoZoom * 100)}%
+                </span>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const next = Math.min(4, Number((photoZoom + 0.5).toFixed(1)));
+                    setPhotoZoom(next);
+                  }}
+                  aria-label="Zoom in"
+                  title="Zoom In"
+                  className="w-8 h-8 sm:w-7 sm:h-7 rounded-full hover:bg-[#ff3333] active:scale-95 flex items-center justify-center transition-all cursor-pointer"
+                >
+                  <ZoomIn className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
                 </button>
                 {photoZoom > 1 && (
                   <button
                     type="button"
-                    onClick={() => setPhotoZoom(1)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setPhotoZoom(1);
+                      setPhotoPan({ x: 0, y: 0 });
+                    }}
                     aria-label="Reset zoom"
                     title="Reset to 100%"
-                    className="px-2 py-0.5 rounded-full text-[10px] bg-white/20 hover:bg-[#ff3333] flex items-center gap-1 transition-colors cursor-pointer"
+                    className="px-2.5 py-1 rounded-full text-[11px] sm:text-[10px] bg-white/20 hover:bg-[#ff3333] active:scale-95 flex items-center gap-1 transition-all cursor-pointer"
                   >
                     <RotateCcw className="w-3 h-3" />
-                    <span>Reset</span>
+                    <span className="hidden sm:inline">Reset</span>
                   </button>
                 )}
-                <span className="text-[10px] px-1.5 text-white/70">
-                  {Math.round(photoZoom * 100)}%
-                </span>
               </div>
+
+              {/* Mobile Helpful Hint Pill */}
+              {zoomHintVisible && photoZoom === 1 && (
+                <div className="sm:hidden pointer-events-none absolute bottom-4 z-20 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-[10px] text-white/80 animate-in fade-in duration-300">
+                  Double-tap or pinch to zoom &amp; drag
+                </div>
+              )}
 
               <button
                 type="button"

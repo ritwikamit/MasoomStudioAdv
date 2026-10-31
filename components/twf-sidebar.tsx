@@ -158,7 +158,7 @@ export function TwfSidebar({
           - Permanently docked on Tablet (sm:w-[172px]) & Desktop (lg:w-[214px])
          =================================================================== */}
       <aside
-        className={`fixed top-0 left-0 bottom-0 h-[100dvh] w-[224px] sm:w-[172px] lg:w-[214px] text-white z-50 sm:z-40 flex flex-col justify-between py-3 sm:py-3.5 lg:py-4 select-none transition-transform duration-300 ease-out shadow-2xl sm:shadow-none border-r border-white/10 sm:border-r-0 ${
+        className={`fixed top-0 left-0 bottom-0 h-[100dvh] w-[224px] sm:w-[172px] lg:w-[214px] bg-[#070707] text-white z-50 sm:z-40 flex flex-col justify-between py-3 sm:py-3.5 lg:py-4 select-none transition-transform duration-300 ease-out shadow-2xl sm:shadow-none border-r border-white/10 sm:border-r-0 ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'
         }`}
       >
@@ -365,11 +365,11 @@ export function TwfSidebar({
         {/* CENTER NAVIGATION MENU: Pure White Texts + Seamless Gliding TWF Active Tab Fillet Curves */}
         <nav className="my-2 flex-1 min-h-0 overflow-visible pl-3 sm:pl-2.5 lg:pl-3 pr-0 flex flex-col justify-center relative">
           <div className="relative flex flex-col gap-[4px] overflow-visible">
-            {/* Real Physical Cutout: Top Solid Black Cover */}
+            {/* Real Physical Cutout: Top Solid Black Cover (GPU-composited translateY) */}
             <motion.div
               initial={false}
               animate={{
-                bottom: `calc(100% - ${Math.max(0, NAV_ITEMS.findIndex((i) => i.id === activePage)) * 42}px)`,
+                y: Math.max(0, NAV_ITEMS.findIndex((i) => i.id === activePage)) * 42 - 1200,
               }}
               transition={{
                 type: 'spring',
@@ -377,15 +377,15 @@ export function TwfSidebar({
                 damping: 34,
                 mass: 0.55,
               }}
-              style={{ top: -800 }}
-              className="absolute left-0 right-0 sm:right-[14px] bg-[#070707] pointer-events-none z-0"
+              style={{ top: 0, height: 1200 }}
+              className="absolute left-0 right-0 sm:right-[14px] bg-[#070707] pointer-events-none z-0 will-change-transform"
             />
 
-            {/* Top Solid Black Cover Right Strip (stops 14px above the cutout so the fillet curves outward) */}
+            {/* Top Solid Black Cover Right Strip (stops 14px above cutout for outward fillet curve) */}
             <motion.div
               initial={false}
               animate={{
-                bottom: `calc(100% - ${Math.max(0, NAV_ITEMS.findIndex((i) => i.id === activePage)) * 42 - 14}px)`,
+                y: Math.max(0, NAV_ITEMS.findIndex((i) => i.id === activePage)) * 42 - 1214,
               }}
               transition={{
                 type: 'spring',
@@ -393,15 +393,15 @@ export function TwfSidebar({
                 damping: 34,
                 mass: 0.55,
               }}
-              style={{ top: -800 }}
-              className="hidden sm:block absolute right-0 w-[14px] bg-[#070707] pointer-events-none z-0"
+              style={{ top: 0, height: 1200 }}
+              className="hidden sm:block absolute right-0 w-[14px] bg-[#070707] pointer-events-none z-0 will-change-transform"
             />
 
-            {/* Real Physical Cutout: Bottom Solid Black Cover */}
+            {/* Real Physical Cutout: Bottom Solid Black Cover (GPU-composited translateY) */}
             <motion.div
               initial={false}
               animate={{
-                top: Math.max(0, NAV_ITEMS.findIndex((i) => i.id === activePage)) * 42 + 38,
+                y: Math.max(0, NAV_ITEMS.findIndex((i) => i.id === activePage)) * 42 + 38,
               }}
               transition={{
                 type: 'spring',
@@ -409,15 +409,15 @@ export function TwfSidebar({
                 damping: 34,
                 mass: 0.55,
               }}
-              style={{ bottom: -800 }}
-              className="absolute left-0 right-0 sm:right-[14px] bg-[#070707] pointer-events-none z-0"
+              style={{ top: 0, height: 1200 }}
+              className="absolute left-0 right-0 sm:right-[14px] bg-[#070707] pointer-events-none z-0 will-change-transform"
             />
 
-            {/* Bottom Solid Black Cover Right Strip (starts 14px below the cutout so the fillet curves outward) */}
+            {/* Bottom Solid Black Cover Right Strip (starts 14px below cutout for outward fillet curve) */}
             <motion.div
               initial={false}
               animate={{
-                top: Math.max(0, NAV_ITEMS.findIndex((i) => i.id === activePage)) * 42 + 52,
+                y: Math.max(0, NAV_ITEMS.findIndex((i) => i.id === activePage)) * 42 + 52,
               }}
               transition={{
                 type: 'spring',
@@ -425,8 +425,8 @@ export function TwfSidebar({
                 damping: 34,
                 mass: 0.55,
               }}
-              style={{ bottom: -800 }}
-              className="hidden sm:block absolute right-0 w-[14px] bg-[#070707] pointer-events-none z-0"
+              style={{ top: 0, height: 1200 }}
+              className="hidden sm:block absolute right-0 w-[14px] bg-[#070707] pointer-events-none z-0 will-change-transform"
             />
 
             {/* Left solid black strip ensuring outer screen edge is opaque #070707 */}
@@ -449,8 +449,8 @@ export function TwfSidebar({
               }}
               className="absolute top-0 left-0 right-0 h-[38px] bg-transparent pointer-events-none z-0 overflow-visible will-change-transform"
             >
-              {/* Smartphone Drawer Clean Pill */}
-              <div className="sm:hidden absolute inset-0 bg-[#f8f8f7] rounded-l-[16px]" />
+              {/* Smartphone Drawer Clean Rounded Active Pill */}
+              <div className="sm:hidden absolute inset-y-0 left-1 right-2 bg-[#f8f8f7] rounded-xl shadow-md" />
 
               {/* Seamless Semi-Circular Left End Cap (Radius 19px) in solid #070707 - leaves icon completely unblocked */}
               <svg
@@ -495,20 +495,20 @@ export function TwfSidebar({
               </svg>
             </motion.div>
 
-            {/* The Dynamic Jumping Black Dot (Arcs in ')' direction to the clicked menu) */}
+            {/* The Dynamic Jumping Black Dot (Arcs in ')' direction synchronously with cutout spring) */}
             <motion.div
               initial={false}
               animate={{
                 y: Math.max(0, NAV_ITEMS.findIndex((i) => i.id === activePage)) * 42 + 15,
-                x: [0, 16, 0],
-                scale: [1, 1.45, 0.85, 1],
+                x: [0, 8, 0],
+                scale: [1, 1.25, 0.9, 1],
               }}
               transition={{
-                y: { type: 'spring', stiffness: 360, damping: 30, mass: 0.55 },
-                x: { duration: 0.38, times: [0, 0.5, 1], ease: 'easeInOut' },
-                scale: { duration: 0.38, times: [0, 0.45, 0.8, 1], ease: 'easeOut' },
+                y: { type: 'spring', stiffness: 380, damping: 34, mass: 0.55 },
+                x: { duration: 0.32, times: [0, 0.5, 1], ease: 'easeInOut' },
+                scale: { duration: 0.32, times: [0, 0.45, 0.8, 1], ease: 'easeOut' },
               }}
-              className="absolute right-3.5 sm:right-3 lg:right-4 top-0 w-2 h-2 rounded-full bg-[#111111] pointer-events-none z-20 shadow-sm"
+              className="hidden sm:block absolute right-3.5 sm:right-3 lg:right-4 top-0 w-2 h-2 rounded-full bg-[#111111] pointer-events-none z-20 shadow-sm will-change-transform"
             />
 
             {NAV_ITEMS.map((item) => {
