@@ -110,8 +110,8 @@ export default function MasoomStudioTwfPage() {
           - Full width on Smartphone (ml-1.5) when left menu is collapsed
           - Offset on Tablet (sm:ml-[172px]) & Desktop (lg:ml-[214px])
          =================================================================== */}
-      <div className="ml-1.5 sm:ml-[172px] lg:ml-[214px] mr-1.5 sm:mr-2.5 lg:mr-3 my-1.5 sm:my-2.5 lg:my-3 transition-all duration-300">
-        <main className="bg-[#f8f8f7] text-[#111111] rounded-[18px] sm:rounded-[24px] min-h-[calc(100vh-12px)] sm:min-h-[calc(100vh-20px)] lg:min-h-[calc(100vh-24px)] overflow-hidden shadow-2xl flex flex-col justify-between">
+      <div className="ml-1.5 sm:ml-2.5 lg:ml-3 mr-1.5 sm:mr-2.5 lg:mr-3 my-1.5 sm:my-2.5 lg:my-3 transition-all duration-300">
+        <main className="bg-[#f8f8f7] text-[#111111] sm:pl-[172px] lg:pl-[214px] rounded-[18px] sm:rounded-[24px] min-h-[calc(100vh-12px)] sm:min-h-[calc(100vh-20px)] lg:min-h-[calc(100vh-24px)] overflow-hidden shadow-2xl flex flex-col justify-between">
           {/* Smooth Animated Page Content Transition when Switching Menus */}
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
