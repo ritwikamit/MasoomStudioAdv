@@ -142,11 +142,11 @@ export function TwfHeroSlider({
       {/* TOP-LEFT CORNER OF VIDEO BOX: TRANSPARENT MASOOM STUDIO LOGO */}
       <div className="pointer-events-none absolute top-3 left-3 sm:top-5 sm:left-6 z-20">
         <img
-          src="/MasoomStudioLogo.png"
+          src="/MasoomStudioLogo.webp"
           alt="Masoom Studio"
           loading="eager"
           decoding="async"
-          className="w-16 h-13 sm:w-24 sm:h-19 lg:w-28 lg:h-22 object-contain drop-shadow-[0_4px_14px_rgba(0,0,0,0.9)]"
+          className="w-16 sm:w-24 lg:w-28 h-auto object-contain drop-shadow-[0_4px_14px_rgba(0,0,0,0.9)]"
           referrerPolicy="no-referrer"
         />
       </div>

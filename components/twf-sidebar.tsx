@@ -171,7 +171,7 @@ export function TwfSidebar({
               aria-label="Masoom Studio Home"
             >
               <img
-                src="/MasoomStudioLogo.png"
+                src="/MasoomStudioLogo.webp"
                 alt="Masoom Studio"
                 className="w-20 h-15 sm:w-20 sm:h-15 lg:w-24 lg:h-18 object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]"
                 referrerPolicy="no-referrer"

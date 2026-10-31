@@ -1062,7 +1062,7 @@ export function TwfHomeSections({
               title: 'candid & natural',
               service: 'Wedding Films & Candid Photography',
               image:
-                '/Gallary/imgi_11_663089682_18088892522215915_6152286074647645901_n.jpg',
+                '/Gallary/imgi_11_663089682_18088892522215915_6152286074647645901_n.webp',
               desc: 'We don’t interrupt your wedding rituals or force awkward poses. We blend in like family so every smile, tear, and hug looks completely real.',
             },
             {
@@ -1070,14 +1070,14 @@ export function TwfHomeSections({
               title: 'wedding films & drone',
               service: 'Drone Coverage & Destination Weddings',
               image:
-                '/Gallary/imgi_31_704558536_17969950212160466_5180294263165990764_n.jpg',
+                '/Gallary/imgi_31_704558536_17969950212160466_5180294263165990764_n.webp',
               desc: 'From pre-wedding shoots and engagement ceremonies to Sangeet, wedding rituals, drone shots, and reception — we cover every event with care.',
             },
             {
               tag: 'Family Keepsakes',
               title: 'albums for life',
               service: 'Custom Wedding Albums & Photo Books',
-              image: '/Gallary/LandingPage3.png',
+              image: '/Gallary/LandingPage3.webp',
               desc: 'Along with your wedding films and online photo gallery, we create handcrafted wedding albums that your parents and family will treasure forever.',
             },
           ].map((item, idx) => (

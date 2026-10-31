@@ -50,7 +50,7 @@ export const metadata: Metadata = {
         alt: 'Masoom Studio — Patna, Bihar',
       },
       {
-        url: '/Gallary/LandingPage1.jpg',
+        url: '/Gallary/LandingPage1.webp',
         width: 1200,
         height: 630,
         alt: 'Masoom Studio Wedding Cinema',
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     title: 'Masoom Studio — Wedding Photography & Cinematic Films',
     description:
       'Luxury wedding photography and cinematic films across Patna, Bihar and India. Real emotions, vibrant stories.',
-    images: ['/MasoomStudioLogo.png', '/Gallary/LandingPage1.jpg'],
+    images: ['/MasoomStudioLogo.png', '/Gallary/LandingPage1.webp'],
   },
 };
 

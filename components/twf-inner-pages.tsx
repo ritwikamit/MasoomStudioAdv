@@ -833,7 +833,7 @@ export function TwfInnerPages({
         <div className="rounded-[20px] sm:rounded-[24px] min-h-[290px] sm:min-h-[370px] lg:min-h-[430px] bg-[#111111] text-white p-6 sm:p-10 lg:p-12 relative overflow-hidden border border-white/15 shadow-2xl flex flex-col justify-end">
           {/* Distinct Clear Hero Photography Background for Films & Photos (Faces Uncropped) */}
           <img
-            src="/Gallary/Landingpage2.jpg"
+            src="/Gallary/Landingpage2.webp"
             alt="Wedding Films & Photos Hero"
             className="pointer-events-none absolute inset-0 w-full h-full object-cover object-[50%_22%] filter brightness-95 contrast-[1.03] transition-transform duration-700"
             referrerPolicy="no-referrer"
@@ -1317,9 +1317,9 @@ export function TwfInnerPages({
 
           <div className="relative z-10 max-w-2xl mx-4 p-6 sm:p-10 rounded-[22px] sm:rounded-[26px] bg-black/25 backdrop-blur-md border border-white/30 text-center text-white shadow-[0_20px_60px_rgba(0,0,0,0.45)]">
             <img
-              src="/MasoomStudioLogo.png"
+              src="/MasoomStudioLogo.webp"
               alt="Masoom Studio"
-              className="w-24 h-20 sm:w-28 sm:h-22 mx-auto mb-3 object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
+              className="w-24 sm:w-28 h-auto mx-auto mb-3 object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
               referrerPolicy="no-referrer"
             />
             <span
@@ -1354,7 +1354,7 @@ export function TwfInnerPages({
             <div className="lg:col-span-5">
               <div className="relative aspect-[4/5] rounded-[20px] overflow-hidden border border-black/10 shadow-xl">
                 <img
-                  src="/Gallary/LandingPage1.jpg"
+                  src="/Gallary/LandingPage1.webp"
                   alt="Masoom Javed"
                   loading="lazy"
                   decoding="async"
@@ -1588,22 +1588,22 @@ export function TwfInnerPages({
               {
                 title: 'Royal Bridal Grace',
                 couple: 'Patna Wedding',
-                img: '/Gallary/LandingPage3.png',
+                img: '/Gallary/LandingPage3.webp',
               },
               {
                 title: 'Sacred Vows & Phere',
                 couple: 'Kunika & Tushar',
-                img: '/Gallary/LandingPage1.jpg',
+                img: '/Gallary/LandingPage1.webp',
               },
               {
                 title: 'Couple Starlight',
                 couple: 'Nilesh & Sweta',
-                img: '/Gallary/Landingpage2.jpg',
+                img: '/Gallary/Landingpage2.webp',
               },
               {
                 title: 'The Emotional Vidaai',
                 couple: 'Anupam & Aishwarya',
-                img: '/Gallary/imgi_30_704427170_17969958399160466_4603175030385960861_n.jpg',
+                img: '/Gallary/imgi_30_704427170_17969958399160466_4603175030385960861_n.webp',
               },
             ].map((plate, idx) => (
               <button
@@ -1640,10 +1640,10 @@ export function TwfInnerPages({
           <div className="relative aspect-[16/10] sm:aspect-[21/9] rounded-2xl overflow-hidden bg-black border border-black/15 shadow-inner flex items-center justify-center select-none group">
             {(() => {
               const activePlateImg = [
-                '/Gallary/LandingPage3.png',
-                '/Gallary/LandingPage1.jpg',
-                '/Gallary/Landingpage2.jpg',
-                '/Gallary/imgi_30_704427170_17969958399160466_4603175030385960861_n.jpg',
+                '/Gallary/LandingPage3.webp',
+                '/Gallary/LandingPage1.webp',
+                '/Gallary/Landingpage2.webp',
+                '/Gallary/imgi_30_704427170_17969958399160466_4603175030385960861_n.webp',
               ][aboutZoomPlateIdx];
 
               return (
@@ -1759,7 +1759,7 @@ export function TwfInnerPages({
         <div className="rounded-[20px] sm:rounded-[24px] min-h-[290px] sm:min-h-[370px] lg:min-h-[430px] bg-[#111111] text-white p-6 sm:p-10 lg:p-12 relative overflow-hidden border border-white/15 shadow-2xl flex flex-col justify-end">
           {/* Distinct Clear Hero Photography Background for Services & Packages (Faces Uncropped) */}
           <img
-            src="/Gallary/imgi_27_628323685_18346461886235287_4431154153769162509_n.jpg"
+            src="/Gallary/imgi_27_628323685_18346461886235287_4431154153769162509_n.webp"
             alt="Services & Packages Hero"
             className="pointer-events-none absolute inset-0 w-full h-full object-cover object-[50%_26%] filter brightness-95 contrast-[1.03] transition-transform duration-700"
             referrerPolicy="no-referrer"
@@ -1861,7 +1861,7 @@ export function TwfInnerPages({
         <div className="rounded-[20px] sm:rounded-[24px] min-h-[290px] sm:min-h-[370px] lg:min-h-[430px] bg-[#111111] text-white p-6 sm:p-10 lg:p-12 relative overflow-hidden border border-white/15 shadow-2xl flex flex-col justify-end">
           {/* Distinct Clear Hero Photography Background for Wedding Venues (Faces Uncropped) */}
           <img
-            src="/Gallary/imgi_43_611344093_17949077742160466_1107492647243003038_n.jpg"
+            src="/Gallary/imgi_43_611344093_17949077742160466_1107492647243003038_n.webp"
             alt="Wedding Venues Hero"
             className="pointer-events-none absolute inset-0 w-full h-full object-cover object-[50%_34%] filter brightness-95 contrast-[1.03] transition-transform duration-700"
             referrerPolicy="no-referrer"

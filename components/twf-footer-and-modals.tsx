@@ -301,11 +301,11 @@ export function TwfFooterAndModals({
                 aria-label="Masoom Studio Home"
               >
                 <img
-                  src="/MasoomStudioLogo.png"
+                  src="/MasoomStudioLogo.webp"
                   alt="Masoom Studio"
                   loading="lazy"
                   decoding="async"
-                  className="w-28 h-22 sm:w-36 sm:h-28 lg:w-44 lg:h-34 object-contain drop-shadow-[0_6px_20px_rgba(0,0,0,0.95)]"
+                  className="w-28 sm:w-36 lg:w-44 h-auto object-contain drop-shadow-[0_6px_20px_rgba(0,0,0,0.95)]"
                   referrerPolicy="no-referrer"
                 />
               </button>

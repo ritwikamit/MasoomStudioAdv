@@ -137,7 +137,7 @@ export const STUDIO_INFO = {
   name: 'Masoom Studio',
   founder: 'Masoom Javed',
   est: '2018',
-  logoUrl: '/MasoomStudioLogo.png',
+  logoUrl: '/MasoomStudioLogo.webp',
   tagline: 'Vibrant, fun and natural wedding stories',
   subTagline: 'Real Moments · Wedding Films & Candid Photography',
   address:
@@ -175,7 +175,7 @@ export const INSTAGRAM_REELS: InstagramReelItem[] = [
     instagramUrl: 'https://www.instagram.com/reel/Dc1rREUTHPB/',
     embedUrl: 'https://www.instagram.com/reel/Dc1rREUTHPB/embed/',
     videoSrc: '/reels/Dc1rREUTHPB.mp4',
-    posterUrl: '/reels/Dc1rREUTHPB.jpg',
+    posterUrl: '/reels/Dc1rREUTHPB.webp',
     title: 'One Wedding · A Thousand Emotions',
     couple: 'Kunika & Tushar',
     location: 'Raj Resort, Patna',
@@ -190,7 +190,7 @@ export const INSTAGRAM_REELS: InstagramReelItem[] = [
     instagramUrl: 'https://www.instagram.com/reel/DV30vU6gci7/',
     embedUrl: 'https://www.instagram.com/reel/DV30vU6gci7/embed/',
     videoSrc: '/reels/DV30vU6gci7.mp4',
-    posterUrl: '/reels/DV30vU6gci7.jpg',
+    posterUrl: '/reels/DV30vU6gci7.webp',
     title: 'Seema & Sayan · Two Hearts, One Journey',
     couple: 'Seema & Sayan',
     location: 'Patna, Bihar',
@@ -205,7 +205,7 @@ export const INSTAGRAM_REELS: InstagramReelItem[] = [
     instagramUrl: 'https://www.instagram.com/reel/DVDFTAZkQQ_/',
     embedUrl: 'https://www.instagram.com/reel/DVDFTAZkQQ_/embed/',
     videoSrc: '/reels/DVDFTAZkQQ_.mp4',
-    posterUrl: '/reels/DVDFTAZkQQ_.jpg',
+    posterUrl: '/reels/DVDFTAZkQQ_.webp',
     title: 'Written in Destiny & Sealed Forever',
     couple: 'Amit & Bride',
     location: 'Gargee Grand, Patna',
@@ -220,7 +220,7 @@ export const INSTAGRAM_REELS: InstagramReelItem[] = [
     instagramUrl: 'https://www.instagram.com/reel/DUnQAVuCRG6/',
     embedUrl: 'https://www.instagram.com/reel/DUnQAVuCRG6/embed/',
     videoSrc: '/reels/DUnQAVuCRG6.mp4',
-    posterUrl: '/reels/DUnQAVuCRG6.jpg',
+    posterUrl: '/reels/DUnQAVuCRG6.webp',
     title: 'Saheba & Tabish · Love, Faith & Togetherness',
     couple: 'Saheba & Tabish',
     location: 'Patna, Bihar',
@@ -235,7 +235,7 @@ export const INSTAGRAM_REELS: InstagramReelItem[] = [
     instagramUrl: 'https://www.instagram.com/reel/C9J1JVCyNYa/',
     embedUrl: 'https://www.instagram.com/reel/C9J1JVCyNYa/embed/',
     videoSrc: '/reels/C9J1JVCyNYa.mp4',
-    posterUrl: '/reels/C9J1JVCyNYa.jpg',
+    posterUrl: '/reels/C9J1JVCyNYa.webp',
     title: 'Tushar & Sonali · Grand Wedding Celebration',
     couple: 'Tushar & Sonali',
     location: 'Hotel Maurya, Patna',
@@ -250,7 +250,7 @@ export const INSTAGRAM_REELS: InstagramReelItem[] = [
     instagramUrl: 'https://www.instagram.com/reel/Dc7vsFARGV9/',
     embedUrl: 'https://www.instagram.com/reel/Dc7vsFARGV9/embed/',
     videoSrc: '/reels/Dc7vsFARGV9.mp4',
-    posterUrl: '/reels/Dc7vsFARGV9.jpg',
+    posterUrl: '/reels/Dc7vsFARGV9.webp',
     title: 'Dr. Govind & Dr. Swati · A New Beginning',
     couple: 'Dr. Govind & Dr. Swati',
     location: 'Hotel Mantra, Patna',
@@ -265,7 +265,7 @@ export const INSTAGRAM_REELS: InstagramReelItem[] = [
     instagramUrl: 'https://www.instagram.com/reel/DYnewlVTZjD/',
     embedUrl: 'https://www.instagram.com/reel/DYnewlVTZjD/embed/',
     videoSrc: '/reels/DYnewlVTZjD.mp4',
-    posterUrl: '/reels/DYnewlVTZjD.jpg',
+    posterUrl: '/reels/DYnewlVTZjD.webp',
     title: 'Tu Jo Mili · Sweet Wedding Memories',
     couple: 'Anupam & Aishwarya',
     location: 'Patna Sahib, Bihar',
@@ -280,7 +280,7 @@ export const INSTAGRAM_REELS: InstagramReelItem[] = [
     instagramUrl: 'https://www.instagram.com/reel/C8WxTDaS-Bu/',
     embedUrl: 'https://www.instagram.com/reel/C8WxTDaS-Bu/embed/',
     videoSrc: '/reels/C8WxTDaS-Bu.mp4',
-    posterUrl: '/reels/C8WxTDaS-Bu.jpg',
+    posterUrl: '/reels/C8WxTDaS-Bu.webp',
     title: 'When Two Hearts Speak as One',
     couple: 'Atish & Nisha',
     location: 'Hotel Maurya, Patna',
@@ -295,7 +295,7 @@ export const INSTAGRAM_REELS: InstagramReelItem[] = [
     instagramUrl: 'https://www.instagram.com/reel/DcyEnjMhTbO/',
     embedUrl: 'https://www.instagram.com/reel/DcyEnjMhTbO/embed/',
     videoSrc: '/reels/DcyEnjMhTbO.mp4',
-    posterUrl: '/reels/DcyEnjMhTbO.jpg',
+    posterUrl: '/reels/DcyEnjMhTbO.webp',
     title: 'Classic Red Bridal Glow',
     couple: 'Bridal Portrait',
     location: 'Patna, Bihar',
@@ -310,7 +310,7 @@ export const INSTAGRAM_REELS: InstagramReelItem[] = [
     instagramUrl: 'https://www.instagram.com/reel/DbXVjKzTSKp/',
     embedUrl: 'https://www.instagram.com/reel/DbXVjKzTSKp/embed/',
     videoSrc: '/reels/DbXVjKzTSKp.mp4',
-    posterUrl: '/reels/DbXVjKzTSKp.jpg',
+    posterUrl: '/reels/DbXVjKzTSKp.webp',
     title: 'The Bride’s First Look',
     couple: 'Bridal Highlight',
     location: 'Panache Banquets, Patna',
@@ -325,7 +325,7 @@ export const INSTAGRAM_REELS: InstagramReelItem[] = [
     instagramUrl: 'https://www.instagram.com/reel/DECnLuPISkp/',
     embedUrl: 'https://www.instagram.com/reel/DECnLuPISkp/embed/',
     videoSrc: '/reels/DECnLuPISkp.mp4',
-    posterUrl: '/reels/DECnLuPISkp.jpg',
+    posterUrl: '/reels/DECnLuPISkp.webp',
     title: 'Grace in Every Step',
     couple: 'Bridal & Couple Reel',
     location: 'Patna, Bihar',
@@ -340,7 +340,7 @@ export const INSTAGRAM_REELS: InstagramReelItem[] = [
     instagramUrl: 'https://www.instagram.com/reel/DdyyL4tBg4O/',
     embedUrl: 'https://www.instagram.com/reel/DdyyL4tBg4O/embed/',
     videoSrc: '/reels/DdyyL4tBg4O.mp4',
-    posterUrl: '/reels/DdyyL4tBg4O.jpg',
+    posterUrl: '/reels/DdyyL4tBg4O.webp',
     title: 'Soft Light & Real Smiles',
     couple: 'Portrait Reel',
     location: 'Patna, Bihar',
@@ -355,7 +355,7 @@ export const INSTAGRAM_REELS: InstagramReelItem[] = [
     instagramUrl: 'https://www.instagram.com/reel/C9NMpA0N67l/',
     embedUrl: 'https://www.instagram.com/reel/C9NMpA0N67l/embed/',
     videoSrc: '/reels/C9NMpA0N67l.mp4',
-    posterUrl: '/reels/C9NMpA0N67l.jpg',
+    posterUrl: '/reels/C9NMpA0N67l.webp',
     title: 'Patna Celebrations & Togetherness',
     couple: 'Patna Stories',
     location: 'Gandhi Maidan, Patna',
@@ -370,7 +370,7 @@ export const INSTAGRAM_REELS: InstagramReelItem[] = [
     instagramUrl: 'https://www.instagram.com/reel/DCYrmYgyjns/',
     embedUrl: 'https://www.instagram.com/reel/DCYrmYgyjns/embed/',
     videoSrc: '/reels/DCYrmYgyjns.mp4',
-    posterUrl: '/reels/DCYrmYgyjns.jpg',
+    posterUrl: '/reels/DCYrmYgyjns.webp',
     title: 'Eternal Vows & Cinematic Grandeur',
     couple: 'Luxury Wedding Celebration',
     location: 'Patna, Bihar',
@@ -385,7 +385,7 @@ export const INSTAGRAM_REELS: InstagramReelItem[] = [
     instagramUrl: 'https://www.instagram.com/reel/C_h6bbOyC9j/',
     embedUrl: 'https://www.instagram.com/reel/C_h6bbOyC9j/embed/',
     videoSrc: '/reels/C_h6bbOyC9j.mp4',
-    posterUrl: '/reels/C_h6bbOyC9j.jpg',
+    posterUrl: '/reels/C_h6bbOyC9j.webp',
     title: 'Golden Hour Wedding Rituals',
     couple: 'Royal Wedding Film',
     location: 'Patna, Bihar',
@@ -420,8 +420,8 @@ export const HEADER_HERO_FILMS: CinemaFilm[] = [
     year: '2025',
     month: 'December 2025',
     duration: 'Wedding Film',
-    thumbnailUrl: '/reels/DV30vU6gci7.jpg',
-    heroImageUrl: '/reels/DV30vU6gci7.jpg',
+    thumbnailUrl: '/reels/DV30vU6gci7.webp',
+    heroImageUrl: '/reels/DV30vU6gci7.webp',
     aiConceptPrompt: 'Seema & Sayan wedding celebration in Patna',
     synopsis:
       'Two hearts on one beautiful journey. Seema and Sayan’s wedding filmed with natural warmth, family laughter, and real emotions.',
@@ -443,8 +443,8 @@ export const HEADER_HERO_FILMS: CinemaFilm[] = [
     year: '2025',
     month: 'November 2025',
     duration: 'Wedding Film',
-    thumbnailUrl: '/reels/DVDFTAZkQQ_.jpg',
-    heroImageUrl: '/reels/DVDFTAZkQQ_.jpg',
+    thumbnailUrl: '/reels/DVDFTAZkQQ_.webp',
+    heroImageUrl: '/reels/DVDFTAZkQQ_.webp',
     aiConceptPrompt: 'Amit wedding celebration at Gargee Grand Patna',
     synopsis:
       'A joyful celebration surrounded by parents, cousins, and close friends — full of music, colour, and heartfelt vows.',
@@ -466,8 +466,8 @@ export const HEADER_HERO_FILMS: CinemaFilm[] = [
     year: '2025',
     month: 'November 2025',
     duration: 'Wedding Film',
-    thumbnailUrl: '/reels/DUnQAVuCRG6.jpg',
-    heroImageUrl: '/reels/DUnQAVuCRG6.jpg',
+    thumbnailUrl: '/reels/DUnQAVuCRG6.webp',
+    heroImageUrl: '/reels/DUnQAVuCRG6.webp',
     aiConceptPrompt: 'Saheba and Tabish wedding film in Patna',
     synopsis:
       'Saheba and Tabish’s celebration of love, faith, and family blessings, captured naturally by Masoom Studio.',
@@ -489,8 +489,8 @@ export const HEADER_HERO_FILMS: CinemaFilm[] = [
     year: '2025',
     month: 'October 2025',
     duration: 'Wedding Film',
-    thumbnailUrl: '/reels/C9J1JVCyNYa.jpg',
-    heroImageUrl: '/reels/C9J1JVCyNYa.jpg',
+    thumbnailUrl: '/reels/C9J1JVCyNYa.webp',
+    heroImageUrl: '/reels/C9J1JVCyNYa.webp',
     aiConceptPrompt: 'Tushar and Sonali wedding at Hotel Maurya Patna',
     synopsis:
       'A vibrant wedding celebration at Hotel Maurya, balancing grand family traditions with sweet, quiet moments between the couple.',
@@ -513,8 +513,8 @@ export const HEADER_HERO_FILMS: CinemaFilm[] = [
     year: '2025',
     month: 'May 2025',
     duration: 'Wedding Film',
-    thumbnailUrl: '/Gallary/imgi_12_793850137_17989749228160466_8054815104760056368_n.jpg',
-    heroImageUrl: '/Gallary/imgi_12_793850137_17989749228160466_8054815104760056368_n.jpg',
+    thumbnailUrl: '/Gallary/imgi_12_793850137_17989749228160466_8054815104760056368_n.webp',
+    heroImageUrl: '/Gallary/imgi_12_793850137_17989749228160466_8054815104760056368_n.webp',
     aiConceptPrompt: 'Dr Govind and Dr Swati wedding in Patna',
     synopsis:
       'Two doctors beginning their life together — filled with genuine laughter, family blessings, and vibrant celebrations.',
@@ -537,8 +537,8 @@ export const HEADER_HERO_FILMS: CinemaFilm[] = [
     year: '2025',
     month: 'November 2025',
     duration: 'Wedding Film',
-    thumbnailUrl: '/reels/Dc1rREUTHPB.jpg',
-    heroImageUrl: '/reels/Dc1rREUTHPB.jpg',
+    thumbnailUrl: '/reels/Dc1rREUTHPB.webp',
+    heroImageUrl: '/reels/Dc1rREUTHPB.webp',
     aiConceptPrompt: 'Kunika and Tushar wedding at Raj Resort Patna',
     synopsis:
       'One wedding, a thousand emotions, and memories that bring the whole family back to this night every time they watch.',
@@ -1191,8 +1191,8 @@ export const VENUE_INSTALLATIONS: VenueInstallation[] = [
       'Soft portrait lighting that flatters skin tones without harsh camera flashes.',
     acousticNotes:
       'Clear audio recording of your wedding vows and family blessings.',
-    imageUrl: '/Gallary/imgi_31_704558536_17969950212160466_5180294263165990764_n.jpg',
-    secondaryImageUrl: '/SignatureImage/imgi_10_620266125_17907545478161915_4102420289312451089_n.jpg',
+    imageUrl: '/Gallary/imgi_31_704558536_17969950212160466_5180294263165990764_n.webp',
+    secondaryImageUrl: '/SignatureImage/imgi_10_620266125_17907545478161915_4102420289312451089_n.webp',
     dateSeason: 'Patna Wedding Season',
   },
   {
@@ -1207,8 +1207,8 @@ export const VENUE_INSTALLATIONS: VenueInstallation[] = [
       'Natural sunrise light paired with warm diyas during early morning shoots.',
     acousticNotes:
       'Peaceful morning river breeze and temple bells.',
-    imageUrl: '/Gallary/Landingpage2.jpg',
-    secondaryImageUrl: '/SignatureImage/imgi_20_622289146_17972843666834908_8509481171627861222_n.jpg',
+    imageUrl: '/Gallary/Landingpage2.webp',
+    secondaryImageUrl: '/SignatureImage/imgi_20_622289146_17972843666834908_8509481171627861222_n.webp',
     dateSeason: 'Morning Pre-Wedding Shoots',
   },
   {
@@ -1223,8 +1223,8 @@ export const VENUE_INSTALLATIONS: VenueInstallation[] = [
       'Balanced night lighting so both the couple and the twinkling background lights look beautiful.',
     acousticNotes:
       'Dedicated microphones near the mandap to capture the ceremony clearly.',
-    imageUrl: '/Gallary/LandingPage1.jpg',
-    secondaryImageUrl: '/Gallary/imgi_11_663089682_18088892522215915_6152286074647645901_n.jpg',
+    imageUrl: '/Gallary/LandingPage1.webp',
+    secondaryImageUrl: '/Gallary/imgi_11_663089682_18088892522215915_6152286074647645901_n.webp',
     dateSeason: 'Open-Lawn Celebrations',
   },
   {
@@ -1239,8 +1239,8 @@ export const VENUE_INSTALLATIONS: VenueInstallation[] = [
       'Clean stage and dance-floor lighting for sharp, colourful action photos.',
     acousticNotes:
       'Great music mix combined with real cheers and applause from your family.',
-    imageUrl: '/Gallary/imgi_19_625845774_18098232941506507_5968467827919506986_n.jpg',
-    secondaryImageUrl: '/SignatureImage/imgi_23_712643826_17972376771160466_3971202427154637297_n.jpg',
+    imageUrl: '/Gallary/imgi_19_625845774_18098232941506507_5968467827919506986_n.webp',
+    secondaryImageUrl: '/SignatureImage/imgi_23_712643826_17972376771160466_3971202427154637297_n.webp',
     dateSeason: 'Engagement & Sangeet Nights',
   },
   {
@@ -1255,8 +1255,8 @@ export const VENUE_INSTALLATIONS: VenueInstallation[] = [
       'Soft window light and warm indoor lamps for natural bridal portraits.',
     acousticNotes:
       'Sweet moments of mothers and sisters helping the bride get ready.',
-    imageUrl: '/Gallary/LandingPage3.png',
-    secondaryImageUrl: '/SignatureImage/imgi_32_702695987_17969751702160466_2951487923943233506_n.jpg',
+    imageUrl: '/Gallary/LandingPage3.webp',
+    secondaryImageUrl: '/SignatureImage/imgi_32_702695987_17969751702160466_2951487923943233506_n.webp',
     dateSeason: 'Indoor Luxury Weddings',
   },
   {
@@ -1271,8 +1271,8 @@ export const VENUE_INSTALLATIONS: VenueInstallation[] = [
       'Gentle lighting that lets us capture candid moments without disturbing elders.',
     acousticNotes:
       'Traditional wedding songs and heartfelt blessings from grandparents.',
-    imageUrl: '/Gallary/imgi_27_628323685_18346461886235287_4431154153769162509_n.jpg',
-    secondaryImageUrl: '/Gallary/imgi_37_624868998_18120768787562443_7707868480967000786_n.jpg',
+    imageUrl: '/Gallary/imgi_27_628323685_18346461886235287_4431154153769162509_n.webp',
+    secondaryImageUrl: '/Gallary/imgi_37_624868998_18120768787562443_7707868480967000786_n.webp',
     dateSeason: 'All-Season Weddings',
   },
 ];
@@ -1296,7 +1296,7 @@ export const MAP_LOCATIONS: MapLocationPin[] = [
     zoom: 17,
     description:
       'Our studio at Pillar No. 42, Pandey Palace, Plot 2, Bailey Road, near Paras Hospital, Patna 800014. Come visit us for a friendly chat over tea and see our wedding films & albums.',
-    imageUrl: '/Gallary/LandingPage1.jpg',
+    imageUrl: '/Gallary/LandingPage1.webp',
     filmId: 'f-reel-1',
   },
   {
@@ -1314,7 +1314,7 @@ export const MAP_LOCATIONS: MapLocationPin[] = [
     zoom: 16,
     description:
       'Grand varmala and midnight wedding rituals filmed under the chandeliers of Hotel Maurya.',
-    imageUrl: '/Gallary/imgi_31_704558536_17969950212160466_5180294263165990764_n.jpg',
+    imageUrl: '/Gallary/imgi_31_704558536_17969950212160466_5180294263165990764_n.webp',
     filmId: 'f-reel-4',
   },
   {
@@ -1332,7 +1332,7 @@ export const MAP_LOCATIONS: MapLocationPin[] = [
     zoom: 15,
     description:
       'Peaceful sunrise couple portraits and natural pre-wedding shoots along the historic ghats of Patna.',
-    imageUrl: '/Gallary/Landingpage2.jpg',
+    imageUrl: '/Gallary/Landingpage2.webp',
     filmId: 'f-reel-5',
   },
   {
@@ -1350,7 +1350,7 @@ export const MAP_LOCATIONS: MapLocationPin[] = [
     zoom: 16,
     description:
       'Bridal portraits, joyful Sangeet dance nights, and full family wedding coverage in the heart of Patna.',
-    imageUrl: '/Gallary/imgi_19_625845774_18098232941506507_5968467827919506986_n.jpg',
+    imageUrl: '/Gallary/imgi_19_625845774_18098232941506507_5968467827919506986_n.webp',
     filmId: 'f-reel-3',
   },
   {
@@ -1368,7 +1368,7 @@ export const MAP_LOCATIONS: MapLocationPin[] = [
     zoom: 15,
     description:
       'Open-lawn marigold mandaps, emotional Kanyadaan moments, and sparkler celebrations.',
-    imageUrl: '/Gallary/imgi_11_663089682_18088892522215915_6152286074647645901_n.jpg',
+    imageUrl: '/Gallary/imgi_11_663089682_18088892522215915_6152286074647645901_n.webp',
     filmId: 'f-reel-6',
   },
   {
@@ -1386,7 +1386,7 @@ export const MAP_LOCATIONS: MapLocationPin[] = [
     zoom: 14,
     description:
       'Multi-day destination weddings filmed amidst peaceful lawns and candlelit courtyards in Bodh Gaya.',
-    imageUrl: '/Gallary/imgi_16_792820577_17989635195160466_3434238158816086773_n.jpg',
+    imageUrl: '/Gallary/imgi_16_792820577_17989635195160466_3434238158816086773_n.webp',
     filmId: 'f-reel-2',
   },
   {
@@ -1404,7 +1404,7 @@ export const MAP_LOCATIONS: MapLocationPin[] = [
     zoom: 14,
     description:
       'Scenic pre-wedding films and outdoor couple shoots surrounded by the hills of Rajgir.',
-    imageUrl: '/Gallary/imgi_27_628323685_18346461886235287_4431154153769162509_n.jpg',
+    imageUrl: '/Gallary/imgi_27_628323685_18346461886235287_4431154153769162509_n.webp',
     filmId: 'f-reel-6',
   },
   {
@@ -1422,7 +1422,7 @@ export const MAP_LOCATIONS: MapLocationPin[] = [
     zoom: 13,
     description:
       'Our team travels across Bihar and all over India to film destination weddings and pre-wedding stories.',
-    imageUrl: '/Gallary/LandingPage3.png',
+    imageUrl: '/Gallary/LandingPage3.webp',
     filmId: 'f-reel-1',
   },
 ];
@@ -1435,7 +1435,7 @@ export const GRATITUDE_NOTES: GratitudeNote[] = [
     author: 'Kunika & Tushar',
     role: 'Raj Resort, Patna',
     location: 'Patna, Bihar',
-    imageUrl: '/SignatureImage/imgi_24_710468089_17972373231160466_6423309497429095746_n.jpg',
+    imageUrl: '/SignatureImage/imgi_24_710468089_17972373231160466_6423309497429095746_n.webp',
   },
   {
     id: 'g2',
@@ -1444,7 +1444,7 @@ export const GRATITUDE_NOTES: GratitudeNote[] = [
     author: 'Tushar & Sonali',
     role: 'Hotel Maurya, Patna',
     location: 'Patna, Bihar',
-    imageUrl: '/SignatureImage/imgi_23_712643826_17972376771160466_3971202427154637297_n.jpg',
+    imageUrl: '/SignatureImage/imgi_23_712643826_17972376771160466_3971202427154637297_n.webp',
   },
   {
     id: 'g3',
@@ -1453,7 +1453,7 @@ export const GRATITUDE_NOTES: GratitudeNote[] = [
     author: 'Nilesh & Sweta',
     role: 'Gargee Grand, Patna',
     location: 'Patna, Bihar',
-    imageUrl: '/Gallary/imgi_15_655763221_18131362612557368_1871368625891049134_n.jpg',
+    imageUrl: '/Gallary/imgi_15_655763221_18131362612557368_1871368625891049134_n.webp',
   },
   {
     id: 'g4',
@@ -1462,7 +1462,7 @@ export const GRATITUDE_NOTES: GratitudeNote[] = [
     author: 'Anupam & Aishwarya',
     role: 'Patna Sahib, Bihar',
     location: 'Patna, Bihar',
-    imageUrl: '/Gallary/imgi_16_792820577_17989635195160466_3434238158816086773_n.jpg',
+    imageUrl: '/Gallary/imgi_16_792820577_17989635195160466_3434238158816086773_n.webp',
   },
   {
     id: 'g5',
@@ -1471,7 +1471,7 @@ export const GRATITUDE_NOTES: GratitudeNote[] = [
     author: 'Atish & Nisha',
     role: 'Panache Banquets, Patna',
     location: 'Patna, Bihar',
-    imageUrl: '/Gallary/imgi_19_625845774_18098232941506507_5968467827919506986_n.jpg',
+    imageUrl: '/Gallary/imgi_19_625845774_18098232941506507_5968467827919506986_n.webp',
   },
 ];
 
@@ -1485,8 +1485,8 @@ export const STORY_SCENES: StoryScene[] = [
     narrative:
       'Masoom Studio was founded with a simple belief: wedding photos and films should feel real, vibrant, and full of life. Instead of asking couples to hold stiff poses under bright lights, Masoom Javed focused on capturing genuine laughter, family hugs, and the natural beauty of Indian wedding traditions.',
     highlightStat: 'Est. 2018 · Patna, Bihar',
-    imageUrl: '/Gallary/LandingPage1.jpg',
-    secondaryImageUrl: '/Gallary/imgi_11_663089682_18088892522215915_6152286074647645901_n.jpg',
+    imageUrl: '/Gallary/LandingPage1.webp',
+    secondaryImageUrl: '/Gallary/imgi_11_663089682_18088892522215915_6152286074647645901_n.webp',
   },
   {
     sceneNumber: 'CHAPTER 02',
@@ -1497,8 +1497,8 @@ export const STORY_SCENES: StoryScene[] = [
     narrative:
       'As couples shared their wedding films and photos with friends and relatives, our studio grew naturally across Patna and Bihar. We brought together a dedicated team covering candid photography, traditional videography, wedding teasers, and custom family albums.',
     highlightStat: 'Candid & Traditional Coverage',
-    imageUrl: '/Gallary/imgi_13_657521665_18125284714601336_3167577979393449239_n.jpg',
-    secondaryImageUrl: '/SignatureImage/imgi_14_793840504_17989682433160466_6763089032284955801_n.jpg',
+    imageUrl: '/Gallary/imgi_13_657521665_18125284714601336_3167577979393449239_n.webp',
+    secondaryImageUrl: '/SignatureImage/imgi_14_793840504_17989682433160466_6763089032284955801_n.webp',
   },
   {
     sceneNumber: 'CHAPTER 03',
@@ -1509,8 +1509,8 @@ export const STORY_SCENES: StoryScene[] = [
     narrative:
       'We expanded our work to include scenic pre-wedding shoots and aerial drone coverage — filming couples at sunrise by the Ganga, in the hills of Rajgir, and across grand wedding lawns in Patna and Bodh Gaya.',
     highlightStat: 'Pre-Wedding & Drone Shoots',
-    imageUrl: '/Gallary/Landingpage2.jpg',
-    secondaryImageUrl: '/Gallary/imgi_16_792820577_17989635195160466_3434238158816086773_n.jpg',
+    imageUrl: '/Gallary/Landingpage2.webp',
+    secondaryImageUrl: '/Gallary/imgi_16_792820577_17989635195160466_3434238158816086773_n.webp',
   },
   {
     sceneNumber: 'CHAPTER 04',
@@ -1521,8 +1521,8 @@ export const STORY_SCENES: StoryScene[] = [
     narrative:
       'We know how much parents and grandparents love flipping through a real wedding album. Every album we design is carefully laid out to tell your whole wedding story from the first Haldi smile to the final Vidaai hug.',
     highlightStat: 'Custom Family Albums',
-    imageUrl: '/Gallary/LandingPage3.png',
-    secondaryImageUrl: '/SignatureImage/imgi_20_793902640_18625914019009933_3844893497203068358_n.jpg',
+    imageUrl: '/Gallary/LandingPage3.webp',
+    secondaryImageUrl: '/SignatureImage/imgi_20_793902640_18625914019009933_3844893497203068358_n.webp',
   },
   {
     sceneNumber: 'CHAPTER 05',
@@ -1533,8 +1533,8 @@ export const STORY_SCENES: StoryScene[] = [
     narrative:
       'At our Bailey Road studio in Patna, couples and their families can sit comfortably, watch full wedding films, look through printed albums, and plan their wedding coverage with us in person.',
     highlightStat: 'Pillar No. 42, Bailey Road, Patna',
-    imageUrl: '/Gallary/imgi_31_704558536_17969950212160466_5180294263165990764_n.jpg',
-    secondaryImageUrl: '/Gallary/imgi_27_628323685_18346461886235287_4431154153769162509_n.jpg',
+    imageUrl: '/Gallary/imgi_31_704558536_17969950212160466_5180294263165990764_n.webp',
+    secondaryImageUrl: '/Gallary/imgi_27_628323685_18346461886235287_4431154153769162509_n.webp',
   },
   {
     sceneNumber: 'CHAPTER 06',
@@ -1545,8 +1545,8 @@ export const STORY_SCENES: StoryScene[] = [
     narrative:
       'Whether it is an intimate Roka at home or a grand multi-day wedding celebration, Masoom Javed and our team treat your wedding like our own family event — making sure not a single special moment is missed.',
     highlightStat: 'Booking Upcoming Wedding Dates',
-    imageUrl: '/Gallary/imgi_37_624868998_18120768787562443_7707868480967000786_n.jpg',
-    secondaryImageUrl: '/Gallary/imgi_15_655763221_18131362612557368_1871368625891049134_n.jpg',
+    imageUrl: '/Gallary/imgi_37_624868998_18120768787562443_7707868480967000786_n.webp',
+    secondaryImageUrl: '/Gallary/imgi_15_655763221_18131362612557368_1871368625891049134_n.webp',
   },
 ];
 

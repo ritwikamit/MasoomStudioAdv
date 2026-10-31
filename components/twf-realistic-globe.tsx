@@ -37,8 +37,8 @@ export function TwfRealisticGlobe({ onOpenQuickEnquire }: TwfRealisticGlobeProps
   } | null>(null);
 
   // Stable callback refs for globe listeners and HTML elements
-  const triggerTransitionToRealMapRef = useRef<() => void>(() => {});
-  const triggerTransitionToGlobeRef = useRef<() => void>(() => {});
+  const triggerTransitionToRealMapRef = useRef<() => void>(() => { });
+  const triggerTransitionToGlobeRef = useRef<() => void>(() => { });
 
   const triggerTransitionToRealMap = useCallback(() => {
     if (isTransitioningRef.current || isRealMapRef.current) return;
@@ -361,11 +361,10 @@ export function TwfRealisticGlobe({ onOpenQuickEnquire }: TwfRealisticGlobeProps
       <div className="relative w-full aspect-square max-w-[380px] sm:max-w-[460px] lg:max-w-[520px] mx-auto flex items-center justify-center">
         {/* Layer 1: Box-less 3D Realistic Globe */}
         <div
-          className={`absolute inset-0 transition-all duration-700 ease-out flex items-center justify-center ${
-            isRealMap
+          className={`absolute inset-0 transition-all duration-700 ease-out flex items-center justify-center ${isRealMap
               ? 'opacity-0 pointer-events-none scale-105 filter blur-[2px]'
               : 'opacity-100 pointer-events-auto scale-100 filter-none'
-          }`}
+            }`}
         >
           <div
             ref={globeVizRef}
@@ -387,11 +386,10 @@ export function TwfRealisticGlobe({ onOpenQuickEnquire }: TwfRealisticGlobeProps
 
         {/* Layer 2: Real High-Detail Map of Masoom Studio (Cross-Fades in on Zoom) */}
         <div
-          className={`absolute inset-0 rounded-[24px] sm:rounded-[32px] overflow-hidden border border-black/10 shadow-2xl bg-[#f2efe9] transition-all duration-700 ease-out flex flex-col ${
-            isRealMap
+          className={`absolute inset-0 rounded-[24px] sm:rounded-[32px] overflow-hidden border border-black/10 shadow-2xl bg-[#f2efe9] transition-all duration-700 ease-out flex flex-col ${isRealMap
               ? 'opacity-100 pointer-events-auto scale-100 z-20'
               : 'opacity-0 pointer-events-none scale-95 z-0'
-          }`}
+            }`}
         >
           {/* Top Bar Floating Badge & Return to Globe Button */}
           <div className="absolute top-3 inset-x-3 z-10 flex items-center justify-between gap-2 pointer-events-none">
@@ -447,9 +445,8 @@ export function TwfRealisticGlobe({ onOpenQuickEnquire }: TwfRealisticGlobeProps
         {/* Smooth Atmospheric Iris Flash during Zoom Transition */}
         <div
           aria-hidden="true"
-          className={`pointer-events-none absolute inset-0 rounded-[24px] sm:rounded-[32px] transition-opacity duration-500 z-30 ${
-            isTransitioning ? 'opacity-100' : 'opacity-0'
-          }`}
+          className={`pointer-events-none absolute inset-0 rounded-[24px] sm:rounded-[32px] transition-opacity duration-500 z-30 ${isTransitioning ? 'opacity-100' : 'opacity-0'
+            }`}
           style={{
             background:
               'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%)',
