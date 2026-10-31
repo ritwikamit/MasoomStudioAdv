@@ -25,9 +25,9 @@ const greatVibes = Great_Vibes({
 });
 
 export const metadata: Metadata = {
-  title: 'Masoom Studio — Wedding Photography & Cinematic Films',
+  title: 'Masoom Studio | Wedding Photography & Cinematic Films',
   description:
-    'Official portfolio of Masoom Studio. Luxury wedding photography, cinematic films, pre-wedding stories, and grand celebrations based in Patna, Bihar & across India.',
+    'Official portfolio of Masoom Studio. Luxury wedding photography, cinematic films, pre-wedding stories, and grand celebrations based in Patna, Bihar and across India.',
   metadataBase: new URL('https://masoomstudio.vercel.app'),
   alternates: {
     canonical: 'https://masoomstudio.vercel.app',
@@ -41,9 +41,9 @@ export const metadata: Metadata = {
     apple: '/MasoomStudioLogo.png',
   },
   openGraph: {
-    title: 'Masoom Studio — Wedding Photography & Cinematic Films',
+    title: 'Masoom Studio | Wedding Photography & Cinematic Films',
     description:
-      'Official portfolio of Masoom Studio. Luxury wedding photography, cinematic films, pre-wedding stories, and grand celebrations based in Patna, Bihar & across India.',
+      'Official portfolio of Masoom Studio. Luxury wedding photography, cinematic films, pre-wedding stories, and grand celebrations based in Patna, Bihar and across India.',
     url: 'https://masoomstudio.vercel.app',
     siteName: 'Masoom Studio',
     locale: 'en_IN',
@@ -58,21 +58,12 @@ export const metadata: Metadata = {
         alt: 'Masoom Studio Wedding Cinema & Photography',
       },
     ],
-    videos: [
-      {
-        url: 'https://masoomstudio.vercel.app/reels/DCYrmYgyjns.mp4',
-        secureUrl: 'https://masoomstudio.vercel.app/reels/DCYrmYgyjns.mp4',
-        type: 'video/mp4',
-        width: 1280,
-        height: 720,
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Masoom Studio — Wedding Photography & Cinematic Films',
+    title: 'Masoom Studio | Wedding Photography & Cinematic Films',
     description:
-      'Luxury wedding photography and cinematic films across Patna, Bihar and India. Real emotions, vibrant stories.',
+      'Official portfolio of Masoom Studio. Luxury wedding photography, cinematic films, pre-wedding stories, and grand celebrations based in Patna, Bihar and across India.',
     images: ['https://masoomstudio.vercel.app/og-image.jpg'],
   },
 };
@@ -84,7 +75,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
     name: 'Masoom Studio',
     image: 'https://masoomstudio.vercel.app/MasoomStudioLogo.png',
     description:
-      'Luxury wedding photography, cinematic films, pre-wedding stories, and grand celebrations based in Patna, Bihar & across India.',
+      'Luxury wedding photography, cinematic films, pre-wedding stories, and grand celebrations based in Patna, Bihar and across India.',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Pillar No. 42, Pandey Palace, Bailey Road',
@@ -109,9 +100,34 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
       className={`${cormorant.variable} ${jakarta.variable} ${greatVibes.variable}`}
     >
       <head>
+        <meta charSet="utf-8" />
         <link rel="icon" type="image/png" href="/MasoomStudioLogo.png" />
         <link rel="shortcut icon" type="image/png" href="/MasoomStudioLogo.png" />
         <link rel="apple-touch-icon" href="/MasoomStudioLogo.png" />
+
+        {/* Universal Social Media Link Preview Tags (WhatsApp, Facebook, Twitter, iMessage, LinkedIn, Telegram) */}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Masoom Studio" />
+        <meta property="og:title" content="Masoom Studio | Wedding Photography &amp; Cinematic Films" />
+        <meta property="og:description" content="Official portfolio of Masoom Studio. Luxury wedding photography, cinematic films, pre-wedding stories, and grand celebrations based in Patna, Bihar and across India." />
+        <meta property="og:url" content="https://masoomstudio.vercel.app" />
+        <meta property="og:image" content="https://masoomstudio.vercel.app/og-image.jpg" />
+        <meta property="og:image:secure_url" content="https://masoomstudio.vercel.app/og-image.jpg" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Masoom Studio Wedding Cinema &amp; Photography" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Masoom Studio | Wedding Photography &amp; Cinematic Films" />
+        <meta name="twitter:description" content="Luxury wedding photography and cinematic films across Patna, Bihar and India. Real emotions, vibrant stories." />
+        <meta name="twitter:image" content="https://masoomstudio.vercel.app/og-image.jpg" />
+        <meta name="twitter:image:alt" content="Masoom Studio Wedding Cinema &amp; Photography" />
+
+        <link rel="image_src" href="https://masoomstudio.vercel.app/og-image.jpg" />
+        <meta itemprop="name" content="Masoom Studio | Wedding Photography &amp; Cinematic Films" />
+        <meta itemprop="description" content="Official portfolio of Masoom Studio. Luxury wedding photography, cinematic films, pre-wedding stories, and grand celebrations based in Patna, Bihar and across India." />
+        <meta itemprop="image" content="https://masoomstudio.vercel.app/og-image.jpg" />
 
         <script
           type="application/ld+json"
