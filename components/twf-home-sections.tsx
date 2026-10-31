@@ -570,19 +570,19 @@ export function TwfHomeSections({
 
       {/* =====================================================================
           SECTION 2: MOVING WEDDING PHOTOS · TIMELESS MEMORIES IN MOTION
-          Standalone interactive section: strips move ONLY while scrolling
+          Dedicated separate section with moving red ribbons above & bottom
          ===================================================================== */}
-      <section ref={movingSectionRef} className="pt-2 sm:pt-4 space-y-4 px-1 sm:px-2">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 px-1 sm:px-2">
+      <section ref={movingSectionRef} className="my-10 sm:my-16 px-1 sm:px-2">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 px-1 sm:px-2 mb-4 sm:mb-6">
           <div>
             <span
-              className="text-base sm:text-lg text-[#ff3333] block leading-none"
+              className="text-lg sm:text-2xl text-[#ff3333] block leading-none mb-1"
               style={{ fontFamily: 'var(--font-script)' }}
             >
               timeless memories in motion
             </span>
             <h2
-              className="text-2xl sm:text-4xl text-[#111111] lowercase tracking-tight mt-0.5"
+              className="text-2xl sm:text-4xl lg:text-5xl text-[#111111] lowercase tracking-tight"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               moving wedding photos
@@ -590,13 +590,13 @@ export function TwfHomeSections({
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="text-[11px] text-black/55 hidden sm:inline">
+            <span className="text-[11px] text-black/55 hidden sm:inline font-light">
               Scroll page to glide through memories
             </span>
             <button
               type="button"
               onClick={() => onNavigate('films')}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/5 hover:bg-[#ff3333] hover:text-white text-xs font-medium transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-black/5 hover:bg-[#ff3333] hover:text-white text-xs font-medium transition-colors cursor-pointer"
             >
               <span>View All Photos</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -604,142 +604,199 @@ export function TwfHomeSections({
           </div>
         </div>
 
-        <div className="rounded-[20px] sm:rounded-[26px] bg-[#0a0a0a] text-white overflow-hidden shadow-2xl border border-white/10 py-5 sm:py-8">
-          {/* Row 1: Interactive Scroll-Driven Horizontal Translation */}
-          <div className="relative w-full overflow-hidden py-1.5">
-            <div
-              ref={movingRowOneRef}
-              className="flex gap-3.5 sm:gap-5 px-3 w-max will-change-transform"
-              style={{
-                transform: 'translate3d(0px, 0, 0)',
-              }}
-            >
-              {rowOnePhotos.map((photo, idx) => (
-                <div
-                  key={`m1-${photo.id}-${idx}`}
-                  onClick={() => onSelectPhoto(photo)}
-                  className={`group relative shrink-0 overflow-hidden rounded-[16px] sm:rounded-[20px] border border-white/15 bg-white/5 cursor-pointer transition-all duration-500 hover:scale-[1.03] hover:border-[#ff3333] shadow-xl ${
-                    idx % 3 === 0
-                      ? 'w-[165px] sm:w-[225px] h-[215px] sm:h-[295px] mt-2'
-                      : idx % 3 === 1
-                      ? 'w-[195px] sm:w-[265px] h-[230px] sm:h-[315px]'
-                      : 'w-[175px] sm:w-[240px] h-[210px] sm:h-[285px] mt-4'
-                  }`}
-                >
-                  <img
-                    src={photo.imageUrl}
-                    alt={photo.title}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div
-                    className="pointer-events-none absolute inset-x-0 bottom-0 h-20 opacity-0 group-hover:opacity-100 transition-opacity"
-                    style={{
-                      background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.85) 100%)',
-                    }}
-                  />
-                  <div className="absolute inset-x-0 bottom-0 p-3 text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span
-                      className="text-xs text-[#ff3333] block leading-none"
-                      style={{ fontFamily: 'var(--font-script)' }}
-                    >
-                      {photo.couple}
-                    </span>
-                    <span className="text-[11px] text-white/90 truncate block mt-0.5">
-                      {photo.title}
-                    </span>
-                  </div>
-                </div>
-              ))}
+        {/* Dedicated Standalone Moving Ribbon & Photo Box */}
+        <div className="rounded-[22px] sm:rounded-[28px] bg-[#09090b] text-white overflow-hidden shadow-2xl border border-white/10 flex flex-col relative">
+          {/* Top Moving Red Ribbon */}
+          <div className="w-full bg-[#ff3333] text-white py-2 sm:py-2.5 overflow-hidden shadow-md relative z-10 select-none">
+            <div className="animate-marquee-left flex whitespace-nowrap items-center text-[10px] sm:text-xs font-semibold tracking-[0.22em] uppercase">
+              <span className="flex items-center gap-3 px-4">
+                <span>★ TIMELESS MEMORIES IN MOTION</span>
+                <span>·</span>
+                <span>MASOOM STUDIO WEDDINGS</span>
+                <span>·</span>
+                <span>REAL MOMENTS &amp; CANDID EMOTIONS</span>
+                <span>·</span>
+                <span>PATNA, BIHAR &amp; ACROSS INDIA</span>
+                <span>·</span>
+                <span>CINEMATIC WEDDING STORIES</span>
+                <span>·</span>
+              </span>
+              <span className="flex items-center gap-3 px-4" aria-hidden="true">
+                <span>★ TIMELESS MEMORIES IN MOTION</span>
+                <span>·</span>
+                <span>MASOOM STUDIO WEDDINGS</span>
+                <span>·</span>
+                <span>REAL MOMENTS &amp; CANDID EMOTIONS</span>
+                <span>·</span>
+                <span>PATNA, BIHAR &amp; ACROSS INDIA</span>
+                <span>·</span>
+                <span>CINEMATIC WEDDING STORIES</span>
+                <span>·</span>
+              </span>
             </div>
           </div>
 
-          {/* Row 2: Interactive Scroll-Driven Reverse Horizontal Translation */}
-          <div className="relative w-full overflow-hidden py-1.5 mt-2">
-            <div
-              ref={movingRowTwoRef}
-              className="flex gap-3.5 sm:gap-5 px-3 w-max will-change-transform"
-              style={{
-                transform: 'translate3d(-750px, 0, 0)',
-              }}
-            >
-              {rowTwoPhotos.map((photo, idx) => (
-                <div
-                  key={`m2-${photo.id}-${idx}`}
-                  onClick={() => onSelectPhoto(photo)}
-                  className={`group relative shrink-0 overflow-hidden rounded-[16px] sm:rounded-[20px] border border-white/15 bg-white/5 cursor-pointer transition-all duration-500 hover:scale-[1.03] hover:border-[#ff3333] shadow-xl ${
-                    idx % 2 === 0
-                      ? 'w-[185px] sm:w-[250px] h-[210px] sm:h-[285px]'
-                      : 'w-[165px] sm:w-[225px] h-[225px] sm:h-[305px] mt-3'
-                  }`}
-                >
-                  <img
-                    src={photo.imageUrl}
-                    alt={photo.title}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    referrerPolicy="no-referrer"
-                  />
+          {/* Center Moving Photo Strips (Interactive Scroll-Driven Horizontal Translation) */}
+          <div className="py-5 sm:py-8 space-y-2.5 sm:space-y-3.5">
+            {/* Row 1 */}
+            <div className="relative w-full overflow-hidden py-1">
+              <div
+                ref={movingRowOneRef}
+                className="flex gap-3.5 sm:gap-5 px-3 w-max will-change-transform"
+                style={{
+                  transform: 'translate3d(0px, 0, 0)',
+                }}
+              >
+                {rowOnePhotos.map((photo, idx) => (
                   <div
-                    className="pointer-events-none absolute inset-x-0 bottom-0 h-20 opacity-0 group-hover:opacity-100 transition-opacity"
-                    style={{
-                      background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.85) 100%)',
-                    }}
-                  />
-                  <div className="absolute inset-x-0 bottom-0 p-3 text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span
-                      className="text-xs text-[#ff3333] block leading-none"
-                      style={{ fontFamily: 'var(--font-script)' }}
-                    >
-                      {photo.couple}
-                    </span>
-                    <span className="text-[11px] text-white/90 truncate block mt-0.5">
-                      {photo.title}
-                    </span>
+                    key={`m1-${photo.id}-${idx}`}
+                    onClick={() => onSelectPhoto(photo)}
+                    className={`group relative shrink-0 overflow-hidden rounded-[16px] sm:rounded-[20px] border border-white/15 bg-white/5 cursor-pointer transition-all duration-500 hover:scale-[1.03] hover:border-[#ff3333] shadow-xl ${
+                      idx % 3 === 0
+                        ? 'w-[165px] sm:w-[225px] h-[215px] sm:h-[295px] mt-2'
+                        : idx % 3 === 1
+                        ? 'w-[195px] sm:w-[265px] h-[230px] sm:h-[315px]'
+                        : 'w-[175px] sm:w-[240px] h-[210px] sm:h-[285px] mt-4'
+                    }`}
+                  >
+                    <img
+                      src={photo.imageUrl}
+                      alt={photo.title}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div
+                      className="pointer-events-none absolute inset-x-0 bottom-0 h-20 opacity-0 group-hover:opacity-100 transition-opacity"
+                      style={{
+                        background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.85) 100%)',
+                      }}
+                    />
+                    <div className="absolute inset-x-0 bottom-0 p-3 text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                      <span
+                        className="text-xs text-[#ff3333] block leading-none"
+                        style={{ fontFamily: 'var(--font-script)' }}
+                      >
+                        {photo.couple}
+                      </span>
+                      <span className="text-[11px] text-white/90 truncate block mt-0.5">
+                        {photo.title}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+            </div>
+
+            {/* Row 2 */}
+            <div className="relative w-full overflow-hidden py-1">
+              <div
+                ref={movingRowTwoRef}
+                className="flex gap-3.5 sm:gap-5 px-3 w-max will-change-transform"
+                style={{
+                  transform: 'translate3d(-750px, 0, 0)',
+                }}
+              >
+                {rowTwoPhotos.map((photo, idx) => (
+                  <div
+                    key={`m2-${photo.id}-${idx}`}
+                    onClick={() => onSelectPhoto(photo)}
+                    className={`group relative shrink-0 overflow-hidden rounded-[16px] sm:rounded-[20px] border border-white/15 bg-white/5 cursor-pointer transition-all duration-500 hover:scale-[1.03] hover:border-[#ff3333] shadow-xl ${
+                      idx % 2 === 0
+                        ? 'w-[185px] sm:w-[250px] h-[210px] sm:h-[285px]'
+                        : 'w-[165px] sm:w-[225px] h-[225px] sm:h-[305px] mt-3'
+                    }`}
+                  >
+                    <img
+                      src={photo.imageUrl}
+                      alt={photo.title}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div
+                      className="pointer-events-none absolute inset-x-0 bottom-0 h-20 opacity-0 group-hover:opacity-100 transition-opacity"
+                      style={{
+                        background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.85) 100%)',
+                      }}
+                    />
+                    <div className="absolute inset-x-0 bottom-0 p-3 text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                      <span
+                        className="text-xs text-[#ff3333] block leading-none"
+                        style={{ fontFamily: 'var(--font-script)' }}
+                      >
+                        {photo.couple}
+                      </span>
+                      <span className="text-[11px] text-white/90 truncate block mt-0.5">
+                        {photo.title}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Moving Red Ribbon (Reverse Loop) */}
+          <div className="w-full bg-[#ff3333] text-white py-2 sm:py-2.5 overflow-hidden shadow-md relative z-10 select-none">
+            <div className="animate-marquee-right flex whitespace-nowrap items-center text-[10px] sm:text-xs font-semibold tracking-[0.22em] uppercase">
+              <span className="flex items-center gap-3 px-4">
+                <span>★ CELEBRATING LOVE SINCE 2018</span>
+                <span>·</span>
+                <span>VIBRANT, FUN &amp; NATURAL</span>
+                <span>·</span>
+                <span>PATNA · BIHAR · ALL INDIA DESTINATIONS</span>
+                <span>·</span>
+                <span>TIMELESS MEMORIES IN MOTION</span>
+                <span>·</span>
+                <span>MASOOM STUDIO</span>
+                <span>·</span>
+              </span>
+              <span className="flex items-center gap-3 px-4" aria-hidden="true">
+                <span>★ CELEBRATING LOVE SINCE 2018</span>
+                <span>·</span>
+                <span>VIBRANT, FUN &amp; NATURAL</span>
+                <span>·</span>
+                <span>PATNA · BIHAR · ALL INDIA DESTINATIONS</span>
+                <span>·</span>
+                <span>TIMELESS MEMORIES IN MOTION</span>
+                <span>·</span>
+                <span>MASOOM STUDIO</span>
+                <span>·</span>
+              </span>
             </div>
           </div>
         </div>
       </section>
 
       {/* =====================================================================
-          SECTION 3: 3D REALISTIC INTERACTIVE GLOBE (Masoom Studio Patna)
-          Details in Left, AI-Generated 3D Realistic Globe in Right
+          SECTION 3: OUR CREATIVE HOME · MASOOM STUDIO · PATNA, BIHAR
+          Dedicated standalone section with studio info & 3D realistic globe
          ===================================================================== */}
-      <section className="px-1 sm:px-2">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 px-1 sm:px-2 mb-4">
-          <div>
-            <span
-              className="text-base sm:text-lg text-[#ff3333] block leading-none"
-              style={{ fontFamily: 'var(--font-script)' }}
-            >
-              Our Creative Home
-            </span>
-            <h2
-              className="text-xl sm:text-3xl text-[#111111] lowercase font-normal mt-0.5"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
-              masoom studio · patna, bihar
-            </h2>
-          </div>
-          <a
-            href={STUDIO_INFO.mapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/5 hover:bg-[#ff3333] hover:text-white text-xs font-medium transition-colors w-fit"
+      <section className="my-10 sm:my-16 px-1 sm:px-2">
+        <div className="text-center max-w-xl mx-auto mb-6 sm:mb-8 space-y-1">
+          <span
+            className="text-lg sm:text-2xl text-[#ff3333] block leading-none mb-1"
+            style={{ fontFamily: 'var(--font-script)' }}
           >
-            <MapPin className="w-3.5 h-3.5 text-[#ff3333]" />
-            <span>View on Google Maps</span>
-          </a>
+            Our Creative Home
+          </span>
+          <h2
+            className="text-2xl sm:text-4xl lg:text-5xl font-normal text-[#111111] lowercase tracking-tight"
+            style={{ fontFamily: 'var(--font-display)' }}
+          >
+            masoom studio · patna, bihar
+          </h2>
+          <p className="text-xs sm:text-sm text-black/60 font-light max-w-md mx-auto pt-1">
+            Rooted in Bihar, crafting vibrant wedding films and timeless family memories across India
+          </p>
         </div>
 
-        <div className="relative py-2 sm:py-4">
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
+        {/* Dedicated Standalone Card Frame */}
+        <div className="rounded-[22px] sm:rounded-[28px] bg-white/95 backdrop-blur-xl border border-black/10 p-5 sm:p-8 lg:p-10 shadow-xl max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
             {/* Left Column: Clean Focused Studio Location Details */}
             <div className="lg:col-span-5 space-y-4 px-1 sm:px-2">
               <div className="flex items-center gap-3">
@@ -748,7 +805,7 @@ export function TwfHomeSections({
                 </div>
                 <div>
                   <span
-                    className="text-base sm:text-lg text-[#ff3333] block leading-none"
+                    className="text-base sm:text-lg text-[#ff3333] block leading-none font-medium"
                     style={{ fontFamily: 'var(--font-script)' }}
                   >
                     Pillar 42, Bailey Road · Patna
@@ -802,7 +859,7 @@ export function TwfHomeSections({
               </div>
 
               <p
-                className="text-base sm:text-lg text-black/80 leading-relaxed"
+                className="text-base sm:text-lg text-black/80 leading-relaxed italic"
                 style={{ fontFamily: 'var(--font-script)' }}
               >
                 &ldquo;Rooted in Bihar, crafting vibrant wedding films and timeless family memories across India.&rdquo;

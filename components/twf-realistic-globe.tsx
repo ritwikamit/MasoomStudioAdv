@@ -157,45 +157,65 @@ export function TwfRealisticGlobe({ onOpenQuickEnquire }: TwfRealisticGlobeProps
         .showAtmosphere(true)
         .atmosphereColor('#3a82f6')
         .atmosphereAltitude(0.14)
-        // Clean Location Pin anchored to Masoom Studio on the Globe
-        // NO cylinders, NO beacon dots, NO text labels on the globe
+        // Exact Location Pin anchored to Masoom Studio with simple text: Masoom Studio & Patna, Bihar
         .htmlElementsData([MASOOM_STUDIO_COORDS])
         .htmlLat('lat')
         .htmlLng('lng')
-        .htmlAltitude(0.012)
+        .htmlAltitude(0.015)
         .htmlElement(() => {
           const pinWrapper = document.createElement('div');
           pinWrapper.style.cursor = 'pointer';
           pinWrapper.style.pointerEvents = 'auto';
-          pinWrapper.title = 'Masoom Studio · Click to zoom in to real map';
+          pinWrapper.style.userSelect = 'none';
+          pinWrapper.title = 'Masoom Studio · Patna, Bihar (Click to zoom to real map)';
 
           pinWrapper.innerHTML = `
             <div style="
-              position: relative;
+              display: flex;
+              align-items: center;
+              gap: 8px;
               transform: translate(-50%, -100%);
-              transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.22s ease;
-              filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.55));
+              transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+              filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.55));
               cursor: pointer;
             " class="masoom-globe-pin-marker">
-              <svg width="28" height="38" viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 0C5.37258 0 0 5.37258 0 12C0 20.25 10.35 30.7 11.45 31.78C11.75 32.07 12.25 32.07 12.55 31.78C13.65 30.7 24 20.25 24 12C24 5.37258 18.6274 0 12 0Z" fill="#ff3333"/>
-                <circle cx="12" cy="11.5" r="4.2" fill="#ffffff"/>
-              </svg>
+              <!-- Location Pin -->
+              <div style="flex-shrink: 0; line-height: 0;">
+                <svg width="26" height="34" viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 0C5.37258 0 0 5.37258 0 12C0 20.25 10.35 30.7 11.45 31.78C11.75 32.07 12.25 32.07 12.55 31.78C13.65 30.7 24 20.25 24 12C24 5.37258 18.6274 0 12 0Z" fill="#ff3333"/>
+                  <circle cx="12" cy="11.5" r="4.2" fill="#ffffff"/>
+                </svg>
+              </div>
+
+              <!-- Simple Studio Name & Location Text -->
+              <div style="
+                background: rgba(12, 12, 16, 0.92);
+                backdrop-filter: blur(8px);
+                border: 1px solid rgba(255, 51, 51, 0.55);
+                padding: 4px 10px;
+                border-radius: 9999px;
+                white-space: nowrap;
+                color: #ffffff;
+                line-height: 1.15;
+                text-align: left;
+                box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+              ">
+                <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.02em; color: #ffffff;">
+                  Masoom Studio
+                </div>
+                <div style="font-size: 9px; color: rgba(255, 255, 255, 0.85); font-weight: 400;">
+                  Patna, Bihar
+                </div>
+              </div>
             </div>
           `;
 
           const marker = pinWrapper.querySelector('.masoom-globe-pin-marker') as HTMLElement;
           pinWrapper.onmouseenter = () => {
-            if (marker) {
-              marker.style.transform = 'translate(-50%, -100%) scale(1.22)';
-              marker.style.filter = 'drop-shadow(0 8px 18px rgba(255, 51, 51, 0.65))';
-            }
+            if (marker) marker.style.transform = 'translate(-50%, -100%) scale(1.15)';
           };
           pinWrapper.onmouseleave = () => {
-            if (marker) {
-              marker.style.transform = 'translate(-50%, -100%) scale(1)';
-              marker.style.filter = 'drop-shadow(0 6px 14px rgba(0, 0, 0, 0.55))';
-            }
+            if (marker) marker.style.transform = 'translate(-50%, -100%) scale(1)';
           };
 
           pinWrapper.onclick = (e) => {
@@ -238,14 +258,20 @@ export function TwfRealisticGlobe({ onOpenQuickEnquire }: TwfRealisticGlobeProps
         0
       );
 
-      // Configure interactive OrbitControls with smooth zoom transition to real map
+      // Configure interactive OrbitControls with optimal touch pinch zoom on smartphones
       const controls = world.controls();
       if (controls) {
         controls.autoRotate = true;
         controls.autoRotateSpeed = 0.45;
         controls.enableDamping = true;
-        controls.dampingFactor = 0.07;
+        controls.dampingFactor = 0.08;
         controls.enableZoom = true;
+        controls.zoomSpeed = 1.35;
+        controls.enablePan = false; // Dedicates two-finger touch strictly to pinch-zoom (dolly)
+        controls.touches = {
+          ONE: THREE.TOUCH.ROTATE,
+          TWO: THREE.TOUCH.DOLLY_PAN,
+        };
         controls.minDistance = 110;
         controls.maxDistance = 380;
 
@@ -336,11 +362,20 @@ export function TwfRealisticGlobe({ onOpenQuickEnquire }: TwfRealisticGlobeProps
       visibilityObserver.observe(container);
     };
 
+    container.style.touchAction = 'none';
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches && e.touches.length >= 2) {
+        e.preventDefault();
+      }
+    };
+    container.addEventListener('touchmove', handleTouchMove, { passive: false });
+
     let visibilityObserver: IntersectionObserver | null = null;
     initGlobe();
 
     return () => {
       isCancelled = true;
+      container.removeEventListener('touchmove', handleTouchMove);
       if (resumeAutoRotateTimer) clearTimeout(resumeAutoRotateTimer);
       if (resizeObserver) resizeObserver.disconnect();
       if (visibilityObserver) visibilityObserver.disconnect();
@@ -368,7 +403,8 @@ export function TwfRealisticGlobe({ onOpenQuickEnquire }: TwfRealisticGlobeProps
         >
           <div
             ref={globeVizRef}
-            className="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing"
+            style={{ touchAction: 'none' }}
+            className="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing touch-none select-none"
           />
 
           {/* Soft Circular Ambient Edge Feather on Zoom-In */}
@@ -460,7 +496,7 @@ export function TwfRealisticGlobe({ onOpenQuickEnquire }: TwfRealisticGlobeProps
           <>
             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/5 text-[#111111]/70 text-[10px] tracking-wider uppercase font-medium">
               <ZoomIn className="w-3.5 h-3.5 text-[#ff3333]" />
-              <span>Scroll / Pinch to zoom into real map</span>
+              <span>Pinch / Scroll to zoom · Drag to rotate</span>
             </span>
 
             <button
