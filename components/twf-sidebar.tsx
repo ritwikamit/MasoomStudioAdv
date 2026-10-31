@@ -447,35 +447,21 @@ export function TwfSidebar({
                 damping: 34,
                 mass: 0.55,
               }}
-              className="absolute top-0 left-0 -right-[2px] h-[38px] bg-transparent pointer-events-none z-0 overflow-visible will-change-transform"
+              className="absolute top-0 left-0 right-0 h-[38px] bg-transparent pointer-events-none z-0 overflow-visible will-change-transform"
             >
               {/* Smartphone Drawer Clean Pill */}
               <div className="sm:hidden absolute inset-0 bg-[#f8f8f7] rounded-l-[16px]" />
 
-              {/* Top-Left Inner Corner: rounds the left end of the cutout */}
+              {/* Seamless Semi-Circular Left End Cap (Radius 19px) in solid #070707 - leaves icon completely unblocked */}
               <svg
-                viewBox="0 0 16 16"
+                viewBox="0 0 19 38"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="hidden sm:block absolute left-0 top-0 w-[16px] h-[16px] pointer-events-none"
+                className="hidden sm:block absolute left-0 top-0 w-[19px] h-[38px] pointer-events-none"
                 shapeRendering="geometricPrecision"
               >
                 <path
-                  d="M 0 0 L 16 0 A 16 16 0 0 0 0 16 Z"
-                  fill="#070707"
-                />
-              </svg>
-
-              {/* Bottom-Left Inner Corner: rounds the left end of the cutout */}
-              <svg
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="hidden sm:block absolute left-0 bottom-0 w-[16px] h-[16px] pointer-events-none"
-                shapeRendering="geometricPrecision"
-              >
-                <path
-                  d="M 0 16 L 0 0 A 16 16 0 0 0 16 16 Z"
+                  d="M 0 0 L 19 0 A 19 19 0 0 0 19 38 L 0 38 Z"
                   fill="#070707"
                 />
               </svg>
@@ -533,7 +519,7 @@ export function TwfSidebar({
                   key={item.id}
                   type="button"
                   onClick={() => handleNavClick(item.id)}
-                  className={`relative z-10 w-full h-[38px] flex flex-row items-center justify-between px-3 lg:px-3.5 rounded-l-[16px] sm:rounded-l-[18px] transition-colors duration-200 cursor-pointer ${
+                  className={`relative z-10 w-full h-[38px] flex flex-row items-center justify-between px-3 sm:px-3.5 lg:px-4 rounded-l-[16px] sm:rounded-l-[18px] transition-colors duration-200 cursor-pointer ${
                     isActive
                       ? 'text-[#111111] font-semibold'
                       : 'text-white/90 hover:text-white hover:bg-white/[0.06]'

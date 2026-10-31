@@ -41,33 +41,31 @@ export const metadata: Metadata = {
     url: 'https://masoomstudio.vercel.app',
     siteName: 'Masoom Studio',
     locale: 'en_IN',
-    type: 'video.other',
+    type: 'website',
     videos: [
       {
-        url: 'https://masoomstudio.vercel.app/reels/C4-bt1py9fh.mp4',
-        secureUrl: 'https://masoomstudio.vercel.app/reels/C4-bt1py9fh.mp4',
+        url: 'https://masoomstudio.vercel.app/reels/DCYrmYgyjns.mp4',
+        secureUrl: 'https://masoomstudio.vercel.app/reels/DCYrmYgyjns.mp4',
         type: 'video/mp4',
-        width: 720,
-        height: 1280,
+        width: 1280,
+        height: 720,
       },
     ],
     images: [
       {
-        url: 'https://masoomstudio.vercel.app/reels/C4-bt1py9fh.jpg',
-        width: 1080,
-        height: 1920,
-        alt: 'Masoom Studio Wedding Reel Preview',
-      },
-      {
-        url: 'https://masoomstudio.vercel.app/Gallary/LandingPage1.webp',
+        url: 'https://masoomstudio.vercel.app/og-image.jpg',
+        secureUrl: 'https://masoomstudio.vercel.app/og-image.jpg',
         width: 1200,
         height: 630,
+        type: 'image/jpeg',
         alt: 'Masoom Studio Wedding Cinema & Photography',
       },
       {
         url: 'https://masoomstudio.vercel.app/MasoomStudioLogo.png',
+        secureUrl: 'https://masoomstudio.vercel.app/MasoomStudioLogo.png',
         width: 800,
         height: 600,
+        type: 'image/png',
         alt: 'Masoom Studio — Patna, Bihar',
       },
     ],
@@ -77,15 +75,12 @@ export const metadata: Metadata = {
     title: 'Masoom Studio — Wedding Photography & Cinematic Films',
     description:
       'Luxury wedding photography and cinematic films across Patna, Bihar and India. Real emotions, vibrant stories.',
-    images: [
-      'https://masoomstudio.vercel.app/reels/C4-bt1py9fh.jpg',
-      'https://masoomstudio.vercel.app/Gallary/LandingPage1.webp',
-    ],
+    images: ['https://masoomstudio.vercel.app/og-image.jpg'],
     players: {
-      playerUrl: 'https://masoomstudio.vercel.app/reels/C4-bt1py9fh.mp4',
-      streamUrl: 'https://masoomstudio.vercel.app/reels/C4-bt1py9fh.mp4',
-      width: 720,
-      height: 1280,
+      playerUrl: 'https://masoomstudio.vercel.app/preview-player.html',
+      streamUrl: 'https://masoomstudio.vercel.app/reels/DCYrmYgyjns.mp4',
+      width: 1280,
+      height: 720,
     },
   },
 };
@@ -126,22 +121,35 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
         <link rel="shortcut icon" type="image/png" href="/MasoomStudioLogo.png" />
         <link rel="apple-touch-icon" href="/MasoomStudioLogo.png" />
 
-        {/* Video Link Preview for Social Media (WhatsApp, Telegram, Discord, Twitter/X, Facebook, iMessage) */}
-        <meta property="og:video" content="https://masoomstudio.vercel.app/reels/C4-bt1py9fh.mp4" />
-        <meta property="og:video:secure_url" content="https://masoomstudio.vercel.app/reels/C4-bt1py9fh.mp4" />
-        <meta property="og:video:type" content="video/mp4" />
-        <meta property="og:video:width" content="720" />
-        <meta property="og:video:height" content="1280" />
-        <meta property="og:image" content="https://masoomstudio.vercel.app/reels/C4-bt1py9fh.jpg" />
-        <meta property="og:image:secure_url" content="https://masoomstudio.vercel.app/reels/C4-bt1py9fh.jpg" />
+        {/* Open Graph & Social Media Preview Meta Tags (WhatsApp, Facebook, LinkedIn) */}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Masoom Studio" />
+        <meta property="og:title" content="Masoom Studio — Wedding Photography & Cinematic Films" />
+        <meta property="og:description" content="Official portfolio of Masoom Studio. Luxury wedding photography, cinematic films, pre-wedding stories, and grand celebrations based in Patna, Bihar & across India." />
+        <meta property="og:url" content="https://masoomstudio.vercel.app" />
+        <meta property="og:image" content="https://masoomstudio.vercel.app/og-image.jpg" />
+        <meta property="og:image:secure_url" content="https://masoomstudio.vercel.app/og-image.jpg" />
         <meta property="og:image:type" content="image/jpeg" />
-        <meta property="og:image:width" content="1080" />
-        <meta property="og:image:height" content="1920" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Masoom Studio — Luxury Wedding Cinematography" />
+
+        {/* Video Link Preview (Telegram, Discord, iMessage, Twitter/X autoplays inline muted) */}
+        <meta property="og:video" content="https://masoomstudio.vercel.app/reels/DCYrmYgyjns.mp4" />
+        <meta property="og:video:secure_url" content="https://masoomstudio.vercel.app/reels/DCYrmYgyjns.mp4" />
+        <meta property="og:video:type" content="video/mp4" />
+        <meta property="og:video:width" content="1280" />
+        <meta property="og:video:height" content="720" />
+
+        {/* Twitter Player Card for Auto-Playing Video Previews */}
         <meta name="twitter:card" content="player" />
-        <meta name="twitter:player" content="https://masoomstudio.vercel.app/reels/C4-bt1py9fh.mp4" />
-        <meta name="twitter:player:width" content="720" />
-        <meta name="twitter:player:height" content="1280" />
-        <meta name="twitter:player:stream" content="https://masoomstudio.vercel.app/reels/C4-bt1py9fh.mp4" />
+        <meta name="twitter:title" content="Masoom Studio — Wedding Photography & Cinematic Films" />
+        <meta name="twitter:description" content="Luxury wedding photography and cinematic films across Patna, Bihar and India." />
+        <meta name="twitter:image" content="https://masoomstudio.vercel.app/og-image.jpg" />
+        <meta name="twitter:player" content="https://masoomstudio.vercel.app/preview-player.html" />
+        <meta name="twitter:player:width" content="1280" />
+        <meta name="twitter:player:height" content="720" />
+        <meta name="twitter:player:stream" content="https://masoomstudio.vercel.app/reels/DCYrmYgyjns.mp4" />
         <meta name="twitter:player:stream:content_type" content="video/mp4" />
 
         <script
