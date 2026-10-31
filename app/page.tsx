@@ -94,6 +94,9 @@ export default function MasoomStudioTwfPage() {
           - Functional search box with live results dropdown & submission
           - Includes Moving Trail Border on "We'd love to hear your story!"
          =================================================================== */}
+      {/* Underlying #f8f8f7 surface behind sidebar so the hollow cutout opening reveals real background */}
+      <div id="twf-sidebar-underlay" className="hidden sm:block fixed top-0 bottom-0 left-0 w-[174px] lg:w-[216px] bg-[#f8f8f7] pointer-events-none z-0" />
+
       <TwfSidebar
         activePage={activePage}
         onNavigate={handleNavigate}
@@ -111,7 +114,7 @@ export default function MasoomStudioTwfPage() {
           - Offset on Tablet (sm:ml-[172px]) & Desktop (lg:ml-[214px])
          =================================================================== */}
       <div className="ml-1.5 sm:ml-[172px] lg:ml-[214px] mr-1.5 sm:mr-2.5 lg:mr-3 my-1.5 sm:my-2.5 lg:my-3 transition-all duration-300">
-        <main className="bg-[#f8f8f7] text-[#111111] rounded-[18px] sm:rounded-[24px] min-h-[calc(100vh-12px)] sm:min-h-[calc(100vh-20px)] lg:min-h-[calc(100vh-24px)] overflow-hidden shadow-2xl flex flex-col justify-between">
+        <main className="bg-[#f8f8f7] text-[#111111] rounded-[18px] sm:rounded-[24px] min-h-[calc(100vh-12px)] sm:min-h-[calc(100vh-20px)] lg:min-h-[calc(100vh-24px)] shadow-2xl flex flex-col justify-between overflow-visible">
           {/* Smooth Animated Page Content Transition when Switching Menus */}
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
