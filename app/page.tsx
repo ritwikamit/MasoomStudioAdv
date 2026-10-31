@@ -115,11 +115,6 @@ export default function MasoomStudioTwfPage() {
           - Functional search box with live results dropdown & submission
           - Includes Moving Trail Border on "We'd love to hear your story!"
          =================================================================== */}
-      {/* Underlying background surface behind sidebar so the transparent cutout reveals the real card background */}
-      <div
-        className="hidden sm:block fixed top-1.5 sm:top-2.5 lg:top-3 bottom-1.5 sm:bottom-2.5 lg:bottom-3 left-1.5 sm:left-2.5 lg:left-3 w-[172px] lg:w-[214px] bg-[#f8f8f7] rounded-l-[18px] sm:rounded-l-[24px] pointer-events-none z-0"
-      />
-
       <TwfSidebar
         activePage={activePage}
         onNavigate={handleNavigate}

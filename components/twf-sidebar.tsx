@@ -406,7 +406,7 @@ export function TwfSidebar({
                 shapeRendering="geometricPrecision"
               >
                 <path
-                  d="M 0 0 L 14 0 A 14 14 0 0 1 0 14 Z"
+                  d="M 0 0 L 0 14 A 14 14 0 0 1 14 0 Z"
                   fill="#070707"
                 />
               </svg>
@@ -441,7 +441,7 @@ export function TwfSidebar({
                 shapeRendering="geometricPrecision"
               >
                 <path
-                  d="M 0 14 L 0 0 A 14 14 0 0 1 14 14 Z"
+                  d="M 0 14 L 0 0 A 14 14 0 0 0 14 14 Z"
                   fill="#070707"
                 />
               </svg>
@@ -485,7 +485,7 @@ export function TwfSidebar({
               </svg>
             </motion.div>
 
-            {/* The Dynamic Jumping Black Dot (Arcs in ')' direction to the clicked menu) */}
+            {/* The Dynamic Jumping Indicator Dot (Arcs in ')' direction to the clicked menu) */}
             <motion.div
               initial={false}
               animate={{
@@ -498,7 +498,7 @@ export function TwfSidebar({
                 x: { duration: 0.32, times: [0, 0.5, 1], ease: 'easeInOut' },
                 scale: { duration: 0.32, times: [0, 0.45, 0.8, 1], ease: 'easeOut' },
               }}
-              className="hidden sm:block absolute right-3.5 sm:right-3 lg:right-4 top-0 w-2 h-2 rounded-full bg-[#111111] pointer-events-none z-20 shadow-sm will-change-transform"
+              className="hidden sm:block absolute right-3.5 sm:right-3 lg:right-4 top-0 w-2 h-2 rounded-full bg-[#ff3333] pointer-events-none z-20 shadow-[0_0_8px_rgba(255,51,51,0.85)] will-change-transform"
             />
 
             {NAV_ITEMS.map((item) => {
@@ -511,8 +511,8 @@ export function TwfSidebar({
                   onClick={() => handleNavClick(item.id)}
                   className={`relative z-10 w-full h-[38px] flex flex-row items-center justify-between px-3 sm:px-3.5 lg:px-4 rounded-l-[16px] sm:rounded-l-[18px] transition-colors duration-200 cursor-pointer ${
                     isActive
-                      ? 'text-[#111111] font-semibold'
-                      : 'text-white/90 hover:text-white hover:bg-white/[0.06]'
+                      ? 'text-white font-semibold'
+                      : 'text-white/80 hover:text-white hover:bg-white/[0.06]'
                   }`}
                 >
                   <span className="flex flex-row items-center gap-2.5 min-w-0">
